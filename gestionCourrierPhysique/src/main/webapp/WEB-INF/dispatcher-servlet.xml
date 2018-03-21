@@ -1,0 +1,78 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+	<import resource="datasource-config.xml" />
+	
+	<context:annotation-config />
+	<context:component-scan base-package="com.programcreek.helloworld.controller" />
+	<context:component-scan base-package="com.sharing.ubci.test" />
+	<context:component-scan base-package="com.sharing.ubci.webservice" />
+	
+	
+	<context:component-scan base-package="com.websystique.spring.config" />
+	
+	
+	<!-- start Pagination test -->
+	 <context:component-scan base-package="com.sharing.service" />
+	 
+	<!-- end Pagination test -->
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<tx:annotation-driven/>
+	
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	</bean>
+	
+	<!-- generate @entity table automatically -->
+    <bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="loadTimeWeaver">
+			<bean
+				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean id="jpaAdapter"
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+				<property name="showSql" value="true" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="persistenceUnitName" value="spring-petclinic4" />
+		<property name="packagesToScan" value="org.springframework.samples.petclinic.model" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix"><value>/WEB-INF/views/</value></property>
+		<!-- <property name="suffix" value=".jsp"></property> -->
+	</bean>
+	<context:component-scan base-package="com.sharing.service" />
+	<import resource="spring-security.xml" />
+</beans>

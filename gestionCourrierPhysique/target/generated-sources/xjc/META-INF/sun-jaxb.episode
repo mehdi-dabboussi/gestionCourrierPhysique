@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" if-exists="true" version="2.1">
+  <!--
+
+Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.11 
+Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+Généré le : 2016.04.27 à 10:22:09 AM CEST 
+
+  -->
+  <bindings xmlns:tns="http://webServiceExample.sharing.com/xsd" if-exists="true" scd="x-schema::tns">
+    <schemaBindings map="false">
+      <package name="com.sharing.test"/>
+    </schemaBindings>
+    <bindings if-exists="true" scd="~tns:Supplier">
+      <class ref="com.sharing.test.Supplier"/>
+    </bindings>
+  </bindings>
+  <bindings xmlns:tns="http://webServiceExample.sharing.com" if-exists="true" scd="x-schema::tns">
+    <schemaBindings map="false">
+      <package name="com.sharing.test"/>
+    </schemaBindings>
+    <bindings if-exists="true" scd="tns:add">
+      <class ref="com.sharing.test.Add"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:addResponse">
+      <class ref="com.sharing.test.AddResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:getAsObject">
+      <class ref="com.sharing.test.GetAsObject"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:getAsObjectResponse">
+      <class ref="com.sharing.test.GetAsObjectResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:listParameters">
+      <class ref="com.sharing.test.ListParameters"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:listParametersResponse">
+      <class ref="com.sharing.test.ListParametersResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:anyTypeHashMap">
+      <class ref="com.sharing.test.AnyTypeHashMap"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:anyTypeHashMapResponse">
+      <class ref="com.sharing.test.AnyTypeHashMapResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:anyTypeMethods">
+      <class ref="com.sharing.test.AnyTypeMethods"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:anyTypeMethodsResponse">
+      <class ref="com.sharing.test.AnyTypeMethodsResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:showSupplier">
+      <class ref="com.sharing.test.ShowSupplier"/>
+    </bindings>
+    <bindings if-exists="true" scd="tns:showSupplierResponse">
+      <class ref="com.sharing.test.ShowSupplierResponse"/>
+    </bindings>
+  </bindings>
+</bindings>

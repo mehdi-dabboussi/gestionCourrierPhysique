@@ -1,0 +1,32 @@
+<taglib version="2.0" 
+		xmlns="http://java.sun.com/xml/j2ee" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+
+    <tlib-version>1.0</tlib-version>
+    
+    <function>
+        <name>contains</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean contains(java.util.List,java.lang.Object)</function-signature>
+    </function>
+    
+    <function>
+        <name>userSeeButtonValidateReception</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean userSeeButtonValidateReception(com.sharing.entity.User,com.sharing.entity.Transfert) </function-signature>
+    </function>
+    
+     <function>
+        <name>userSeeButtonEditTransfert</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean userSeeButtonEditTransfert(com.sharing.entity.User,com.sharing.entity.Transfert)</function-signature>
+    </function>
+    
+    <function>
+        <name>userSeeButtonUpdateCourrier</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean userSeeButtonUpdateCourrier(com.sharing.entity.User,com.sharing.entity.Courrier)</function-signature>
+    </function>
+    
+</taglib>
