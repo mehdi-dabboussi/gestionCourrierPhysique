@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Date;
+
 import javax.persistence.*;
 
 /**
@@ -26,6 +27,7 @@ public class Courrier implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getIdCourrier() {
 		return this.idCourrier;
 	}

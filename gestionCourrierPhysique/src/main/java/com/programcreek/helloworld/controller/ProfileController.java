@@ -45,6 +45,8 @@ public class ProfileController {
 		ModelAndView modelAndView = new ModelAndView("admin/createUser.jsp");
 		User newUser = new User();
 		modelAndView.addObject("newUser", newUser);
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
 
 		// Connected user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -57,7 +59,7 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.POST)
-	public String processCreateUser(@ModelAttribute(value = "newUser") User newUser, String role) {
+	public String processCreateUser(@ModelAttribute(value = "newUser") User newUser, String role, Long uniteB) {
 		if (role.equals("ROLE_USER")) {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName(role));
@@ -72,6 +74,9 @@ public class ProfileController {
 			roles.add(roleService.findByName("ROLE_ADMIN"));
 			newUser.setRoles(roles);
 		}
+		
+		UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteB);
+		newUser.setUniteBancaire(uniteBancaire);
 	
 
 		newUser.setEnabled(true);
@@ -91,6 +96,7 @@ public class ProfileController {
 		User user = userService.findUSerById(userId);
 		modelAndView.addObject("createdUser", user);
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
+		modelAndView.addObject("uniteBancaire", user.getUniteBancaire().getNomUniteBancaire());
 		return modelAndView;
 	}
 
@@ -101,12 +107,14 @@ public class ProfileController {
 		modelAndView.addObject("newUser", newUser);
 		// modelAndView.addObject("role", newUser.getRoles().get(0).getName());
 		modelAndView.addObject("role", newUser.getRoles());
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/admin/{userId}-edit", method = RequestMethod.POST)
 	public String processUpdateOwnerForm(User newUser, String role,
-			@PathVariable("userId") long userId) {
+			@PathVariable("userId") long userId, Long uniteB) {
 		User user = userService.findUSerById(userId);
 		List<Role> roles = new ArrayList<Role>();
 		if (role.equals("ROLE_ADMIN")) {
@@ -121,6 +129,8 @@ public class ProfileController {
 
 		newUser.setIdUser(userId);
 		newUser.setEnabled(true);
+		UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteB);
+		newUser.setUniteBancaire(uniteBancaire);
 
 		if (!newUser.getPassword().equals(user.getPassword())) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

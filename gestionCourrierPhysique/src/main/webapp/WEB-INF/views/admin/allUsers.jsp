@@ -49,7 +49,7 @@
 								      <th>Prénom</th>
 								      <th>Email</th>
 								      <th>Login</th>
-								      <th>Identifiant</th>
+								      <th>Unité bancaire</th>
 								      <th>Rôle</th>
 								      <th></th>
 								      <th></th>
@@ -62,7 +62,7 @@
 									      <td >${userToShow.surName}</td>
 									      <td >${userToShow.userEmail}</td>
 									      <td>${userToShow.login}</td>
-									      <td>${userToShow.historiqueIdentifier}</td>
+									      <td>${userToShow.uniteBancaire.nomUniteBancaire }</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
 												<c:if test="${userToShow.roles.get(0).name == 'ROLE_USER'}">Simple Utilisateur</c:if>

@@ -29,6 +29,7 @@ public class ContactExterne implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getIdContactExterne() {
 		return this.idContactExterne;
 	}

@@ -72,6 +72,10 @@
 														<td>${createdUser.login}</td>
 													</tr>
 													<tr>
+														<th >Unité bancaire:</th>
+														<td>${uniteBancaire}</td>
+													</tr>
+													<tr>
 														<th >Role:</th>
 														<td>
 															<c:if test="${role == 'ROLE_ADMIN'}">Administrateur </c:if> 

@@ -178,7 +178,7 @@
 	<script>
 		$(document).ready(function() {
 			$(".select2_single").select2({
-				placeholder : "Chargé d'affaires",
+				placeholder : "Choisir une unité bancaire",
 				allowClear : true
 			});
 			$(".select2_group").select2({});
