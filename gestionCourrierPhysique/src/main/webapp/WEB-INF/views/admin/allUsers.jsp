@@ -65,7 +65,8 @@
 									      <td>${userToShow.historiqueIdentifier}</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
-												<c:if test="${userToShow.roles.get(0).name == 'ROLE_USER'}">Simple Utilisateur</c:if> 
+												<c:if test="${userToShow.roles.get(0).name == 'ROLE_USER'}">Simple Utilisateur</c:if>
+												<c:if test="${userToShow.roles.get(0).name == 'ROLE_BUREAU_ORDRE'}">Bureau d'ordre</c:if> 
 									      </td>
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/admin/{userId}" var="displayUrl">

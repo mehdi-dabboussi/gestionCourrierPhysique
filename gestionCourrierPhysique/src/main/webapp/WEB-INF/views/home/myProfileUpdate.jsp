@@ -111,6 +111,11 @@
 															Administrateur
 														</label>
 													</div>
+													<div class="radio">
+														<label> <input type="radio" <c:if test="${role == 'ROLE_BUREAU_ORDRE'}">checked="checked"</c:if> value="ROLE_BUREAU_ORDRE" name="role" required>
+															Bureau d'ordre
+														</label>
+													</div>
 												</div>
 											 </div>
 										 </sec:authorize>

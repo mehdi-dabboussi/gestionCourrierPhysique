@@ -40,6 +40,7 @@
 					<h3>
 						<c:if test="${user.authorities == '[ROLE_USER]'}"> Simple Utilisateur</c:if>
 						<c:if test="${user.authorities == '[ROLE_ADMIN]'}"> Administrateur </c:if>
+						<c:if test="${user.authorities == '[ROLE_BUREAU_ORDRE]'}"> Bureau d'ordre </c:if>
 					</h3>
 				</sec:authorize>
 				<c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -59,6 +60,15 @@
 							<ul class="nav child_menu">
 								<li><a href="${contextPath}/admin/newUniteBancaire">Nouveau</a></li>
 								<li><a href="${contextPath}/admin/allUniteBancaire">Les unités Bancaire</a></li>
+							</ul>
+						</li>
+					</sec:authorize>
+					
+					<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
+						<li><a><i class="fa fa-users"></i>Contact externe<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/admin/newUniteBancaire">Nouveau</a></li>
+								<li><a href="${contextPath}/admin/allUniteBancaire">Les contacts externes</a></li>
 							</ul>
 						</li>
 					</sec:authorize>

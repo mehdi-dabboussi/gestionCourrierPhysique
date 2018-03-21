@@ -75,7 +75,8 @@
 														<th >Role:</th>
 														<td>
 															<c:if test="${role == 'ROLE_ADMIN'}">Administrateur </c:if> 
-															<c:if test="${role == 'ROLE_USER'}">Simple Utilisateur</c:if> 
+															<c:if test="${role == 'ROLE_USER'}">Simple Utilisateur</c:if>
+															<c:if test="${role == 'ROLE_BUREAU_ORDRE'}">Bureau d'ordre</c:if> 
 														</td>
 													</tr>
 												</tbody>

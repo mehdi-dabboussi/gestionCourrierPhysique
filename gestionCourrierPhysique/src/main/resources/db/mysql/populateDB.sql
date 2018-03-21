@@ -10,6 +10,12 @@ WHERE NOT EXISTS (
     SELECT idRole FROM Role WHERE idRole = 2
 ) LIMIT 1;
 
+INSERT INTO Role (idRole, name)
+SELECT * FROM (SELECT 3, 'ROLE_BUREAU_ORDRE') AS tmp
+WHERE NOT EXISTS (
+    SELECT idRole FROM Role WHERE idRole = 3
+) LIMIT 1;
+
 INSERT INTO User (idUser, enabled, historiqueIdentifier, login, password, surname, userEmail, userName)
 SELECT * FROM (SELECT 1 as idUser,1 as enabled,'adminHistory', 'admin', '$2a$10$XbQUFZcAA.RmuYHqUCZ4zOmriZ.KmmJpPWkiTN64A3.Fo88nOIxou', 'surname', 'admin.admin@mailObligatoire.com', 'userName admin') AS tmp
 WHERE NOT EXISTS (

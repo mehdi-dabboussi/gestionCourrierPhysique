@@ -62,11 +62,17 @@ public class ProfileController {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName(role));
 			newUser.setRoles(roles);
-		} else {
+		} else if (role.equals("ROLE_BUREAU_ORDRE")){
+			List<Role> roles = new ArrayList<Role>();
+			roles.add(roleService.findByName("ROLE_BUREAU_ORDRE"));
+			newUser.setRoles(roles);
+		}
+		else{
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName("ROLE_ADMIN"));
 			newUser.setRoles(roles);
 		}
+	
 
 		newUser.setEnabled(true);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -103,12 +109,11 @@ public class ProfileController {
 			@PathVariable("userId") long userId) {
 		User user = userService.findUSerById(userId);
 		List<Role> roles = new ArrayList<Role>();
-		if (role.equals("ROLE_USER")) {
-
-			roles.add(roleService.findByName(role));
-
-		} else {
+		if (role.equals("ROLE_ADMIN")) {
 			roles.add(roleService.findByName("ROLE_ADMIN"));
+		} 
+		else{
+			roles.add(roleService.findByName(role));
 			// newUser.setRoles(roles);
 		}
 
@@ -225,7 +230,7 @@ public class ProfileController {
 		List<User> users = new ArrayList<User>();
 		newUniteBancaire.setUsers(users);
 		globalCrudService.save(newUniteBancaire);
-		return "redirect:/admin/unite/" + newUniteBancaire.getIdUniteBancaire();
+		return "redirect:/admin/unite-" + newUniteBancaire.getIdUniteBancaire();
 	}
 	
 	// ************ consult unité bancaire *****************//
