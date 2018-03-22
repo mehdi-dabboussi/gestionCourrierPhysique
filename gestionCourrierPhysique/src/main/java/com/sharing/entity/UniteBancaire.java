@@ -1,11 +1,12 @@
 package com.sharing.entity;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
-import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Entity implementation class for Entity: UniteBancaire
@@ -21,7 +22,7 @@ public class UniteBancaire implements Serializable {
 	private String telUniteBancaire;
 	private String emailUniteBancaire;
 	private String faxUniteBancaire;
-	private List<User> users;
+	//private List<User> users;
 	
 
 	public UniteBancaire() {
@@ -79,13 +80,13 @@ public class UniteBancaire implements Serializable {
 		this.faxUniteBancaire = faxUniteBancaire;
 	}
 	
-	@OneToMany(mappedBy = "uniteBancaire",fetch=FetchType.EAGER)
+	/*@OneToMany(mappedBy = "uniteBancaire",fetch=FetchType.EAGER)
 	public List<User> getUsers() {
 		return this.users;
 	}
 
 	public void setUsers(List<User> users) {
 		this.users = users;
-	}
+	}*/
    
 }

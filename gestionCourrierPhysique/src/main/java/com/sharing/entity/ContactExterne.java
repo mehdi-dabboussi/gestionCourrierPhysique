@@ -22,7 +22,7 @@ public class ContactExterne implements Serializable {
 	private String telContactExterne;
 	private String emailContactExterne;
 	private String faxContactExterne;
-	private List<SousContactExterne> sousContactExternes;
+	//private List<SousContactExterne> sousContactExternes;
 	private static final long serialVersionUID = 1L;
 
 	public ContactExterne() {
@@ -73,13 +73,13 @@ public class ContactExterne implements Serializable {
 		this.faxContactExterne = faxContactExterne;
 	}
 	
-	@OneToMany(mappedBy = "contactExterne",fetch=FetchType.EAGER)
+	/*@OneToMany(mappedBy = "contactExterne",fetch=FetchType.EAGER)
 	public List<SousContactExterne> getSousContactExternes() {
 		return this.sousContactExternes;
 	}
 
 	public void setSousContactExternes(List<SousContactExterne> sousContactExternes) {
 		this.sousContactExternes = sousContactExternes;
-	}
+	}*/
    
 }

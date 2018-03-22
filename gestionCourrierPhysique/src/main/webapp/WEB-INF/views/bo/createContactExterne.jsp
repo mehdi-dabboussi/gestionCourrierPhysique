@@ -41,7 +41,7 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2> <c:if test="${newUser.idUser==0}">Nouvel </c:if>Utilisateur</h2>
+								<h2> <c:if test="${newContactExterne.idContactExterne==0}">Nouvel </c:if>Contact externe</h2>
 								<!-- <ul class="nav navbar-right panel_toolbox">
                       				<li>
                       					<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -53,91 +53,51 @@
 								<br />
 
 								<form:form class="form-horizontal form-label-leftr" 
-											data-toggle="validator" role="form" modelAttribute="newUser" >
+											data-toggle="validator" role="form" modelAttribute="newContactExterne" >
 											
 								         <div class="item form-group">
-									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
+									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom du contact externe<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
-								                		name="userName" value="${newUser.userName}" required>    		
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="Nom du contact externe"
+								                		name="nomContactExterne" value="${newContactExterne.nomContactExterne}" required>    		
 											</div>
 									     </div>
 										<div class="item form-group">
-										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Prénom<em>*</em></label>
+										     <label for="inputAdressLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Adresse<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputPrenom" placeholder="prenom"
-												 		name="surName" value="${newUser.surName}" required>
+												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputAdress" placeholder="Adresse"
+												 		name="adresseContactExterne" value="${newContactExterne.adresseContactExterne}" required>
 											 </div>
 										</div>
 										<div class="item form-group">
-										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
+										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
-												 		name="userEmail" value="${newUser.userEmail}" required>
+												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputTelContactExterne" placeholder="Téléphone"
+												 		name="telContactExterne" value="${newContactExterne.telContactExterne}" required>
 											 </div>
 										</div>
 										<div class="item form-group ">
-										     <label for="historiqueIdentifier"  class="control-label col-md-3 col-sm-3 col-xs-12">Identitifant utilisateur<em>*</em></label>	
+										     <label for="inputEmailContactExterne"  class="control-label col-md-3 col-sm-3 col-xs-12">e-mail<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="historiqueIdentifier" placeholder="Identitifant utilisateur"
-								              			name="historiqueIdentifier" value="${newUser.historiqueIdentifier}" required>
+												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputEmailContactExterne" placeholder="e-mail"
+								              			name="emailContactExterne" value="${newContactExterne.emailContactExterne}" required>
 											 </div> 
 									    </div>  
 										<div class="item form-group ">
-										     <label for="inputLoginLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Login<em>*</em></label>	
+										     <label for="FaxContactExterne"  class="control-label col-md-3 col-sm-3 col-xs-12">Fax<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="Login" placeholder="login"
-								              			name="login" value="${newUser.login}" required>
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="FaxContactExterne" placeholder="Fax"
+								              			name="faxContactExterne" value="${newContactExterne.faxContactExterne}" data-validate-length="7" required>
 											 </div> 
 									    </div>
-									    <div class="item form-group">
-										     <label for="inputPasswordLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Password<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
-								                <input id="password" placeholder="mot de passe" type="password" name="password" class="form-control col-md-7 col-xs-12" 
-								                  value="${newUser.password}"  data-validate-length="5" required>
-								              	<div class="help-block">Minimum of 6 characters</div>
-											 </div> 
-									    </div>
-									    <div class="item form-group ">
-										     <label for="inputLoginLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Confirm password<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
-												<input id="inputPasswordConfirm" type="password" class="form-control col-md-7 col-xs-12" 
-						                         	  data-validate-linked="password"   value="${newUser.password}" 
-						                         	  placeholder="Confirmer mot de passe" required>
-												<div class="help-block with-errors"></div>
-											 </div> 
-									    </div> 
-
-									     <div class="form-group">
-											 <label for="inputRoelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Rôle<em>*</em></label>	
-											 <div class="col-md-6 col-sm-6 col-xs-12">
-											 <div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:contains( role, 'ROLE_USER' ) }">checked="checked"</c:if> 
-													value="ROLE_USER" name="role" required>
-														Simple utilisateur
-													</label>
-												</div>
-												<div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:contains( role, 'ROLE_ADMIN' ) }">checked="checked"</c:if> 
-													value="ROLE_ADMIN" name="role" required>
-														Administrateur
-													</label>
-												</div>
-												<div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:contains( role, 'ROLE_BUREAU_ORDRE' ) }">checked="checked"</c:if> 
-													value="ROLE_BUREAU_ORDRE" name="role" required>
-														Bureau d'ordre
-													</label>
-												</div>
-											</div>
-										</div>
+									 
 										<div class="ln_solid"></div>
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newUser.idUser==0}">
+										                <c:when test="${newContactExterne.idContactExterne==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Créer</button>
-															<spring:url value="/admin/allUsers" var="returnUrl">
+															<spring:url value="/admin/allContactExterne" var="returnUrl">
 									                    	</spring:url>
 									                		<a href="${fn:escapeXml(returnUrl)}" class="btn btn-danger btn-xs">
 									                			 Annuler

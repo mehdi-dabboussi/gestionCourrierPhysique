@@ -67,8 +67,8 @@
 					<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
 						<li><a><i class="fa fa-users"></i>Contact externe<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
-								<li><a href="${contextPath}/admin/newUniteBancaire">Nouveau</a></li>
-								<li><a href="${contextPath}/admin/allUniteBancaire">Les contacts externes</a></li>
+								<li><a href="${contextPath}/bo/createContactExterne">Nouveau</a></li>
+								<li><a href="${contextPath}/bo/allContactExterne">Les contacts externes</a></li>
 							</ul>
 						</li>
 					</sec:authorize>

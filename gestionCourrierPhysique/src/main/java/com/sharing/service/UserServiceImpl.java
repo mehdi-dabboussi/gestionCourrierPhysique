@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 
 @Repository
@@ -61,5 +62,11 @@ public class UserServiceImpl implements UserService {
 						"select u from User u where u.userName=:userName and u.surname=:surname")
 				.setParameter("userName", userName)
 				.setParameter("surname", surname).getSingleResult();
+	}
+
+	@Transactional
+	public List<User> getUsersByUB(UniteBancaire createdUniteBancaire) {
+		return em.createQuery("select u from User u where u.uniteBancaire= :createdUniteBancaire").
+				setParameter("createdUniteBancaire", createdUniteBancaire).getResultList();
 	}
 }

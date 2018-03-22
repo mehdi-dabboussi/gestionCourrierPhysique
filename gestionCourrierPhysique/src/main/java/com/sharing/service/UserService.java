@@ -2,6 +2,7 @@ package com.sharing.service;
 
 import java.util.List;
 
+import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 
 public interface UserService {
@@ -21,4 +22,6 @@ public interface UserService {
 	User findUserByLogin(String login);
 
 	User findUserByNameSurname(String name, String surname);
+
+	List<User> getUsersByUB(UniteBancaire createdUniteBancaire);
 }

@@ -87,6 +87,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->

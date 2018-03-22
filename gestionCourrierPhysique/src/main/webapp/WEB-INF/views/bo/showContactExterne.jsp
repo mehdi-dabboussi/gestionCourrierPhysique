@@ -33,7 +33,7 @@
 							<div class="col-xs-12 invoice-header">
 								<h2>
 									<i class="fa fa-user-o"></i>
-									Information unité bancaire</
+									Information contact externe</
 								</h2>
 							</div> 
 							<!-- /.col -->
@@ -53,23 +53,23 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdUniteBancaire.nomUniteBancaire}</td>
+														<td>${createdContactExterne.nomContactExterne}</td>
 													</tr>
 													<tr>
 														<th >Adresse :</th>
-														<td>${createdUniteBancaire.adresseUniteBancaire}</td>
+														<td>${createdContactExterne.adresseContactExterne}</td>
 													</tr>
 													<tr>
 														<th >Téléphone :</th>
-														<td>${createdUniteBancaire.telUniteBancaire}</td>
+														<td>${createdContactExterne.telContactExterne}</td>
 													</tr>
 													<tr>
 														<th >E-mail :</th>
-														<td>${createdUniteBancaire.emailUniteBancaire}</td>
+														<td>${createdContactExterne.emailContactExterne}</td>
 													</tr>
 													<tr>
 														<th >Fax :</th>
-														<td>${createdUniteBancaire.faxUniteBancaire}</td>
+														<td>${createdContactExterne.faxContactExterne}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -81,8 +81,8 @@
 						                  </spring:url>
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
-						                 <spring:url value="{uniteBancaireId}-edit" var="editUrl">
-						                      	<spring:param name="uniteBancaireId" value="${createdUniteBancaire.idUniteBancaire}"/>
+						                 <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
+						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
 						            </div>
@@ -92,7 +92,7 @@
 					  </div>
 				   </div>	
 				</div>
-				<div class="col-md-12 col-sm-12 col-xs-12">
+				<!--  <div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
@@ -149,7 +149,7 @@
 							</table>
 						</div>
 					</div>
-				</div>				
+				</div>-->				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->

@@ -27,78 +27,18 @@
 
 			<!-- page content -->
 			<div class="right_col" role="main">
-				<div class="">
-					<div class="page-title">
-						<div class="row">
-							<div class="col-xs-12 invoice-header">
-								<h2>
-									<i class="fa fa-user-o"></i>
-									Information unité bancaire</
-								</h2>
-							</div> 
-							<!-- /.col -->
-						</div>
-					</div>
-					<div class="clearfix"></div>
-					<div class="row">
-<!-- 						<div class="col-md-12"> -->
-							<div class="col-md-12">
-							<div class="x_panel">
-								<div class="row">
-									<!-- accepted payments column -->
-									<div class="col-xs-12">
-<!-- 									<div class="col-xs-6"> -->
-										<div class="table-responsive">
-											<table class="table table-striped" style="margin-bottom:5px;">
-												<tbody>
-													<tr>
-														<th >Nom : </th>
-														<td>${createdUniteBancaire.nomUniteBancaire}</td>
-													</tr>
-													<tr>
-														<th >Adresse :</th>
-														<td>${createdUniteBancaire.adresseUniteBancaire}</td>
-													</tr>
-													<tr>
-														<th >Téléphone :</th>
-														<td>${createdUniteBancaire.telUniteBancaire}</td>
-													</tr>
-													<tr>
-														<th >E-mail :</th>
-														<td>${createdUniteBancaire.emailUniteBancaire}</td>
-													</tr>
-													<tr>
-														<th >Fax :</th>
-														<td>${createdUniteBancaire.faxUniteBancaire}</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<div  style="margin-right: 5%;">
-						                <%--  <spring:url value="/admin/{userId}/delete" var="deleteUrl">
-						                         <spring:param name="userId" value="${createdUser.idUser}"/>
-						                  </spring:url>
-						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
-
-						                 <spring:url value="{uniteBancaireId}-edit" var="editUrl">
-						                      	<spring:param name="uniteBancaireId" value="${createdUniteBancaire.idUniteBancaire}"/>
-						                 </spring:url>
-					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
-						            </div>
-									<!-- /.col -->
-							</div>
-					</div>
-					  </div>
-				   </div>	
-				</div>
+				<div class=""></div>
+				<!-- Put your main JSP here -->
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Les utilisateurs de l'unité bancaire
+								Les Contacts externes
 							</h2>
-							
+							<ul class="nav navbar-right panel_toolbox">
+								<a href="<c:url value="/bo/createContactExterne" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> nouveau contact externe </a>
+								
+							</ul>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -106,41 +46,38 @@
 								  <thead>
 								    <tr>
 								      <th>Nom</th>
-								      <th>Prénom</th>
+								      <th>Adresse</th>
+								      <th>télephone</th>
 								      <th>Email</th>
-								      <th>Login</th>
-								      <th>Rôle</th>
+								      <th>Fax</th>
 								      <th></th>
 								      <th></th>
 								      <th></th>
 								    </tr>
 								  </thead>
-								<c:forEach var="userToShow" items="${users}">
+								<c:forEach var="contactExterneToShow" items="${contactExternes}">
 									  	<tr>
-									      <td >${userToShow.userName}</td>
-									      <td >${userToShow.surName}</td>
-									      <td >${userToShow.userEmail}</td>
-									      <td>${userToShow.login}</td>
-									      <td>
-									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
-												<c:if test="${userToShow.roles.get(0).name == 'ROLE_USER'}">Simple Utilisateur</c:if>
-												<c:if test="${userToShow.roles.get(0).name == 'ROLE_BUREAU_ORDRE'}">Bureau d'ordre</c:if> 
-									      </td>
+									      <td >${contactExterneToShow.nomContactExterne}</td>
+									      <td >${contactExterneToShow.adresseContactExterne}</td>
+									      <td >${contactExterneToShow.telContactExterne}</td>
+									      <td>${contactExterneToShow.emailContactExterne}</td>
+									      <td>${contactExterneToShow.faxContactExterne}</td>
+									      
 					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/admin/{userId}" var="displayUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+					                	 		 <spring:url value="/bo/contactexterne-{idContactExterne}" var="displayUrl">
+						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
-										      <spring:url value="{userId}-edit" var="editUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+										      <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
+						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-										      <spring:url value="{userId}/delete" var="deleteUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+										      <spring:url value="contactexterne-{idContactExterne}/delete" var="deleteUrl">
+						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
 					                	  </td>
@@ -149,7 +86,8 @@
 							</table>
 						</div>
 					</div>
-				</div>				
+				</div>
+				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->

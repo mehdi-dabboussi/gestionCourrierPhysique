@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sharing.entity.ContactExterne;
 import com.sharing.entity.SousContactExterne;
 
 
@@ -39,6 +40,13 @@ public class SousContactExterneServiceImpl implements SousContactExterneService 
 	public SousContactExterne findSousContactExterneById(
 			long idSousContactExterne) {
 		return em.find(SousContactExterne.class, idSousContactExterne);
+	}
+
+	@Transactional
+	public List<SousContactExterne> getSousContactsByContact(
+			ContactExterne contactExterne) {
+		return em.createQuery("select s from SousContactExterne s where s.contactExterne= :contactExterne").
+				setParameter("contactExterne", contactExterne).getResultList();
 	}
 
 }

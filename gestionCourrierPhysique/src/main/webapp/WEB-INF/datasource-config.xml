@@ -14,11 +14,6 @@
          http://www.springframework.org/schema/jee/spring-jee.xsd">
 
 	<!-- ========================= DATASOURCE DEFINITION ========================= -->
-
-	<!-- Configurer that replaces ${...} placeholders with values from a properties 
-		file -->
-	<!-- (in this case, JDBC-related settings for the dataSource definition 
-		below) -->
 	<context:property-placeholder location="classpath:spring/data-access.properties"
 		system-properties-mode="OVERRIDE" />
 
@@ -28,16 +23,6 @@
 	 <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
 		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
 		p:username="${jdbc.username}" p:password="${jdbc.password}" />
-	<!-- habiba 06-12-2016 -->
-	<!-- <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
-		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
-		p:username="${jdbc.username}" p:password="${jdbc.password}" 
-		p:validationQuery="${jdbc.validationQuery}" p:testOnBorrow="${jdbc.testOnBorrow}"
-		p:testWhileIdle="${jdbc.testWhileIdle}" p:timeBetweenEvictionRunsMillis="{jdbc.timeBetweenEvictionRunsMillis}" /> -->
-
-	<!-- Database initializer. If any of the script fails, the initialization 
-		stops. -->
-	<!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
 	 <jdbc:initialize-database data-source="dataSource"> 
 	 	<!--<jdbc:script location="${jdbc.initLocation}"/>  -->
 		  <jdbc:script location="${jdbc.dataLocation}"/>
