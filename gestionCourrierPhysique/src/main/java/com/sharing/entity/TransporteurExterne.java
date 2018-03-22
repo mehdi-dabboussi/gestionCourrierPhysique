@@ -29,6 +29,7 @@ public class TransporteurExterne implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getIdTransporteurExterne() {
 		return this.idTransporteurExterne;
 	}

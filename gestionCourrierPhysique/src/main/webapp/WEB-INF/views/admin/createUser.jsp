@@ -111,7 +111,7 @@
 									    <div class="item form-group ">
 										     <label for="inputUniteBancaireLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Unité bancaire<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
-												<select name="uniteB" class="select2_single form-control" tabindex="-1">
+												<select name="uniteB" class="select2_single form-control" tabindex="-1" required>
 												<option></option>
 												<c:forEach var="unite" items="${uniteBancaires}">
 												<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>

@@ -41,7 +41,7 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2> <c:if test="${newUniteBancaire.idUniteBancaire==0}">Nouvel </c:if>Unité Bancaire</h2>
+								<h2> <c:if test="${newSousContactExterne.idSousContactExterne==0}">Nouveau </c:if>Sous contact</h2>
 								<!-- <ul class="nav navbar-right panel_toolbox">
                       				<li>
                       					<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -53,51 +53,56 @@
 								<br />
 
 								<form:form class="form-horizontal form-label-leftr" 
-											data-toggle="validator" role="form" modelAttribute="newUniteBancaire" >
+											data-toggle="validator" role="form" modelAttribute="newSousContactExterne" >
 											
 								         <div class="item form-group">
-									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom de l'unite<em>*</em></label>	
+									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="Nom de l'unite"
-								                		name="nomUniteBancaire" value="${newUniteBancaire.nomUniteBancaire}" required>    		
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
+								                		name="nomSousContactExterne" value="${newSousContact.nomSousContactExterne}" required>    		
 											</div>
 									     </div>
 										<div class="item form-group">
-										     <label for="inputAdressLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Adresse<em>*</em></label>
+										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Prénom<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputAdress" placeholder="Adresse"
-												 		name="adresseUniteBancaire" value="${newUniteBancaire.adresseUniteBancaire}" required>
+												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputPrenom" placeholder="prenom"
+												 		name="prenomSousContactExterne" value="${newSousContact.prenomSousContactExterne}" required>
 											 </div>
 										</div>
 										<div class="item form-group">
-										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
+										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputTelUniteBancaire" placeholder="Téléphone"
-												 		name="telUniteBancaire" value="${newUniteBancaire.telUniteBancaire}" data-validate-lenght="8" required >
+												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
+												 		name="emailSousContactExterne" value="${newSousContact.emailSousContactExterne}" required>
 											 </div>
 										</div>
-										<div class="item form-group ">
-										     <label for="inputEmailUniteBancaire"  class="control-label col-md-3 col-sm-3 col-xs-12">e-mail<em>*</em></label>	
+										
+										<div class="item form-group">
+										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
+										     <div class="col-md-6 col-sm-6 col-xs-12">
+												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputSousContactTel" placeholder="Téléphone"
+												 		name="telSousContactExterne" value="${newSousContact.telSousContactExterne}" required>
+											 </div>
+										</div>
+										
+									    
+									    <div class="item form-group ">
+										     <label for="inputSocieteLab"  class="control-label col-md-3 col-sm-3 col-xs-12">société<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputEmailUniteBancaire" placeholder="e-mail"
-								              			name="emailUniteBancaire" value="${newUniteBancaire.emailUniteBancaire}" required>
-											 </div> 
-									    </div>  
-										<div class="item form-group ">
-										     <label for="FaxUniteBancaire"  class="control-label col-md-3 col-sm-3 col-xs-12">Fax<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="FaxUniteBancaire" placeholder="Fax"
-								              			name="faxUniteBancaire" value="${newUniteBancaire.faxUniteBancaire}" data-validate-length="7" required>
-											 </div> 
+												<input type="text" class="form-control col-md-7 col-xs-12" id="inputSousContactSociete" placeholder="Société"
+												 		name="SousContactSociete" value="${Societe}" required disabled="disabled">
+												<div class="help-block with-errors"></div>
+											 </div>
 									    </div>
-									 
+
+									
 										<div class="ln_solid"></div>
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newUniteBancaire.idUniteBancaire==0}">
+										                <c:when test="${newSousContact.idSousContactExterne==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Créer</button>
-															<spring:url value="/admin/allUniteBancaire" var="returnUrl">
+															<spring:url value="/bo/allContactExterne" var="returnUrl">
 									                    	</spring:url>
 									                		<a href="${fn:escapeXml(returnUrl)}" class="btn btn-danger btn-xs">
 									                			 Annuler

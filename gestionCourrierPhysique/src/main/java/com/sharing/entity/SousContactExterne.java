@@ -27,6 +27,7 @@ public class SousContactExterne implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getIdSousContactExterne() {
 		return this.idSousContactExterne;
 	}

@@ -81,7 +81,7 @@
 						                  </spring:url>
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
-						                 <spring:url value="{uniteBancaireId}-edit" var="editUrl">
+						                 <spring:url value="unite-{uniteBancaireId}-edit" var="editUrl">
 						                      	<spring:param name="uniteBancaireId" value="${createdUniteBancaire.idUniteBancaire}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>

@@ -27,6 +27,7 @@ public class CoursierExterne implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getIdCoursierExterne() {
 		return this.idCoursierExterne;
 	}
