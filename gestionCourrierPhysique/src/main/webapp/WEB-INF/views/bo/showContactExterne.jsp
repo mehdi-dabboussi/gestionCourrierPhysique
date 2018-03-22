@@ -142,8 +142,9 @@
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-										      <spring:url value="{userId}/delete" var="deleteUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+										      <spring:url value="/bo/sousContact-{idSousContactExterne}/delete" var="deleteUrl">
+						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
 					                	  </td>

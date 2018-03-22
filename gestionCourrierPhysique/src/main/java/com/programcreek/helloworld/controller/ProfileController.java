@@ -105,6 +105,7 @@ public class ProfileController {
 		User user = userService.findUSerById(userId);
 		modelAndView.addObject("createdUser", user);
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
+		if(user.getUniteBancaire()!=null)
 		modelAndView.addObject("uniteBancaire", user.getUniteBancaire().getNomUniteBancaire());
 		return modelAndView;
 	}
@@ -296,6 +297,7 @@ public class ProfileController {
 		@RequestMapping(value = "/admin/unite-{uniteBancaireId}/delete", method = RequestMethod.GET)
 		public String processDeleteUniteBancaire(@PathVariable("uniteBancaireId") long uniteBancaireId) {
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteBancaireId);
+			userService.removeUBFromUser(uniteBancaire);
 			this.globalCrudService.remove(uniteBancaire,uniteBancaireId);
 			return "redirect:/admin/allUniteBancaire";
 		}
@@ -354,6 +356,16 @@ public class ProfileController {
 			return modelAndView;
 		}
 		
+		// ************ delete sous contact externe *****************//
+		
+		@RequestMapping(value = "/bo/contactexterne-{idContactExterne}/delete", method = RequestMethod.GET)
+		public String processDeleteContactExterne(@PathVariable("idContactExterne") long idContactExterne) {
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(idContactExterne);
+			sousContactExterneService.deleteWithContactExterne(contactExterne);
+			this.globalCrudService.remove(contactExterne,idContactExterne);
+			return "redirect:/bo/allContactExterne";
+		}
+		
 		// ------------------------ Sous contact externe ------------------------//
 
 		// ************ create sous contact externe *****************//
@@ -409,5 +421,14 @@ public class ProfileController {
 			newSousContactExterne.setContactExterne(contactExterne);
 			this.globalCrudService.update(newSousContactExterne);
 			return "redirect:/bo/contactexterne-" + newSousContactExterne.getContactExterne().getIdContactExterne();
+		}
+		
+		// ************ delete sous contact externe *****************//
+		
+		@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}/delete", method = RequestMethod.GET)
+		public String processDeleteSousContactExterne(@PathVariable("idSousContactExterne") long idSousContactExterne, Long idContactExterne) {
+			SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
+			this.globalCrudService.remove(sousContactExterne, idSousContactExterne);
+			return "redirect:/bo/contactexterne-" +idContactExterne;
 		}
 }

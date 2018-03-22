@@ -69,4 +69,13 @@ public class UserServiceImpl implements UserService {
 		return em.createQuery("select u from User u where u.uniteBancaire= :createdUniteBancaire").
 				setParameter("createdUniteBancaire", createdUniteBancaire).getResultList();
 	}
+
+	@Transactional
+	public void removeUBFromUser(UniteBancaire uniteBancaire) {
+		List<User> users = getUsersByUB(uniteBancaire);
+		for (User user : users){
+			user.setUniteBancaire(null);
+		}
+		
+	}
 }

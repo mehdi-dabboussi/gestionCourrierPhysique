@@ -24,4 +24,6 @@ public interface UserService {
 	User findUserByNameSurname(String name, String surname);
 
 	List<User> getUsersByUB(UniteBancaire createdUniteBancaire);
+	
+	void removeUBFromUser (UniteBancaire uniteBancaire);
 }

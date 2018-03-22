@@ -18,4 +18,6 @@ public interface SousContactExterneService {
 	
 	List<SousContactExterne> getSousContactsByContact(ContactExterne contactExterne);
 	
+	void deleteWithContactExterne(ContactExterne contactExterne);
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.SousContactExterne;
+import com.sharing.entity.User;
 
 
 
@@ -35,6 +36,12 @@ public class SousContactExterneServiceImpl implements SousContactExterneService 
 				.setParameter("nomSousContactExterne", nomSousContactExterne)
 				.setParameter("prenomSousContactExterne", prenomSousContactExterne).getSingleResult();
 	}
+	
+	@Transactional
+	public void deleteSousContactExterne(SousContactExterne sousContactExterne) {
+		//em.remove(user);
+		em.remove(em.contains(sousContactExterne) ? sousContactExterne : em.merge(sousContactExterne));
+	}
 
 	@Transactional
 	public SousContactExterne findSousContactExterneById(
@@ -47,6 +54,14 @@ public class SousContactExterneServiceImpl implements SousContactExterneService 
 			ContactExterne contactExterne) {
 		return em.createQuery("select s from SousContactExterne s where s.contactExterne= :contactExterne").
 				setParameter("contactExterne", contactExterne).getResultList();
+	}
+
+	@Transactional
+	public void deleteWithContactExterne(ContactExterne contactExterne) {
+		List<SousContactExterne> sousContactExternes = getSousContactsByContact(contactExterne);
+		for (SousContactExterne sousContactExterne : sousContactExternes){
+			deleteSousContactExterne(sousContactExterne);
+		}
 	}
 
 }
