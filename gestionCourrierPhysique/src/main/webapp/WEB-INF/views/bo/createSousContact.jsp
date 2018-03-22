@@ -59,21 +59,21 @@
 									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
-								                		name="nomSousContactExterne" value="${newSousContact.nomSousContactExterne}" required>    		
+								                		name="nomSousContactExterne" value="${newSousContactExterne.nomSousContactExterne}" required>    		
 											</div>
 									     </div>
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Prénom<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
 												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputPrenom" placeholder="prenom"
-												 		name="prenomSousContactExterne" value="${newSousContact.prenomSousContactExterne}" required>
+												 		name="prenomSousContactExterne" value="${newSousContactExterne.prenomSousContactExterne}" required>
 											 </div>
 										</div>
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
-												 		name="emailSousContactExterne" value="${newSousContact.emailSousContactExterne}" required>
+												 		name="emailSousContactExterne" value="${newSousContactExterne.emailSousContactExterne}" required>
 											 </div>
 										</div>
 										
@@ -81,7 +81,7 @@
 										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputSousContactTel" placeholder="Téléphone"
-												 		name="telSousContactExterne" value="${newSousContact.telSousContactExterne}" required>
+												 		name="telSousContactExterne" value="${newSousContactExterne.telSousContactExterne}" required>
 											 </div>
 										</div>
 										
@@ -100,7 +100,7 @@
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newSousContact.idSousContactExterne==0}">
+										                <c:when test="${newSousContactExterne.idSousContactExterne==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Créer</button>
 															<spring:url value="/bo/allContactExterne" var="returnUrl">
 									                    	</spring:url>

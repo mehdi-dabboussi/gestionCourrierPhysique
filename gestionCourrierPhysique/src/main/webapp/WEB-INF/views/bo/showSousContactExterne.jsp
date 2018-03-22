@@ -14,8 +14,6 @@
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
 
-
-
 <body class="nav-md footer_fixed">
 	<div class="container body">
 		<div class="main_container">
@@ -35,7 +33,7 @@
 							<div class="col-xs-12 invoice-header">
 								<h2>
 									<i class="fa fa-user-o"></i>
-									Information contact externe</
+									Information sous contact externe</
 								</h2>
 							</div> 
 							<!-- /.col -->
@@ -55,23 +53,23 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdContactExterne.nomContactExterne}</td>
+														<td>${createdSousContactExterne.nomSousContactExterne}</td>
 													</tr>
 													<tr>
-														<th >Adresse :</th>
-														<td>${createdContactExterne.adresseContactExterne}</td>
+														<th >Prenom : </th>
+														<td>${createdSousContactExterne.prenomSousContactExterne}</td>
 													</tr>
 													<tr>
 														<th >Téléphone :</th>
-														<td>${createdContactExterne.telContactExterne}</td>
+														<td>${createdSousContactExterne.telSousContactExterne}</td>
 													</tr>
 													<tr>
 														<th >E-mail :</th>
-														<td>${createdContactExterne.emailContactExterne}</td>
+														<td>${createdSousContactExterne.emailSousContactExterne}</td>
 													</tr>
 													<tr>
-														<th >Fax :</th>
-														<td>${createdContactExterne.faxContactExterne}</td>
+														<th >Société :</th>
+														<td>${Societe}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -83,8 +81,9 @@
 						                  </spring:url>
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
-						                 <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
+						                 <spring:url value="sousContact-{idSousContactExterne}-edit" var="editUrl">
+						                      	<spring:param name="idSousContactExterne" value="${createdSousContactExterne.idSousContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${createdSousContactExterne.contactExterne.idContactExterne}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
 						            </div>
@@ -94,65 +93,7 @@
 					  </div>
 				   </div>	
 				</div>
-				  <div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="x_panel">
-						<div class="x_title">
-							<h2>
-								Les sous contacts externes
-							</h2>
-							   <ul class="nav navbar-right panel_toolbox">
-							<spring:url value="/bo/createSousContact" var="addUrl">
-						        <spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
-						    </spring:url>
-								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Nouveau sous contact </a>
-								
-							</ul>
-							<div class="clearfix"></div>
-						</div>
-						<div class="x_content">
-							<table id="datatable-keytable" class="table table-striped table-bordered">
-								  <thead>
-								    <tr>
-								      <th>Nom</th>
-								      <th>Prénom</th>
-								      <th>Email</th>
-								      <th>Téléphone</th>
-								      <th></th>
-								      <th></th>
-								      <th></th>
-								    </tr>
-								  </thead>
-								<c:forEach var="sousContactToShow" items="${sousContacts}">
-									  	<tr>
-									      <td >${sousContactToShow.nomSousContactExterne}</td>
-									      <td >${sousContactToShow.prenomSousContactExterne}</td>
-									      <td >${sousContactToShow.emailSousContactExterne}</td>
-									      <td>${sousContactToShow.telSousContactExterne}</td>
-					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/sousContact-{idSousContactExterne}" var="displayUrl">
-						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                </td>
-						                <td style="text-align: center">	  
-										      <spring:url value="/bo/sousContact-{idSousContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
-						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
-					                	  </td>
-					                	  <td style="text-align: center">	  
-										      <spring:url value="{userId}/delete" var="deleteUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
-					                	  </td>
-									    </tr>
-								  </c:forEach>
-							</table>
-						</div>
-					</div>
-				</div>				
+							
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->
