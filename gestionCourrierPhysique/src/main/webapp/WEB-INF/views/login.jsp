@@ -22,7 +22,7 @@
 						<div class="forgot-grid">
 							<ul>
 								<li>
-									<input type="checkbox" id="brand1" value="">
+									<input type="checkbox" id="brand1" value="" name="remember-me">
 									<label for="brand1"><span></span>Remember me</label>
 								</li>
 							</ul>

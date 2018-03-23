@@ -48,9 +48,9 @@
 								      <th>Nom</th>
 								      <th>Prénom</th>
 								      <th>Email</th>
-								      <th>Login</th>
 								      <th>Unité bancaire</th>
 								      <th>Rôle</th>
+								      <th></th>
 								      <th></th>
 								      <th></th>
 								      <th></th>
@@ -61,13 +61,15 @@
 									      <td >${userToShow.userName}</td>
 									      <td >${userToShow.surName}</td>
 									      <td >${userToShow.userEmail}</td>
-									      <td>${userToShow.login}</td>
 									      <td>${userToShow.uniteBancaire.nomUniteBancaire }</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
 												<c:if test="${userToShow.roles.get(0).name == 'ROLE_USER'}">Simple Utilisateur</c:if>
 												<c:if test="${userToShow.roles.get(0).name == 'ROLE_BUREAU_ORDRE'}">Bureau d'ordre</c:if> 
 									      </td>
+									      
+									     
+									      
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/admin/{userId}" var="displayUrl">
 						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
@@ -86,6 +88,18 @@
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
 					                	  </td>
+					                	  
+					                	   <td>
+									      <spring:url value="/admin/{userId}-enable" var="enableUrl">
+									      <spring:param name="userId" value="${userToShow.idUser }"/>
+									      </spring:url>
+									      <c:if test="${userToShow.enabled == false }"><a href="${fn:escapeXml(enableUrl)}" class="btn btn-success btn-xs">Enable</a></c:if>
+									     <spring:url value="/admin/{userId}-disable" var="disableUrl">
+									      <spring:param name="userId" value="${userToShow.idUser }"/>
+									      </spring:url>
+									      <c:if test="${userToShow.enabled == true }"><a href="${fn:escapeXml(disableUrl)}" class="btn btn-warning btn-xs">Disable</a></c:if>
+									      </td>
+					                	  
 									    </tr>
 								  </c:forEach>
 							</table>

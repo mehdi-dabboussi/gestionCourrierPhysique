@@ -144,6 +144,33 @@
 												</div>
 											</div>
 										</div>
+										
+										<c:if test="${newUser.enabled == true }">
+										<div class="item form-group ">
+										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select name="enabled" class="form-control" required>
+												<option value="yes" selected="selected">Yes</option>
+												<option value="no"  >No</option>
+												</select>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    </c:if>
+									    
+									    <c:if test="${newUser.enabled == false }">
+										<div class="item form-group ">
+										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select name="enabled" class="form-control" required>
+												<option value="yes" >Yes</option>
+												<option value="no" selected="selected" >No</option>
+												</select>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    </c:if>
+										
 										<div class="ln_solid"></div>
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
