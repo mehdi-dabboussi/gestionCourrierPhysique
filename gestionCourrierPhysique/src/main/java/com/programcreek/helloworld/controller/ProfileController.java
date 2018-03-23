@@ -68,7 +68,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.POST)
-	public String processCreateUser(@ModelAttribute(value = "newUser") User newUser, String role, Long uniteB) {
+	public String processCreateUser(@ModelAttribute(value = "newUser") User newUser, String role, Long uniteB,
+			String enabled) {
 		if (role.equals("ROLE_USER")) {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName(role));
@@ -87,8 +88,10 @@ public class ProfileController {
 		UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteB);
 		newUser.setUniteBancaire(uniteBancaire);
 	
-
+		if(enabled.equals("yes"))
 		newUser.setEnabled(true);
+		else
+		newUser.setEnabled(false);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(newUser.getPassword());
 		newUser.setPassword(hashedPassword);
@@ -124,7 +127,7 @@ public class ProfileController {
 
 	@RequestMapping(value = "/admin/{userId}-edit", method = RequestMethod.POST)
 	public String processUpdateOwnerForm(User newUser, String role,
-			@PathVariable("userId") long userId, Long uniteB) {
+			@PathVariable("userId") long userId, Long uniteB, String enabled) {
 		User user = userService.findUSerById(userId);
 		List<Role> roles = new ArrayList<Role>();
 		if (role.equals("ROLE_ADMIN")) {
@@ -138,7 +141,10 @@ public class ProfileController {
 		newUser.setRoles(roles);
 
 		newUser.setIdUser(userId);
-		newUser.setEnabled(true);
+		if(enabled.equals("yes"))
+			newUser.setEnabled(true);
+			else
+			newUser.setEnabled(false);
 		UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteB);
 		newUser.setUniteBancaire(uniteBancaire);
 
@@ -150,6 +156,26 @@ public class ProfileController {
 		}
 		this.userService.updateUser(newUser);
 		return "redirect:/admin/" + newUser.getIdUser();
+	}
+	
+	// ******** enable user ***********//
+	
+	@RequestMapping(value ="/admin/{userId}-enable")
+	public String enableUser (@PathVariable("userId") long userId){
+		User user = userService.findUSerById(userId);
+		user.setEnabled(true);
+		globalCrudService.update(user);
+		return "redirect:/admin/allUsers";
+	}
+	
+	// ******** disable user ***********//
+	
+	@RequestMapping(value ="/admin/{userId}-disable")
+	public String disableUser (@PathVariable("userId") long userId){
+		User user = userService.findUSerById(userId);
+		user.setEnabled(false);
+		globalCrudService.update(user);
+		return "redirect:/admin/allUsers";
 	}
 
 	// ******** My Profile section ***********//
