@@ -8,6 +8,7 @@
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/bo/**" access="hasAnyRole('ROLE_BUREAU_ORDRE')" />
 
 		<access-denied-handler error-page="/deniedAccess/403" />
 		<form-login login-page="/login" default-target-url="/home/myProfile"

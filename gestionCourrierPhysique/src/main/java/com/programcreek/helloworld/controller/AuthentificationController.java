@@ -3,6 +3,7 @@ package com.programcreek.helloworld.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,14 +15,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sharing.entity.User;
+import com.sharing.service.UserService;
+
 @Controller
 public class AuthentificationController {
 	
+	UserService userService;
+	
+	@Autowired
+	public AuthentificationController(UserService userService) {
+		this.userService = userService;
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView authenticate(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "logout", required = false) String logout) {
-		System.out.println("@RequestMapping(value = login, method = RequestMethod.GET");
-		System.out.println("eroor  "+error);
-		System.out.println("logout   "+logout);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (logout==null) {
+			System.out.println("is authenticate");
+		}
+		else {
+			System.out.println("is not authenticate");
+		}
+		
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
 			model.addObject("error", "Invalid username and password!");
@@ -35,9 +51,38 @@ public class AuthentificationController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView defaultPage(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "logout", required = false) String logout) {
-		System.out.println("@RequestMapping(value = login, method = RequestMethod.GET");
-		System.out.println("eroor  "+error);
-		System.out.println("logout   "+logout);
+		/*ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (auth != null) {
+			System.out.println("is authenticate");
+			model.setViewName("showMyProfile.jsp");
+			
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			User user = userService.findUserByLogin(userDetail.getUsername());
+			model.addObject("createdUser", user);
+			model.addObject("role", user.getRoles().get(0).getName());
+		}
+		else {
+		System.out.println("is not authenticate");
+		if (error != null) {
+			model.addObject("error", "Invalid username and password!");
+		}
+		if (logout != null) {
+			model.addObject("msg", "You've been logged out successfully.");
+		}
+		model.setViewName("login.jsp");
+		}
+		return model;*/
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (logout==null) {
+			System.out.println("is authenticate");
+		}
+		else {
+			System.out.println("is not authenticate");
+		}
+		
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
 			model.addObject("error", "Invalid username and password!");
