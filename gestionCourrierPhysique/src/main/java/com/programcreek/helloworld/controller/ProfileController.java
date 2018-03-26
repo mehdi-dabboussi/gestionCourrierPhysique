@@ -165,6 +165,33 @@ public class ProfileController {
 		this.userService.updateUser(newUser);
 		return "redirect:/admin/" + newUser.getIdUser();
 	}
+	
+	
+	// ******** activer un utilsateur ***********//
+	
+	
+	@RequestMapping(value="/admin/{userId}-enable")
+	public String enableUser(@PathVariable("userId") long userId){
+		
+		User user = userService.findUSerById(userId);
+		user.setEnabled(true);
+		globalCrudService.update(user);
+		return "redirect:/admin/allUsers";
+		
+	}
+	
+	// ******** desactiver un utilsateur ***********//
+	
+	
+		@RequestMapping(value="/admin/{userId}-disable")
+		public String disableUser(@PathVariable("userId") long userId){
+			
+			User user = userService.findUSerById(userId);
+			user.setEnabled(false);
+			globalCrudService.update(user);
+			return "redirect:/admin/allUsers";
+			
+		}
 
 	// ******** My Profile section ***********//
 	@RequestMapping(value = "/home/myProfile")
