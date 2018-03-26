@@ -79,11 +79,32 @@
 										      <spring:url value="contactexterne-{idContactExterne}/delete" var="deleteUrl">
 						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
 						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
+						                	  <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-mehdi" >Supprimer</button>
 					                	  </td>
 									    </tr>
 								  </c:forEach>
 							</table>
+							
+							<div class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+                    							<div class="modal-dialog modal-sm">
+                      								<div class="modal-content">
+                        								<div class="modal-header">
+                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
+                          									</button>
+                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
+                       									 </div>
+                       									 <div class="modal-body">
+                          								<h4>Attention !!!</h4>
+                          								<p>Etes-vous sur de vouloir supprimer ce contact externe ???</p>
+                        								</div>
+                       									 <div class="modal-footer">
+                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
+                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" ">Supprimer</a>
+                       									 </div>
+
+                      								</div>
+                    							</div>
+                						  </div>
 						</div>
 					</div>
 				</div>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.UniteBancaire;
+import com.sharing.entity.User;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.RoleService;
 import com.sharing.service.UniteBancaireService;
@@ -108,6 +109,7 @@ public class UniteBancaireController {
 				@PathVariable("uniteBancaireId") long uniteBancaireId) {
 			UniteBancaire uniteBancaire = uniteBancaireService
 					.findUniteBancaireById(uniteBancaireId);
+			userService.removeUBFromUser(uniteBancaire);
 			this.globalCrudService.remove(uniteBancaire, uniteBancaireId);
 			return "redirect:/admin/allUniteBancaire";
 		}

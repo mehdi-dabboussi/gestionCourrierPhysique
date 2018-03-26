@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.SousContactExterne;
+import com.sharing.entity.UniteBancaire;
+import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.SousContactExterneService;
@@ -99,6 +101,18 @@ public class ContactExterneController {
 			modelAndView.addObject("contactExternes", contactExternes);
 			return modelAndView;
 		}
+		
+		// ************ delete contact externe *****************//
+		
+		@RequestMapping(value = "/bo/contactexterne-{idContactExterne}/delete", method = RequestMethod.GET)
+		public String processDeleteContactExterne(
+				@PathVariable("idContactExterne") long idContactExterne) {
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(idContactExterne);
+			sousContactExterneService.deleteWithContactExterne(contactExterne);
+			this.globalCrudService.remove(contactExterne, idContactExterne);
+			return "redirect:/bo/allContactExterne";
+		}
+		
 
 		// ------------------------ Sous contact externe ------------------------//
 
@@ -175,4 +189,13 @@ public class ContactExterneController {
 					+ newSousContactExterne.getContactExterne()
 							.getIdContactExterne();
 		}
+		
+		
+		// ************ delete sous contact externe *****************//
+				@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}/delete", method = RequestMethod.GET)
+				public String processDeleteSousContact(@PathVariable("idSousContactExterne") long idSousContactExterne, Long idContactExterne) {
+					SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
+					globalCrudService.remove(sousContactExterne, idSousContactExterne);
+					return "redirect:/bo/contactexterne-" + idContactExterne;
+				}
 }

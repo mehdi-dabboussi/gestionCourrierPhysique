@@ -26,4 +26,5 @@ public interface UserService {
 	List<User> getUsersByUB(UniteBancaire createdUniteBancaire);
 	
 	void removeUBFromUser (UniteBancaire uniteBancaire);
+	
 }

@@ -100,8 +100,13 @@ public class UserController {
 		User user = userService.findUSerById(userId);
 		modelAndView.addObject("createdUser", user);
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
+		if(user.getUniteBancaire() != null)
 		modelAndView.addObject("uniteBancaire", user.getUniteBancaire()
 				.getNomUniteBancaire());
+		/*if(user.getUniteBancaire() == null)
+			modelAndView.addObject("haveUB", 0);
+		else
+			modelAndView.addObject("haveUB", 1);*/
 		return modelAndView;
 	}
 
