@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+import com.sharing.entity.ContactExterne;
 import com.sharing.entity.TransporteurExterne;
 import com.sharing.service.CoursierExterneService;
 import com.sharing.service.GlobalCrudService;
@@ -107,7 +109,17 @@ public class TransporteurController {
 			modelAndView.addObject("transporteurExternes", transporteurExternes);
 			return modelAndView;
 		}
+		
+		// ************ delete transporteur externe *****************//
 	
-
+		@RequestMapping(value = "/admin/transporteurExterne-{idTransporteurExterne}/delete", method= RequestMethod.GET ) 
+			public String processDeleteTransporteurExterne(
+					@PathVariable("idTransporteurExterne") long  idTransporteurExterne) {
+				TransporteurExterne transporteurExterne = transporteurExterneService.findTransporteurExterneById(idTransporteurExterne);
+				coursierExterneService.deleteWithTransporteurExterne(transporteurExterne);
+				this.globalCrudService.remove(transporteurExterne, idTransporteurExterne);
+				return "redirect:/admin/allTransporteurExterne";
+		}
 
 }
+
