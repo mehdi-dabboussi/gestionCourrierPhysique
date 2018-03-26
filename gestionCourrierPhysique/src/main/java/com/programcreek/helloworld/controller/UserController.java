@@ -152,11 +152,14 @@ public class UserController {
 	// ******** activer un utilsateur ***********//
 	
 	
-	@RequestMapping(value="/admin/{userId}-enable")
+	@RequestMapping(value="/admin/{userId}-enabled")
 	public String enableUser(@PathVariable("userId") long userId){
 		
 		User user = userService.findUSerById(userId);
+		if(user.isEnabled() == false)
 		user.setEnabled(true);
+		else
+			user.setEnabled(false);
 		globalCrudService.update(user);
 		return "redirect:/admin/allUsers";
 		
@@ -165,7 +168,7 @@ public class UserController {
 	// ******** desactiver un utilsateur ***********//
 	
 	
-		@RequestMapping(value="/admin/{userId}-disable")
+		/*@RequestMapping(value="/admin/{userId}-disable")
 		public String disableUser(@PathVariable("userId") long userId){
 			
 			User user = userService.findUSerById(userId);
@@ -174,7 +177,7 @@ public class UserController {
 			globalCrudService.update(user);
 			return "redirect:/admin/allUsers";
 			
-		}
+		}*/
 		
 		
 		// ************ All users *****************//

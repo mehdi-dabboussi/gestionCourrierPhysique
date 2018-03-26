@@ -47,20 +47,18 @@
 								    <tr>
 								      <th>Nom</th>
 								      <th>Prénom</th>
-								      <th>Email</th>
 								      <th>Unité bancaire</th>
 								      <th>Rôle</th>
-								      <th></th>
-								      <th></th>
-								      <th></th>
-								      <th></th>
+								      <th>Visualisation</th>
+								      <th>Modification</th>
+								      <th>Suppression</th>
+								      <th>Activation</th>
 								    </tr>
 								  </thead>
 								<c:forEach var="userToShow" items="${users}">
 									  	<tr>
 									      <td >${userToShow.userName}</td>
 									      <td >${userToShow.surName}</td>
-									      <td >${userToShow.userEmail}</td>
 									      <td>${userToShow.uniteBancaire.nomUniteBancaire }</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
@@ -86,23 +84,66 @@
 										      <spring:url value="{userId}/delete" var="deleteUrl">
 						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
 						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
+						                	  <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-mehdi" >Supprimer</button>
 					                	  </td>
 					                	  
-					                	   <td>
-									      <spring:url value="/admin/{userId}-enable" var="enableUrl">
+					                	   <td style="text-align: center">
+									      <spring:url value="/admin/{userId}-enabled" var="enableUrl">
 									      <spring:param name="userId" value="${userToShow.idUser }"/>
 									      </spring:url>
-									      <c:if test="${userToShow.enabled == false }"><a href="${fn:escapeXml(enableUrl)}" class="btn btn-success btn-xs">Enable</a></c:if>
-									     <spring:url value="/admin/{userId}-disable" var="disableUrl">
-									      <spring:param name="userId" value="${userToShow.idUser }"/>
-									      </spring:url>
-									      <c:if test="${userToShow.enabled == true }"><a href="${fn:escapeXml(disableUrl)}" class="btn btn-warning btn-xs">Disable</a></c:if>
+									      <c:if test="${userToShow.enabled == false }">
+									      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm" >Activer</button>
+									      </c:if>
+									     
+									      <c:if test="${userToShow.enabled == true }">
+									      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm" >Desactiver</button>
+									      </c:if>
 									      </td>
 					                	  
 									    </tr>
 								  </c:forEach>
 							</table>
+							<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    							<div class="modal-dialog modal-sm">
+                      								<div class="modal-content">
+                        								<div class="modal-header">
+                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
+                          									</button>
+                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
+                       									 </div>
+                       									 <div class="modal-body">
+                          								<h4>Attention !!</h4>
+                          								<p>Etes-vous sur ?</p>
+                        								</div>
+                       									 <div class="modal-footer">
+                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
+                         									 <a href="${fn:escapeXml(enableUrl)}" class="btn btn-primary" ">Sauvgarder</a>
+                       									 </div>
+
+                      								</div>
+                    							</div>
+                						  </div>
+                						  
+                						  <div class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+                    							<div class="modal-dialog modal-sm">
+                      								<div class="modal-content">
+                        								<div class="modal-header">
+                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
+                          									</button>
+                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
+                       									 </div>
+                       									 <div class="modal-body">
+                          								<h4>Attention !!!</h4>
+                          								<p>Etes-vous sur de vouloir supprimer cet utilisateur ???</p>
+                        								</div>
+                       									 <div class="modal-footer">
+                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
+                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" ">Supprimer</a>
+                       									 </div>
+
+                      								</div>
+                    							</div>
+                						  </div>
 						</div>
 					</div>
 				</div>
