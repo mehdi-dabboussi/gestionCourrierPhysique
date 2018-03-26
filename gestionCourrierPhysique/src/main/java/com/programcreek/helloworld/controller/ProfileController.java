@@ -537,7 +537,7 @@ public class ProfileController {
 		return modelAndView;
 	}
 
-	// ************ edit contact externe *****************//
+	// ************ edit transporteur externe *****************//
 	@RequestMapping(value = "/admin/transporteurExterne-{idTransporteurExterne}-edit", method = RequestMethod.GET)
 	public ModelAndView initUpdateidTransporteurExterneForm(
 			@PathVariable("idTransporteurExterne") long idTransporteurExterne) {
@@ -560,7 +560,7 @@ public class ProfileController {
 				+ newTransporteurExterne.getIdTransporteurExterne();
 	}
 
-	// ************ All contact externe *****************//
+	// ************ All Transporteur externe *****************//
 	@RequestMapping(value = "/admin/allTransporteurExterne", method = RequestMethod.GET)
 	public ModelAndView showAllTransporteurExterne() {
 		ModelAndView modelAndView = new ModelAndView(
