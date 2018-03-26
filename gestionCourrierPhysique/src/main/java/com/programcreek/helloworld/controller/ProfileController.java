@@ -188,6 +188,7 @@ public class ProfileController {
 			
 			User user = userService.findUSerById(userId);
 			user.setEnabled(false);
+			
 			globalCrudService.update(user);
 			return "redirect:/admin/allUsers";
 			
