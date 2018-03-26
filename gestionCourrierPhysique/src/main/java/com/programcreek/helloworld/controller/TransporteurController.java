@@ -53,7 +53,7 @@ public class TransporteurController {
 		public String processCreateTransporteurExterne(
 				@ModelAttribute(value = "newTransporteurExterne") TransporteurExterne newTransporteurExterne) {
 			globalCrudService.save(newTransporteurExterne);
-			return "redirect:/admin/transporteurexterne-"
+			return "redirect:/admin/transporteurExterne-"
 					+ newTransporteurExterne.getIdTransporteurExterne();
 		}
 
