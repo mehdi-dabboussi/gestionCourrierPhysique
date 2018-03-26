@@ -57,7 +57,7 @@ public class TransporteurController {
 
 		// ************ consult transporteur externe *****************//
 
-		@RequestMapping(value = "/admin/transporteurexterne-{idTransporteurExterne}")
+		@RequestMapping(value = "/admin/transporteurExterne-{idTransporteurExterne}")
 		public ModelAndView showTransporteurExterne(
 				@PathVariable("idTransporteurExterne") long idTransporteurExterne) {
 			ModelAndView modelAndView = new ModelAndView(

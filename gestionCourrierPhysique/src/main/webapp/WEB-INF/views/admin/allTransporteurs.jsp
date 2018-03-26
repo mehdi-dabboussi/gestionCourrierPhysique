@@ -55,29 +55,29 @@
 								      <th></th>
 								    </tr>
 								  </thead>
-								<c:forEach var="contactExterneToShow" items="${contactExternes}">
+								<c:forEach var="transporteurExterneToShow" items="${transporteurExternes}">
 									  	<tr>
-									      <td >${contactExterneToShow.nomContactExterne}</td>
-									      <td >${contactExterneToShow.adresseContactExterne}</td>
-									      <td >${contactExterneToShow.telContactExterne}</td>
-									      <td>${contactExterneToShow.emailContactExterne}</td>
-									      <td>${contactExterneToShow.faxContactExterne}</td>
+									      <td >${transporteurExterneToShow.nomTransporteurExterne}</td>
+									      <td >${transporteurExterneToShow.adresseTransporteurExterne}</td>
+									      <td >${transporteurExterneToShow.telTransporteurExterne}</td>
+									      <td>${transporteurExterneToShow.emailTransporteurExterne}</td>
+									      <td>${transporteurExterneToShow.faxTransporteurExterne}</td>
 									      
 					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/contactexterne-{idContactExterne}" var="displayUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
+					                	 		 <spring:url value="/admin/transporteurExterne-{idTransporteurExterne}" var="displayUrl">
+						                      	<spring:param name="idTransporteurExterne" value="${transporteurExterneToShow.idTransporteurExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
-										      <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
+										      <spring:url value="transporteurExterne-{idTransporteurExterne}-edit" var="editUrl">
+						                      	<spring:param name="idTransporteurExterne" value="${transporteurExterneToShow.idTransporteurExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-										      <spring:url value="contactexterne-{idContactExterne}/delete" var="deleteUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
+										      <spring:url value="transporteurExterne-{idTransporteurExterne}/delete" var="deleteUrl">
+						                      	<spring:param name="idTransporteurExterne" value="${transporteurExterneToShow.idTransporteurExterne}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
 					                	  </td>
