@@ -18,12 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Role;
 import com.sharing.entity.SousContactExterne;
+import com.sharing.entity.TransporteurExterne;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
+import com.sharing.service.CoursierExterneService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.RoleService;
 import com.sharing.service.SousContactExterneService;
+import com.sharing.service.TransporteurExterneService;
 import com.sharing.service.UniteBancaireService;
 import com.sharing.service.UserService;
 
@@ -36,17 +39,25 @@ public class ProfileController {
 	private GlobalCrudService globalCrudService;
 	private ContactExterneService contactExterneService;
 	private SousContactExterneService sousContactExterneService;
+	private TransporteurExterneService transporteurExterneService;
+	private CoursierExterneService coursierExterneService;
 
 	@Autowired
 	public ProfileController(UserService userService, RoleService roleService,
-			GlobalCrudService globalCrudService, UniteBancaireService uniteBancaireService, 
-			ContactExterneService contactExterneService, SousContactExterneService sousContactExterneService) {
+			GlobalCrudService globalCrudService,
+			UniteBancaireService uniteBancaireService,
+			ContactExterneService contactExterneService,
+			SousContactExterneService sousContactExterneService,
+			TransporteurExterneService transporteurExterneService,
+			CoursierExterneService coursierExterneService) {
 		this.userService = userService;
 		this.roleService = roleService;
 		this.globalCrudService = globalCrudService;
 		this.uniteBancaireService = uniteBancaireService;
 		this.contactExterneService = contactExterneService;
 		this.sousContactExterneService = sousContactExterneService;
+		this.transporteurExterneService = transporteurExterneService;
+		this.coursierExterneService = coursierExterneService;
 	}
 
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.GET)
@@ -54,13 +65,16 @@ public class ProfileController {
 		ModelAndView modelAndView = new ModelAndView("admin/createUser.jsp");
 		User newUser = new User();
 		modelAndView.addObject("newUser", newUser);
-		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		List<UniteBancaire> uniteBancaires = uniteBancaireService
+				.getAllUniteBancaire();
 		modelAndView.addObject("uniteBancaires", uniteBancaires);
 
 		// Connected user
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		User connectedUser = userService.findUserByLogin(userDetail.getUsername());
+		User connectedUser = userService.findUserByLogin(userDetail
+				.getUsername());
 		modelAndView.addObject("connectedUser", connectedUser);
 		modelAndView.addObject("role", connectedUser.getRoles());
 
@@ -68,38 +82,34 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.POST)
-	public String processCreateUser(@ModelAttribute(value = "newUser") User newUser, String role, Long uniteB,
-			String enabled) {
+	public String processCreateUser(
+			@ModelAttribute(value = "newUser") User newUser, String role,
+			Long uniteB) {
 		if (role.equals("ROLE_USER")) {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName(role));
 			newUser.setRoles(roles);
-		} else if (role.equals("ROLE_BUREAU_ORDRE")){
+		} else if (role.equals("ROLE_BUREAU_ORDRE")) {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName("ROLE_BUREAU_ORDRE"));
 			newUser.setRoles(roles);
-		}
-		else{
+		} else {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName("ROLE_ADMIN"));
 			newUser.setRoles(roles);
 		}
-		
-		UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteB);
+
+		UniteBancaire uniteBancaire = uniteBancaireService
+				.findUniteBancaireById(uniteB);
 		newUser.setUniteBancaire(uniteBancaire);
-	
-		if(enabled.equals("yes"))
+
 		newUser.setEnabled(true);
-		else
-		newUser.setEnabled(false);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(newUser.getPassword());
 		newUser.setPassword(hashedPassword);
 		userService.CreateUser(newUser);
 		return "redirect:/admin/" + newUser.getIdUser();
 	}
-	
-	
 
 	@RequestMapping(value = "/admin/{userId}")
 	public ModelAndView showUserAfterCreate(@PathVariable("userId") long userId) {
@@ -108,8 +118,8 @@ public class ProfileController {
 		User user = userService.findUSerById(userId);
 		modelAndView.addObject("createdUser", user);
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
-		if(user.getUniteBancaire()!=null)
-		modelAndView.addObject("uniteBancaire", user.getUniteBancaire().getNomUniteBancaire());
+		modelAndView.addObject("uniteBancaire", user.getUniteBancaire()
+				.getNomUniteBancaire());
 		return modelAndView;
 	}
 
@@ -120,20 +130,20 @@ public class ProfileController {
 		modelAndView.addObject("newUser", newUser);
 		// modelAndView.addObject("role", newUser.getRoles().get(0).getName());
 		modelAndView.addObject("role", newUser.getRoles());
-		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		List<UniteBancaire> uniteBancaires = uniteBancaireService
+				.getAllUniteBancaire();
 		modelAndView.addObject("uniteBancaires", uniteBancaires);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/admin/{userId}-edit", method = RequestMethod.POST)
 	public String processUpdateOwnerForm(User newUser, String role,
-			@PathVariable("userId") long userId, Long uniteB, String enabled) {
+			@PathVariable("userId") long userId, Long uniteB) {
 		User user = userService.findUSerById(userId);
 		List<Role> roles = new ArrayList<Role>();
 		if (role.equals("ROLE_ADMIN")) {
 			roles.add(roleService.findByName("ROLE_ADMIN"));
-		} 
-		else{
+		} else {
 			roles.add(roleService.findByName(role));
 			// newUser.setRoles(roles);
 		}
@@ -141,11 +151,9 @@ public class ProfileController {
 		newUser.setRoles(roles);
 
 		newUser.setIdUser(userId);
-		if(enabled.equals("yes"))
-			newUser.setEnabled(true);
-			else
-			newUser.setEnabled(false);
-		UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteB);
+		newUser.setEnabled(true);
+		UniteBancaire uniteBancaire = uniteBancaireService
+				.findUniteBancaireById(uniteB);
 		newUser.setUniteBancaire(uniteBancaire);
 
 		if (!newUser.getPassword().equals(user.getPassword())) {
@@ -156,26 +164,6 @@ public class ProfileController {
 		}
 		this.userService.updateUser(newUser);
 		return "redirect:/admin/" + newUser.getIdUser();
-	}
-	
-	// ******** enable user ***********//
-	
-	@RequestMapping(value ="/admin/{userId}-enable")
-	public String enableUser (@PathVariable("userId") long userId){
-		User user = userService.findUSerById(userId);
-		user.setEnabled(true);
-		globalCrudService.update(user);
-		return "redirect:/admin/allUsers";
-	}
-	
-	// ******** disable user ***********//
-	
-	@RequestMapping(value ="/admin/{userId}-disable")
-	public String disableUser (@PathVariable("userId") long userId){
-		User user = userService.findUSerById(userId);
-		user.setEnabled(false);
-		globalCrudService.update(user);
-		return "redirect:/admin/allUsers";
 	}
 
 	// ******** My Profile section ***********//
@@ -259,202 +247,300 @@ public class ProfileController {
 		this.userService.deleteUser(user);
 		return "redirect:/admin/allUsers";
 	}
-	
+
 	// ------------------------Unite bancaire ------------------------//
-	
+
 	// ************ create unite bancaire *****************//
 	@RequestMapping(value = "/admin/newUniteBancaire", method = RequestMethod.GET)
 	public ModelAndView createUniteBancaire() {
-		ModelAndView modelAndView = new ModelAndView("admin/newUniteBancaire.jsp");
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/newUniteBancaire.jsp");
 		UniteBancaire newUniteBancaire = new UniteBancaire();
 		modelAndView.addObject("newUniteBancaire", newUniteBancaire);
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/admin/newUniteBancaire", method = RequestMethod.POST)
-	public String processCreateUniteBancaire(@ModelAttribute(value = "newUniteBancaire") UniteBancaire newUniteBancaire) {
-		//List<User> users = new ArrayList<User>();
-		//newUniteBancaire.setUsers(users);
+	public String processCreateUniteBancaire(
+			@ModelAttribute(value = "newUniteBancaire") UniteBancaire newUniteBancaire) {
+		// List<User> users = new ArrayList<User>();
+		// newUniteBancaire.setUsers(users);
 		globalCrudService.save(newUniteBancaire);
 		return "redirect:/admin/unite-" + newUniteBancaire.getIdUniteBancaire();
 	}
-	
+
 	// ************ consult unité bancaire *****************//
 	@RequestMapping(value = "/admin/unite-{uniteBancaireId}")
-	public ModelAndView showUniteBancaireAfterCreate(@PathVariable("uniteBancaireId") long uniteBancaireId) {
+	public ModelAndView showUniteBancaireAfterCreate(
+			@PathVariable("uniteBancaireId") long uniteBancaireId) {
 		ModelAndView modelAndView = new ModelAndView(
 				"admin/showUniteBancaireAfterCreate.jsp");
-		UniteBancaire createdUniteBancaire = uniteBancaireService.findUniteBancaireById(uniteBancaireId);
+		UniteBancaire createdUniteBancaire = uniteBancaireService
+				.findUniteBancaireById(uniteBancaireId);
 		modelAndView.addObject("createdUniteBancaire", createdUniteBancaire);
-		modelAndView.addObject("users", userService.getUsersByUB(createdUniteBancaire));
+		modelAndView.addObject("users",
+				userService.getUsersByUB(createdUniteBancaire));
 		return modelAndView;
 	}
-	
+
 	// ************ edit unité bancaire *****************//
 	@RequestMapping(value = "/admin/unite-{uniteBancaireId}-edit", method = RequestMethod.GET)
-	public ModelAndView initUpdateUniteBancaireForm(@PathVariable("uniteBancaireId") long uniteBancaireId) {
-		ModelAndView modelAndView = new ModelAndView("admin/newUniteBancaire.jsp");
-		UniteBancaire newUniteBancaire = this.uniteBancaireService.findUniteBancaireById(uniteBancaireId);
+	public ModelAndView initUpdateUniteBancaireForm(
+			@PathVariable("uniteBancaireId") long uniteBancaireId) {
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/newUniteBancaire.jsp");
+		UniteBancaire newUniteBancaire = this.uniteBancaireService
+				.findUniteBancaireById(uniteBancaireId);
 		modelAndView.addObject("newUniteBancaire", newUniteBancaire);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/admin/unite-{uniteBancaireId}-edit", method = RequestMethod.POST)
-	public String processUpdateUniteBancaireForm(UniteBancaire newUniteBancaire, 
+	public String processUpdateUniteBancaireForm(
+			UniteBancaire newUniteBancaire,
 			@PathVariable("uniteBancaireId") long uniteBancaireId) {
 		newUniteBancaire.setIdUniteBancaire(uniteBancaireId);
 		this.globalCrudService.update(newUniteBancaire);
 		return "redirect:/admin/unite-" + newUniteBancaire.getIdUniteBancaire();
 	}
-	
-	// ************ All unite bancaire *****************//
-		@RequestMapping(value = "/admin/allUniteBancaire", method = RequestMethod.GET)
-		public ModelAndView showAllUniteBancaire() {
-			ModelAndView modelAndView = new ModelAndView("admin/allUnites.jsp");
-			List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
-			modelAndView.addObject("uniteBancaires", uniteBancaires);
-			return modelAndView;
-		}
-		
-		
-		// ************ delete unite bancaire *****************//
-		
-		@RequestMapping(value = "/admin/unite-{uniteBancaireId}/delete", method = RequestMethod.GET)
-		public String processDeleteUniteBancaire(@PathVariable("uniteBancaireId") long uniteBancaireId) {
-			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(uniteBancaireId);
-			userService.removeUBFromUser(uniteBancaire);
-			this.globalCrudService.remove(uniteBancaire,uniteBancaireId);
-			return "redirect:/admin/allUniteBancaire";
-		}
-		// ------------------------Contact Externe ------------------------//
-		
-		// ************ create contact externe *****************//
-		
-		@RequestMapping(value="/bo/createContactExterne", method=RequestMethod.GET)
-		public ModelAndView createContactExterne (){
-			ModelAndView modelAndView = new ModelAndView("bo/createContactExterne.jsp");
-			ContactExterne newContactExterne = new ContactExterne();
-			modelAndView.addObject("newContactExterne", newContactExterne);
-			return modelAndView;
-		}
-		
-		@RequestMapping(value = "/bo/createContactExterne", method = RequestMethod.POST)
-		public String processCreateContactExterne(@ModelAttribute(value = "newContactExterne") ContactExterne newContactExterne) {
-			globalCrudService.save(newContactExterne);
-			return "redirect:/bo/contactexterne-" + newContactExterne.getIdContactExterne();
-		}
-		
-		// ************ consult contact externe *****************//
-		@RequestMapping(value = "/bo/contactexterne-{idContactExterne}")
-		public ModelAndView showContactExterne(@PathVariable("idContactExterne") long idContactExterne) {
-			ModelAndView modelAndView = new ModelAndView(
-					"bo/showContactExterne.jsp");
-			ContactExterne createdContactExterne = contactExterneService.findContactExterneById(idContactExterne);
-			modelAndView.addObject("createdContactExterne", createdContactExterne);
-			modelAndView.addObject("sousContacts", sousContactExterneService.getSousContactsByContact(createdContactExterne));
-			return modelAndView;
-		}
-		
-		// ************ edit contact externe *****************//
-		@RequestMapping(value = "/bo/contactexterne-{idContactExterne}-edit", method = RequestMethod.GET)
-		public ModelAndView initUpdateContactExterneForm(@PathVariable("idContactExterne") long idContactExterne) {
-			ModelAndView modelAndView = new ModelAndView("bo/createContactExterne.jsp");
-			ContactExterne newContactExterne = this.contactExterneService.findContactExterneById(idContactExterne);
-			modelAndView.addObject("newContactExterne", newContactExterne);
-			return modelAndView;
-		}
-		
-		@RequestMapping(value = "/bo/contactexterne-{idContactExterne}-edit", method = RequestMethod.POST)
-		public String processUpdateContactExterneForm(ContactExterne newContactExterne, 
-				@PathVariable("idContactExterne") long idContactExterne) {
-			newContactExterne.setIdContactExterne(idContactExterne);
-			this.globalCrudService.update(newContactExterne);
-			return "redirect:/bo/contactexterne-" + newContactExterne.getIdContactExterne();
-		}
-		
-		// ************ All contact externe *****************//
-		@RequestMapping(value = "/bo/allContactExterne", method = RequestMethod.GET)
-		public ModelAndView showAllContactExterne() {
-			ModelAndView modelAndView = new ModelAndView("bo/allContactExterne.jsp");
-			List<ContactExterne> contactExternes = contactExterneService.getAllContactExterne();
-			modelAndView.addObject("contactExternes", contactExternes);
-			return modelAndView;
-		}
-		
-		// ************ delete sous contact externe *****************//
-		
-		@RequestMapping(value = "/bo/contactexterne-{idContactExterne}/delete", method = RequestMethod.GET)
-		public String processDeleteContactExterne(@PathVariable("idContactExterne") long idContactExterne) {
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(idContactExterne);
-			sousContactExterneService.deleteWithContactExterne(contactExterne);
-			this.globalCrudService.remove(contactExterne,idContactExterne);
-			return "redirect:/bo/allContactExterne";
-		}
-		
-		// ------------------------ Sous contact externe ------------------------//
 
-		// ************ create sous contact externe *****************//
-		@RequestMapping(value="/bo/createSousContact", method=RequestMethod.GET)
-		public ModelAndView createSousContactExterne (Long idContactExterne){
-			ModelAndView modelAndView = new ModelAndView("bo/createSousContact.jsp");
-			SousContactExterne newSousContactExterne = new SousContactExterne();
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(idContactExterne);
-			System.out.println(contactExterne.getNomContactExterne());
-			//newSousContactExterne.setContactExterne(contactExterne);
-			modelAndView.addObject("newSousContactExterne", newSousContactExterne);
-			modelAndView.addObject("Societe", contactExterne.getNomContactExterne());
-			return modelAndView;
-		}
-		
-		@RequestMapping(value = "/bo/createSousContact", method = RequestMethod.POST)
-		public String processCreateSousContactExterne(@ModelAttribute(value = "newSousContactExterne") SousContactExterne newSousContactExterne, Long idContactExterne) {
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(idContactExterne);
-			System.out.println(contactExterne.getNomContactExterne());
-			newSousContactExterne.setContactExterne(contactExterne);
-			globalCrudService.save(newSousContactExterne);
-			return "redirect:/bo/contactexterne-" + newSousContactExterne.getContactExterne().getIdContactExterne();
-		}
-		
-		// ************ consult sous contact externe *****************//
-		@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}")
-		public ModelAndView showSousContactExterne(@PathVariable("idSousContactExterne") long idSousContactExterne) {
-			ModelAndView modelAndView = new ModelAndView(
-					"bo/showSousContactExterne.jsp");
-			SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
-			modelAndView.addObject("createdSousContactExterne", sousContactExterne);
-			modelAndView.addObject("Societe", sousContactExterne.getContactExterne().getNomContactExterne());
-			return modelAndView;
-		}
-		
-		// ************ edit sous contact externe *****************//
-		
-		@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}-edit", method = RequestMethod.GET)
-		public ModelAndView initUpdateSousContactExterneForm(@PathVariable("idSousContactExterne") long idSousContactExterne, Long idContactExterne) {
-			ModelAndView modelAndView = new ModelAndView("bo/createSousContact.jsp");
-			SousContactExterne newSousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
-			
-			modelAndView.addObject("newSousContactExterne", newSousContactExterne);
-			modelAndView.addObject("Societe", newSousContactExterne.getContactExterne().getNomContactExterne());
-			return modelAndView;
-		}
-		
-		@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}-edit", method = RequestMethod.POST)
-		public String processUpdateSousContactExterneForm(SousContactExterne newSousContactExterne, 
-				@PathVariable("idSousContactExterne") long idSousContactExterne, Long idContactExterne) {
-			newSousContactExterne.setIdSousContactExterne(idSousContactExterne);
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(idContactExterne);
-			newSousContactExterne.setContactExterne(contactExterne);
-			this.globalCrudService.update(newSousContactExterne);
-			return "redirect:/bo/contactexterne-" + newSousContactExterne.getContactExterne().getIdContactExterne();
-		}
-		
-		// ************ delete sous contact externe *****************//
-		
-		@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}/delete", method = RequestMethod.GET)
-		public String processDeleteSousContactExterne(@PathVariable("idSousContactExterne") long idSousContactExterne, Long idContactExterne) {
-			SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
-			this.globalCrudService.remove(sousContactExterne, idSousContactExterne);
-			return "redirect:/bo/contactexterne-" +idContactExterne;
-		}
+	// ************ All unite bancaire *****************//
+	@RequestMapping(value = "/admin/allUniteBancaire", method = RequestMethod.GET)
+	public ModelAndView showAllUniteBancaire() {
+		ModelAndView modelAndView = new ModelAndView("admin/allUnites.jsp");
+		List<UniteBancaire> uniteBancaires = uniteBancaireService
+				.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
+		return modelAndView;
+	}
+
+	// ************ delete unite bancaire *****************//
+
+	@RequestMapping(value = "/admin/unite-{uniteBancaireId}/delete", method = RequestMethod.GET)
+	public String processDeleteUniteBancaire(
+			@PathVariable("uniteBancaireId") long uniteBancaireId) {
+		UniteBancaire uniteBancaire = uniteBancaireService
+				.findUniteBancaireById(uniteBancaireId);
+		this.globalCrudService.remove(uniteBancaire, uniteBancaireId);
+		return "redirect:/admin/allUniteBancaire";
+	}
+
+	// ------------------------Contact Externe ------------------------//
+
+	// ************ create contact externe *****************//
+
+	@RequestMapping(value = "/bo/createContactExterne", method = RequestMethod.GET)
+	public ModelAndView createContactExterne() {
+		ModelAndView modelAndView = new ModelAndView(
+				"bo/createContactExterne.jsp");
+		ContactExterne newContactExterne = new ContactExterne();
+		modelAndView.addObject("newContactExterne", newContactExterne);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/bo/createContactExterne", method = RequestMethod.POST)
+	public String processCreateContactExterne(
+			@ModelAttribute(value = "newContactExterne") ContactExterne newContactExterne) {
+		globalCrudService.save(newContactExterne);
+		return "redirect:/bo/contactexterne-"
+				+ newContactExterne.getIdContactExterne();
+	}
+
+	// ************ consult contact externe *****************//
+	@RequestMapping(value = "/bo/contactexterne-{idContactExterne}")
+	public ModelAndView showContactExterne(
+			@PathVariable("idContactExterne") long idContactExterne) {
+		ModelAndView modelAndView = new ModelAndView(
+				"bo/showContactExterne.jsp");
+		ContactExterne createdContactExterne = contactExterneService
+				.findContactExterneById(idContactExterne);
+		modelAndView.addObject("createdContactExterne", createdContactExterne);
+		modelAndView.addObject("sousContacts", sousContactExterneService
+				.getSousContactsByContact(createdContactExterne));
+		return modelAndView;
+	}
+
+	// ************ edit contact externe *****************//
+	@RequestMapping(value = "/bo/contactexterne-{idContactExterne}-edit", method = RequestMethod.GET)
+	public ModelAndView initUpdateContactExterneForm(
+			@PathVariable("idContactExterne") long idContactExterne) {
+		ModelAndView modelAndView = new ModelAndView(
+				"bo/createContactExterne.jsp");
+		ContactExterne newContactExterne = this.contactExterneService
+				.findContactExterneById(idContactExterne);
+		modelAndView.addObject("newContactExterne", newContactExterne);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/bo/contactexterne-{idContactExterne}-edit", method = RequestMethod.POST)
+	public String processUpdateContactExterneForm(
+			ContactExterne newContactExterne,
+			@PathVariable("idContactExterne") long idContactExterne) {
+		newContactExterne.setIdContactExterne(idContactExterne);
+		this.globalCrudService.update(newContactExterne);
+		return "redirect:/bo/contactexterne-"
+				+ newContactExterne.getIdContactExterne();
+	}
+
+	// ************ All contact externe *****************//
+	@RequestMapping(value = "/bo/allContactExterne", method = RequestMethod.GET)
+	public ModelAndView showAllContactExterne() {
+		ModelAndView modelAndView = new ModelAndView("bo/allContactExterne.jsp");
+		List<ContactExterne> contactExternes = contactExterneService
+				.getAllContactExterne();
+		modelAndView.addObject("contactExternes", contactExternes);
+		return modelAndView;
+	}
+
+	// ------------------------ Sous contact externe ------------------------//
+
+	// ************ create sous contact externe *****************//
+	@RequestMapping(value = "/bo/createSousContact", method = RequestMethod.GET)
+	public ModelAndView createSousContactExterne(Long idContactExterne) {
+		ModelAndView modelAndView = new ModelAndView("bo/createSousContact.jsp");
+		SousContactExterne newSousContactExterne = new SousContactExterne();
+		ContactExterne contactExterne = contactExterneService
+				.findContactExterneById(idContactExterne);
+		System.out.println(contactExterne.getNomContactExterne());
+		// newSousContactExterne.setContactExterne(contactExterne);
+		modelAndView.addObject("newSousContactExterne", newSousContactExterne);
+		modelAndView
+				.addObject("Societe", contactExterne.getNomContactExterne());
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/bo/createSousContact", method = RequestMethod.POST)
+	public String processCreateSousContactExterne(
+			@ModelAttribute(value = "newSousContactExterne") SousContactExterne newSousContactExterne,
+			Long idContactExterne) {
+		ContactExterne contactExterne = contactExterneService
+				.findContactExterneById(idContactExterne);
+		System.out.println(contactExterne.getNomContactExterne());
+		newSousContactExterne.setContactExterne(contactExterne);
+		globalCrudService.save(newSousContactExterne);
+		return "redirect:/bo/contactexterne-"
+				+ newSousContactExterne.getContactExterne()
+						.getIdContactExterne();
+	}
+
+	// ************ consult sous contact externe *****************//
+	@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}")
+	public ModelAndView showSousContactExterne(
+			@PathVariable("idSousContactExterne") long idSousContactExterne) {
+		ModelAndView modelAndView = new ModelAndView(
+				"bo/showSousContactExterne.jsp");
+		SousContactExterne sousContactExterne = sousContactExterneService
+				.findSousContactExterneById(idSousContactExterne);
+		modelAndView.addObject("createdSousContactExterne", sousContactExterne);
+		modelAndView.addObject("Societe", sousContactExterne
+				.getContactExterne().getNomContactExterne());
+		return modelAndView;
+	}
+
+	// ************ edit sous contact externe *****************//
+
+	@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}-edit", method = RequestMethod.GET)
+	public ModelAndView initUpdateSousContactExterneForm(
+			@PathVariable("idSousContactExterne") long idSousContactExterne,
+			Long idContactExterne) {
+		ModelAndView modelAndView = new ModelAndView("bo/createSousContact.jsp");
+		SousContactExterne newSousContactExterne = sousContactExterneService
+				.findSousContactExterneById(idSousContactExterne);
+
+		modelAndView.addObject("newSousContactExterne", newSousContactExterne);
+		modelAndView.addObject("Societe", newSousContactExterne
+				.getContactExterne().getNomContactExterne());
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/bo/sousContact-{idSousContactExterne}-edit", method = RequestMethod.POST)
+	public String processUpdateSousContactExterneForm(
+			SousContactExterne newSousContactExterne,
+			@PathVariable("idSousContactExterne") long idSousContactExterne,
+			Long idContactExterne) {
+		newSousContactExterne.setIdSousContactExterne(idSousContactExterne);
+		ContactExterne contactExterne = contactExterneService
+				.findContactExterneById(idContactExterne);
+		newSousContactExterne.setContactExterne(contactExterne);
+		this.globalCrudService.update(newSousContactExterne);
+		return "redirect:/bo/contactexterne-"
+				+ newSousContactExterne.getContactExterne()
+						.getIdContactExterne();
+	}
+
+	// ------------------------Transporteur ------------------------//
+
+	// ************ create Transporteur *****************//
+
+	@RequestMapping(value = "/admin/createTransporteurExterne", method = RequestMethod.GET)
+	public ModelAndView createTransporteurExterne() {
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/createTransporteurExterne.jsp");
+		TransporteurExterne newTransporteurExterne = new TransporteurExterne();
+		modelAndView
+				.addObject("newTransporteurExterne", newTransporteurExterne);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/admin/createTransporteurExterne", method = RequestMethod.POST)
+	public String processCreateTransporteurExterne(
+			@ModelAttribute(value = "newTransporteurExterne") TransporteurExterne newTransporteurExterne) {
+		globalCrudService.save(newTransporteurExterne);
+		return "redirect:/admin/transporteurexterne-"
+				+ newTransporteurExterne.getIdTransporteurExterne();
+	}
+
+	// ************ consult transporteur externe *****************//
+
+	@RequestMapping(value = "/admin/transporteurexterne-{idTransporteurExterne}")
+	public ModelAndView showTransporteurExterne(
+			@PathVariable("idTransporteurExterne") long idTransporteurExterne) {
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/showTransporteurExterne.jsp");
+		TransporteurExterne createdTransporteurExterne = transporteurExterneService
+				.findTransporteurExterneById(idTransporteurExterne);
+		modelAndView.addObject("createdTransporteurExterne",
+				createdTransporteurExterne);
+		modelAndView
+				.addObject(
+						"coursierExterne",
+						coursierExterneService
+								.getCoursierExternesByTransporteurExterne(createdTransporteurExterne));
+		return modelAndView;
+	}
+
+	// ************ edit contact externe *****************//
+	@RequestMapping(value = "/admin/transporteurExterne-{idTransporteurExterne}-edit", method = RequestMethod.GET)
+	public ModelAndView initUpdateidTransporteurExterneForm(
+			@PathVariable("idTransporteurExterne") long idTransporteurExterne) {
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/createTransporteurExterne.jsp");
+		TransporteurExterne newTransporteurExterne = this.transporteurExterneService
+				.findTransporteurExterneById(idTransporteurExterne);
+		modelAndView
+				.addObject("newTransporteurExterne", newTransporteurExterne);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/admin/transporteurExterne-{idTransporteurExterne}-edit", method = RequestMethod.POST)
+	public String processUpdateTransporteurExterneForm(
+			TransporteurExterne newTransporteurExterne,
+			@PathVariable("idTransporteurExterne") Long idTransporteurExterne) {
+		newTransporteurExterne.setIdTransporteurExterne(idTransporteurExterne);
+		this.globalCrudService.update(newTransporteurExterne);
+		return "redirect:/admin/transporteurexterne-"
+				+ newTransporteurExterne.getIdTransporteurExterne();
+	}
+
+	// ************ All contact externe *****************//
+	@RequestMapping(value = "/admin/allTransporteurExterne", method = RequestMethod.GET)
+	public ModelAndView showAllTransporteurExterne() {
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/allTransporteurExterne.jsp");
+		List<TransporteurExterne> transporteurExternes = transporteurExterneService
+				.getAllTransporteurExterne();
+		modelAndView.addObject("transporteurExternes", transporteurExternes);
+		return modelAndView;
+	}
 }

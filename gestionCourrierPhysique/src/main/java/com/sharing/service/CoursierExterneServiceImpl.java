@@ -9,18 +9,18 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sharing.entity.CoursierExterne;
-
+import com.sharing.entity.TransporteurExterne;
 
 @Repository
 public class CoursierExterneServiceImpl implements CoursierExterneService {
-	
+
 	@PersistenceContext
 	EntityManager em;
 
-
 	@Transactional
 	public List<CoursierExterne> getAllCoursierExterne() {
-		return em.createQuery("select c from CoursierExterne c").getResultList();
+		return em.createQuery("select c from CoursierExterne c")
+				.getResultList();
 	}
 
 	@Transactional
@@ -29,9 +29,10 @@ public class CoursierExterneServiceImpl implements CoursierExterneService {
 		return (CoursierExterne) em
 				.createQuery(
 						"select c from CoursierExterne c where c.nomCoursierExterne=:nomCoursierExterne"
-						+ " and c.prenomCoursierExterne=:prenomCoursierExterne")
+								+ " and c.prenomCoursierExterne=:prenomCoursierExterne")
 				.setParameter("nomCoursierExterne", nomCoursierExterne)
-				.setParameter("prenomCoursierExterne", prenomCoursierExterne).getSingleResult();
+				.setParameter("prenomCoursierExterne", prenomCoursierExterne)
+				.getSingleResult();
 	}
 
 	@Transactional
@@ -40,4 +41,14 @@ public class CoursierExterneServiceImpl implements CoursierExterneService {
 		return em.find(CoursierExterneService.class, idCoursierExterneService);
 	}
 
+	@Override
+	@Transactional
+	public List<CoursierExterne> getCoursierExternesByTransporteurExterne(
+			TransporteurExterne transporteurExterne) {
+		return em
+				.createQuery(
+						"select c from CoursierExterne c where c.transporteurExterne= :transporteurExterne")
+				.setParameter("transporteurExterne", transporteurExterne)
+				.getResultList();
+	}
 }
