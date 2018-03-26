@@ -187,6 +187,7 @@ public class ProfileController {
 		public String disableUser(@PathVariable("userId") long userId){
 			
 			User user = userService.findUSerById(userId);
+			
 			user.setEnabled(false);
 			globalCrudService.update(user);
 			return "redirect:/admin/allUsers";
