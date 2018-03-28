@@ -20,7 +20,7 @@
         <function-class>com.Yourclass</function-class>
         <function-signature>boolean contains(java.util.List,java.lang.Object)
         </function-signature>
-    </function>
+</function>
 
 <body class="nav-md footer_fixed">
 	<div class="container body">
@@ -144,8 +144,21 @@
 												</div>
 											</div>
 										</div>
-										
-										<c:if test="${newUser.enabled == true }">
+										<c:choose>
+										<c:when test="${newUser.idUser==0}">
+									    <div class="item form-group ">
+										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select name="enabled" class="form-control" required>
+												<option value="yes" selected="selected">Yes</option>
+												<option value="no" >No</option>
+												</select>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    </c:when>
+										<c:otherwise>
+										<c:if test="${newUser.enabled == true } ">
 										<div class="item form-group ">
 										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
@@ -170,7 +183,8 @@
 											 </div>
 									    </div>
 									    </c:if>
-										
+									    </c:otherwise>
+									    </c:choose>
 										<div class="ln_solid"></div>
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
