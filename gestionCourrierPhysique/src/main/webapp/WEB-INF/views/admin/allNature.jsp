@@ -33,10 +33,10 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Les Transporteurs
+								Nature
 							</h2>
 							<ul class="nav navbar-right panel_toolbox">
-								<a href="<c:url value="/bo/createContactExterne" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> nouveau transporteur </a>
+								<a href="<c:url value="/admin/newNature" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Ajouter une nature </a>
 								
 							</ul>
 							<div class="clearfix"></div>
@@ -45,71 +45,43 @@
 							<table id="datatable-keytable" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
-								      <th>Nom</th>
-								      <th>Adresse</th>
-								      <th>télephone</th>
-								      <th>Email</th>
-								      <th>Fax</th>
-								      <th></th>
-								      <th></th>
-								      <th></th>
+								      <th style="text-align: center" >Libellé</th>
+								      <th style="text-align: center">Suppression</th>
 								    </tr>
 								  </thead>
-								<c:forEach var="transporteurExterneToShow" items="${transporteurExternes}">
+								<c:forEach var="natureToShow" items="${natures}">
 									  	<tr>
-									      <td >${transporteurExterneToShow.nomTransporteurExterne}</td>
-									      <td >${transporteurExterneToShow.adresseTransporteurExterne}</td>
-									      <td >${transporteurExterneToShow.telTransporteurExterne}</td>
-									      <td>${transporteurExterneToShow.emailTransporteurExterne}</td>
-									      <td>${transporteurExterneToShow.faxTransporteurExterne}</td>
-									      
-					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/admin/transporteurExterne-{idTransporteurExterne}" var="displayUrl">
-						                      	<spring:param name="idTransporteurExterne" value="${transporteurExterneToShow.idTransporteurExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                </td>
-						                <td style="text-align: center">	  
-										      <spring:url value="transporteurExterne-{idTransporteurExterne}-edit" var="editUrl">
-						                      	<spring:param name="idTransporteurExterne" value="${transporteurExterneToShow.idTransporteurExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
-					                	  </td>
+									      <td style="text-align: center">${natureToShow.libelleNature}</td>
 					                	  <td style="text-align: center">	  
-										      <spring:url value="transporteurExterne-{idTransporteurExterne}/delete" var="deleteUrl">
-						                      	<spring:param name="idTransporteurExterne" value="${transporteurExterneToShow.idTransporteurExterne}"/>
-						                	  </spring:url>
-						                	  <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-mehdi" >Supprimer</button>
-					                	  </td>
-					                	  <div class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	  <a href="#myModal_${natureToShow.idNature}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  
+						                	  <div id="myModal_${natureToShow.idNature}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
-                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
-                          									</button>
                           									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
                        									 </div>
                        									 <div class="modal-body">
                           								<h4>Attention !!!</h4>
-                          								<p>Etes-vous sur de vouloir supprimer ce transporteur ???</p>
+                          								<p>Etes-vous sur de vouloir supprimer cette nature ???</p>
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/nature-${natureToShow.idNature}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>
                     							</div>
                 						  </div>
+					                	  </td>
 									    </tr>
 								  </c:forEach>
 							</table>
-							
-							
+                						  
+                						  
 						</div>
 					</div>
 				</div>
-				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->
