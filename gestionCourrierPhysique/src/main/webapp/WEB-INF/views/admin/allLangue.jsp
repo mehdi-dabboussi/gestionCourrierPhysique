@@ -33,10 +33,10 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Les Contacts externes
+								Nature
 							</h2>
 							<ul class="nav navbar-right panel_toolbox">
-								<a href="<c:url value="/bo/createContactExterne" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> nouveau contact externe </a>
+								<a href="<c:url value="/admin/newNature" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Ajouter une nature </a>
 								
 							</ul>
 							<div class="clearfix"></div>
@@ -45,39 +45,17 @@
 							<table id="datatable-keytable" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
-								      <th>Nom</th>
-								      <th>Adresse</th>
-								      <th>télephone</th>
-								      <th>Email</th>
-								      <th>Fax</th>
-								      <th></th>
-								      <th></th>
-								      <th></th>
+								      <th style="text-align: center" >Libellé</th>
+								      <th style="text-align: center">Suppression</th>
 								    </tr>
 								  </thead>
-								<c:forEach var="contactExterneToShow" items="${contactExternes}">
+								<c:forEach var="natureToShow" items="${natures}">
 									  	<tr>
-									      <td >${contactExterneToShow.nomContactExterne}</td>
-									      <td >${contactExterneToShow.adresseContactExterne}</td>
-									      <td >${contactExterneToShow.telContactExterne}</td>
-									      <td>${contactExterneToShow.emailContactExterne}</td>
-									      <td>${contactExterneToShow.faxContactExterne}</td>
-									      
-					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/contactexterne-{idContactExterne}" var="displayUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                </td>
-						                <td style="text-align: center">	  
-										      <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
-					                	  </td>
+									      <td style="text-align: center">${natureToShow.libelleNature}</td>
 					                	  <td style="text-align: center">	  
-						                	  <a href="#myModal_${contactExterneToShow.idContactExterne}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${contactExterneToShow.idContactExterne}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	  <a href="#myModal_${natureToShow.idNature}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  
+						                	  <div id="myModal_${natureToShow.idNature}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
@@ -85,11 +63,11 @@
                        									 </div>
                        									 <div class="modal-body">
                           								<h4>Attention !!!</h4>
-                          								<p>Etes-vous sur de vouloir supprimer ce contact externe ???</p>
+                          								<p>Etes-vous sur de vouloir supprimer cette nature ???</p>
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/bo/contactexterne-${contactExterneToShow.idContactExterne}/delete" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/nature-${natureToShow.idNature}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>
@@ -99,10 +77,11 @@
 									    </tr>
 								  </c:forEach>
 							</table>
+                						  
+                						  
 						</div>
 					</div>
 				</div>
-				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->

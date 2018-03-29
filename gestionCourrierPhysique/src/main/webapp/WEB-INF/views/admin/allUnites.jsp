@@ -76,21 +76,11 @@
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-										      <spring:url value="unite-{idUniteBancaire}/delete" var="deleteUrl">
-						                      	<spring:param name="idUniteBancaire" value="${uniteBancaireToShow.idUniteBancaire}"/>
-						                	  </spring:url>
-						                	  <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-mehdi" >Supprimer</button>
-						                	  
-					                	  </td>
-									    </tr>
-								  </c:forEach>
-							</table>
-							<div class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	  <a href="#myModal_${uniteBancaireToShow.idUniteBancaire}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${uniteBancaireToShow.idUniteBancaire}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
-                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
-                          									</button>
                           									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
                        									 </div>
                        									 <div class="modal-body">
@@ -99,12 +89,17 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/unite-${uniteBancaireToShow.idUniteBancaire}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>
                     							</div>
                 						  </div>
+					                	  </td>
+									    </tr>
+								  </c:forEach>
+							</table>
+						
 						</div>
 					</div>
 				</div>

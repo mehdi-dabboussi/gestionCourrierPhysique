@@ -84,52 +84,11 @@
 										      <spring:url value="{userId}/delete" var="deleteUrl">
 						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
 						                	  </spring:url>
-						                	  <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-mehdi" >Supprimer</button>
-					                	  </td>
-					                	  
-					                	   <td style="text-align: center">
-									      <spring:url value="/admin/{userId}-enabled" var="enableUrl">
-									      <spring:param name="userId" value="${userToShow.idUser }"/>
-									      </spring:url>
-									      <c:if test="${userToShow.enabled == false }">
-									      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm" >Activer</button>
-									      </c:if>
-									     
-									      <c:if test="${userToShow.enabled == true }">
-									      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm" >Desactiver</button>
-									      </c:if>
-									      </td>
-					                	  
-									    </tr>
-								  </c:forEach>
-							</table>
-							<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+						                	   <a href="#myModal_${userToShow.idUser}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${userToShow.idUser}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
-                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
-                          									</button>
-                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
-                       									 </div>
-                       									 <div class="modal-body">
-                          								<h4>Attention !!</h4>
-                          								<p>Etes-vous sur ?</p>
-                        								</div>
-                       									 <div class="modal-footer">
-                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${fn:escapeXml(enableUrl)}" class="btn btn-primary" ">Sauvgarder</a>
-                       									 </div>
-
-                      								</div>
-                    							</div>
-                						  </div>
-                						  
-                						  <div class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
-                    							<div class="modal-dialog modal-sm">
-                      								<div class="modal-content">
-                        								<div class="modal-header">
-                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
-                          									</button>
                           									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
                        									 </div>
                        									 <div class="modal-body">
@@ -138,12 +97,49 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/${userToShow.idUser}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>
                     							</div>
                 						  </div>
+					                	  </td>
+					                	  
+					                	   <td style="text-align: center">
+									      <spring:url value="/admin/{userId}-enabled" var="enableUrl">
+									      <spring:param name="userId" value="${userToShow.idUser }"/>
+									      </spring:url>
+									      <c:if test="${userToShow.enabled == false }">
+									      <a href="#myModal2_${userToShow.idUser}" role="button" class="btn btn-success btn-xs" data-toggle="modal">Activer</a>
+									      </c:if>
+									     
+									      <c:if test="${userToShow.enabled == true }">
+									      <a href="#myModal2_${userToShow.idUser}" role="button" class="btn btn-warning btn-xs" data-toggle="modal">Desactiver</a>
+									      </c:if>
+									      <div id="myModal2_${userToShow.idUser}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+                    							<div class="modal-dialog modal-sm">
+                      								<div class="modal-content">
+                        								<div class="modal-header">
+                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
+                       									 </div>
+                       									 <div class="modal-body">
+                          								<h4>Attention !!!</h4>
+                          								<p>Etes-vous sur ???</p>
+                        								</div>
+                       									 <div class="modal-footer">
+                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
+                         									 <a href="${pageContext.request.contextPath}/admin/${userToShow.idUser}-enabled" class="btn btn-primary" ">Enregistrer</a>
+                       									 </div>
+
+                      								</div>
+                    							</div>
+                						  </div>
+									      </td>
+					                	  
+									    </tr>
+								  </c:forEach>
+							</table>
+							
 						</div>
 					</div>
 				</div>
