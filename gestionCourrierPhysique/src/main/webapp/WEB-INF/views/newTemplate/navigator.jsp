@@ -95,9 +95,9 @@
                         </li>
                         <li><a>Langue<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="${contextPath}/admin/newNature">Ajouter</a>
+                            <li class="sub_menu"><a href="${contextPath}/admin/newLangue">Ajouter</a>
                             </li>
-                            <li><a href="${contextPath}/admin/allNature">Les Langues</a>
+                            <li><a href="${contextPath}/admin/allLangue">Les Langues</a>
                             </li>
                           </ul>
                         </li>

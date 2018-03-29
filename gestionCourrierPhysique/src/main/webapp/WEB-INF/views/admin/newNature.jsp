@@ -71,7 +71,7 @@
 					                          <c:choose>
 										                <c:when test="${newNature.idNature==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Ajouter</button>
-															<spring:url value="/admin/allLangue" var="returnUrl">
+															<spring:url value="/admin/allNature" var="returnUrl">
 									                    	</spring:url>
 									                		<a href="${fn:escapeXml(returnUrl)}" class="btn btn-danger btn-xs">
 									                			 Annuler

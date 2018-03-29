@@ -33,10 +33,10 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Nature
+								Langue
 							</h2>
 							<ul class="nav navbar-right panel_toolbox">
-								<a href="<c:url value="/admin/newNature" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Ajouter une nature </a>
+								<a href="<c:url value="/admin/newLangue" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Ajouter une langue </a>
 								
 							</ul>
 							<div class="clearfix"></div>
@@ -49,13 +49,13 @@
 								      <th style="text-align: center">Suppression</th>
 								    </tr>
 								  </thead>
-								<c:forEach var="natureToShow" items="${natures}">
+								<c:forEach var="langueToShow" items="${langues}">
 									  	<tr>
-									      <td style="text-align: center">${natureToShow.libelleNature}</td>
+									      <td style="text-align: center">${langueToShow.libelleLangue}</td>
 					                	  <td style="text-align: center">	  
-						                	  <a href="#myModal_${natureToShow.idNature}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <a href="#myModal_${langueToShow.idLangue}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
 						                	  
-						                	  <div id="myModal_${natureToShow.idNature}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	  <div id="myModal_${langueToShow.idLangue}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
@@ -63,11 +63,11 @@
                        									 </div>
                        									 <div class="modal-body">
                           								<h4>Attention !!!</h4>
-                          								<p>Etes-vous sur de vouloir supprimer cette nature ???</p>
+                          								<p>Etes-vous sur de vouloir supprimer cette langue ???</p>
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/admin/nature-${natureToShow.idNature}/delete" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/langue-${langueToShow.idLangue}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>

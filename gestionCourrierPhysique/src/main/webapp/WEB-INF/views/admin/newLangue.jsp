@@ -41,7 +41,7 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2> Nouvelle nature</h2>
+								<h2> Nouvelle langue</h2>
 								<!-- <ul class="nav navbar-right panel_toolbox">
                       				<li>
                       					<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -53,13 +53,13 @@
 								<br />
 
 								<form:form class="form-horizontal form-label-leftr" 
-											data-toggle="validator" role="form" modelAttribute="newNature" >
+											data-toggle="validator" role="form" modelAttribute="newLangue" >
 											
 								         <div class="item form-group">
-									        <label for="inputlibelleNatureLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Libellé<em>*</em></label>	
+									        <label for="inputlibelleLangueLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Libellé<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputlibelleNature" placeholder="Libellé"
-								                		name="libelleNature" value="${newNature.libelleNature}" required>    		
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputlibelleLangue" placeholder="Libellé"
+								                		name="libelleLangue" value="${newLangue.libelleLangue}" required>    		
 											</div>
 									     </div>
 									    
@@ -69,7 +69,7 @@
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newNature.idNature==0}">
+										                <c:when test="${newLangue.idLangue==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Ajouter</button>
 															<spring:url value="/admin/allLangue" var="returnUrl">
 									                    	</spring:url>
