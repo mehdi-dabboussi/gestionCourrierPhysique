@@ -21,6 +21,8 @@ public class Courrier implements Serializable {
 	private String objetCourrier;
 	private String detailsCourrier;
 	private Date dateCreationCourrier;
+	private Nature nature;
+	private Langue langue;
 	private static final long serialVersionUID = 1L;
 
 	public Courrier() {
@@ -63,5 +65,25 @@ public class Courrier implements Serializable {
 	public void setDateCreationCourrier(Date dateCreationCourrier) {
 		this.dateCreationCourrier = dateCreationCourrier;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idNature")
+	public Nature getNature() {
+		return nature;
+	}
+	public void setNature(Nature nature) {
+		this.nature = nature;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idLangue")
+	public Langue getLangue() {
+		return langue;
+	}
+	public void setLangue(Langue langue) {
+		this.langue = langue;
+	}
+	
+	
    
 }

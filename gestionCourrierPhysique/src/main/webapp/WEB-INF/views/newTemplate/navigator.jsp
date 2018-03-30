@@ -56,7 +56,7 @@
 					</sec:authorize>
 					
 					<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-						<li><a><i class="fa fa-users"></i>Unité Bancaire<span class="fa fa-chevron-down"></span></a>
+						<li><a><i class="fa fa-sitemap"></i>Unité Bancaire<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="${contextPath}/admin/newUniteBancaire">Nouveau</a></li>
 								<li><a href="${contextPath}/admin/allUniteBancaire">Les unités Bancaire</a></li>
@@ -69,6 +69,15 @@
 							<ul class="nav child_menu">
 								<li><a href="${contextPath}/bo/createContactExterne">Nouveau</a></li>
 								<li><a href="${contextPath}/bo/allContactExterne">Les contacts externes</a></li>
+							</ul>
+						</li>
+					</sec:authorize>
+					
+					<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
+						<li><a><i class="fa fa-edit"></i>Courrier<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/bo/createContactExterne">Nouveau courrier</a></li>
+								<li><a href="${contextPath}/bo/allContactExterne">Les courriers</a></li>
 							</ul>
 						</li>
 					</sec:authorize>
