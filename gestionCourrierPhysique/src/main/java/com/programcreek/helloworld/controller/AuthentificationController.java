@@ -30,68 +30,60 @@ public class AuthentificationController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView authenticate(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "logout", required = false) String logout) {
+		ModelAndView model;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (logout==null) {
-			System.out.println("is authenticate");
+		if (auth.getPrincipal().equals("anonymousUser")) {
+			System.out.println("is not authenticate");
+			model = new ModelAndView("login.jsp");
 		}
 		else {
-			System.out.println("is not authenticate");
-		}
-		
-		ModelAndView model = new ModelAndView();
-		if (error != null) {
-			model.addObject("error", "Invalid username and password!");
-		}
-		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
-		}
-		model.setViewName("login.jsp");
-		return model;
-	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView defaultPage(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "logout", required = false) String logout) {
-		/*ModelAndView model = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (auth != null) {
 			System.out.println("is authenticate");
-			model.setViewName("showMyProfile.jsp");
 			
+			model = new ModelAndView("showMyProfile.jsp");
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			User user = userService.findUserByLogin(userDetail.getUsername());
 			model.addObject("createdUser", user);
 			model.addObject("role", user.getRoles().get(0).getName());
 		}
-		else {
-		System.out.println("is not authenticate");
+		
+		
 		if (error != null) {
 			model.addObject("error", "Invalid username and password!");
 		}
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
-		model.setViewName("login.jsp");
-		}
-		return model;*/
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (logout==null) {
-			System.out.println("is authenticate");
-		}
-		else {
-			System.out.println("is not authenticate");
-		}
-		
-		ModelAndView model = new ModelAndView();
-		if (error != null) {
-			model.addObject("error", "Invalid username and password!");
-		}
-		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
-		}
-		model.setViewName("login.jsp");
 		return model;
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView defaultPage(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "logout", required = false) String logout) {
+
+		ModelAndView model;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getPrincipal().equals("anonymousUser")) {
+			System.out.println("is not authenticate");
+			model = new ModelAndView("login.jsp");
+		}
+		else {
+			System.out.println("is authenticate");
+			
+			model = new ModelAndView("showMyProfile.jsp");
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			User user = userService.findUserByLogin(userDetail.getUsername());
+			model.addObject("createdUser", user);
+			model.addObject("role", user.getRoles().get(0).getName());
+		}
+		
+		
+		if (error != null) {
+			model.addObject("error", "Invalid username and password!");
+		}
+		if (logout != null) {
+			model.addObject("msg", "You've been logged out successfully.");
+		}
+		return model;
+		
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
