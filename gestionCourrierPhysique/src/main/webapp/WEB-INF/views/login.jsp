@@ -16,7 +16,7 @@
 			</div>
 			<div class="login-block">
 				<form action="<spring:url value='/j_spring_security_check' />" role="form" method="post">
-					<input type="text" name="login" placeholder="Email" required="required">
+					<input type="text" name="login" placeholder="Login" required="required">
 					<input type="password" name="password" class="lock" placeholder="Password">
 					<div class="forgot-top-grids">
 						<div class="forgot-grid">

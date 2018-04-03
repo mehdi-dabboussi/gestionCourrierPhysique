@@ -23,6 +23,7 @@ public class Courrier implements Serializable {
 	private Date dateCreationCourrier;
 	private Nature nature;
 	private Langue langue;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Courrier() {
