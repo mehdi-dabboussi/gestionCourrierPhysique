@@ -76,8 +76,8 @@
 					<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
 						<li><a><i class="fa fa-edit"></i>Courrier<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
-								<li><a href="${contextPath}/bo/createContactExterne">Nouveau courrier</a></li>
-								<li><a href="${contextPath}/bo/allContactExterne">Les courriers</a></li>
+								<li><a href="${contextPath}/bo/newCourrier">Nouveau courrier</a></li>
+								<li><a href="${contextPath}/bo/allCourrier">Les courriers</a></li>
 							</ul>
 						</li>
 					</sec:authorize>

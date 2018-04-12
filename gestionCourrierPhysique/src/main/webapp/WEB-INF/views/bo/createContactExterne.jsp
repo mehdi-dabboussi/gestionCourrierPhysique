@@ -15,13 +15,6 @@
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
 
-<function>
-        <name>contains</name>
-        <function-class>com.Yourclass</function-class>
-        <function-signature>boolean contains(java.util.List,java.lang.Object)
-        </function-signature>
-    </function>
-
 <body class="nav-md footer_fixed">
 	<div class="container body">
 		<div class="main_container">

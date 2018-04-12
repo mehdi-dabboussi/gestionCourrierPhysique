@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: User
@@ -34,6 +35,9 @@ public class User implements Serializable {
 	private String historiqueIdentifier;
 	private List<Role> roles;
 	private UniteBancaire uniteBancaire;
+	
+	/*private List<Courrier> courriersEnvoyer;
+	private List<Courrier> courriersRecu;*/
 
 	// ******** getters and setters ************//
 
@@ -134,5 +138,25 @@ public class User implements Serializable {
 	public void setUniteBancaire(UniteBancaire uniteBancaire) {
 		this.uniteBancaire = uniteBancaire;
 	}
+
+	/*public List<Courrier> getCourriersEnvoyer() {
+		return courriersEnvoyer;
+	}
+
+	@OneToMany(mappedBy = "emetteur",fetch=FetchType.EAGER)
+	public void setCourriersEnvoyer(List<Courrier> courriersEnvoyer) {
+		this.courriersEnvoyer = courriersEnvoyer;
+	}
+
+	@OneToMany(mappedBy = "destinataire",fetch=FetchType.EAGER)
+	public List<Courrier> getCourriersRecu() {
+		return courriersRecu;
+	}
+
+	public void setCourriersRecu(List<Courrier> courriersRecu) {
+		this.courriersRecu = courriersRecu;
+	}*/
+	
+	
 
 }

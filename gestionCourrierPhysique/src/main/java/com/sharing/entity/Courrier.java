@@ -23,6 +23,8 @@ public class Courrier implements Serializable {
 	private Date dateCreationCourrier;
 	private Nature nature;
 	private Langue langue;
+	private User emetteur;
+	private User destinataire;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -83,6 +85,24 @@ public class Courrier implements Serializable {
 	}
 	public void setLangue(Langue langue) {
 		this.langue = langue;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idUser", insertable=false , updatable=false)
+	public User getEmetteur() {
+		return emetteur;
+	}
+	public void setEmetteur(User emetteur) {
+		this.emetteur = emetteur;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idUser", insertable=false , updatable=false)
+	public User getDestinataire() {
+		return destinataire;
+	}
+	public void setDestinataire(User destinataire) {
+		this.destinataire = destinataire;
 	}
 	
 	

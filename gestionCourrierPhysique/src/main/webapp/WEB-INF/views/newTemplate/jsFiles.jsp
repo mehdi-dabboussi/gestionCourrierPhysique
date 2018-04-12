@@ -189,6 +189,66 @@
 			});
 		});
 	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$(".nature").select2({
+				placeholder : "Choisir une nature",
+				allowClear : true
+			});
+			$(".select2_group").select2({});
+			$(".select2_multiple").select2({
+				maximumSelectionLength : 4,
+				placeholder : "With Max Selection limit 4",
+				allowClear : true
+			});
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$(".langue").select2({
+				placeholder : "Choisir une langue",
+				allowClear : true
+			});
+			$(".select2_group").select2({});
+			$(".select2_multiple").select2({
+				maximumSelectionLength : 4,
+				placeholder : "With Max Selection limit 4",
+				allowClear : true
+			});
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$(".emetteur").select2({
+				placeholder : "Choisir l'emetteur",
+				allowClear : true
+			});
+			$(".select2_group").select2({});
+			$(".select2_multiple").select2({
+				maximumSelectionLength : 4,
+				placeholder : "With Max Selection limit 4",
+				allowClear : true
+			});
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$(".destinataire").select2({
+				placeholder : "Choisir le destinataire",
+				allowClear : true
+			});
+			$(".select2_group").select2({});
+			$(".select2_multiple").select2({
+				maximumSelectionLength : 4,
+				placeholder : "With Max Selection limit 4",
+				allowClear : true
+			});
+		});
+	</script>
 	<!-- /Select2 -->
 
 	<!-- jQuery Tags Input -->
