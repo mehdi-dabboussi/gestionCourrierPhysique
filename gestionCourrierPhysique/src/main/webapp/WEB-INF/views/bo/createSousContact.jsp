@@ -50,40 +50,45 @@
 											
 								         <div class="item form-group">
 									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
-									        <div class="col-md-6 col-sm-6 col-xs-12">
+									        <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
-								                		name="nomSousContactExterne" value="${newSousContactExterne.nomSousContactExterne}" required>    		
+								                		name="nomSousContactExterne" value="${newSousContactExterne.nomSousContactExterne}" required>  
+								                		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>   		
 											</div>
 									     </div>
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Prénom<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputPrenom" placeholder="prenom"
 												 		name="prenomSousContactExterne" value="${newSousContactExterne.prenomSousContactExterne}" required>
+												 		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>   	
 											 </div>
 										</div>
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
 												 		name="emailSousContactExterne" value="${newSousContactExterne.emailSousContactExterne}" required>
+												 		<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>   	
 											 </div>
 										</div>
 										
 										<div class="item form-group">
 										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputSousContactTel" placeholder="Téléphone"
 												 		name="telSousContactExterne" value="${newSousContactExterne.telSousContactExterne}" required>
+												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>   	
 											 </div>
 										</div>
 										
 									    
 									    <div class="item form-group ">
 										     <label for="inputSocieteLab"  class="control-label col-md-3 col-sm-3 col-xs-12">société<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<input type="text" class="form-control col-md-7 col-xs-12" id="inputSousContactSociete" placeholder="Société"
 												 		name="SousContactSociete" value="${Societe}" required disabled="disabled">
+												 		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>   	
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>

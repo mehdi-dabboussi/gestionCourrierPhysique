@@ -89,13 +89,14 @@
 									    
 									    <div class="item form-group ">
 										     <label for="inputLangueLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Langue<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="langueC" class="select2_single langue form-control" tabindex="-1" required>
 													<option value="${newCourrier.langue.idLangue}">${newCourrier.langue.libelleLangue}</option>
 												<c:forEach var="langue" items="${langues}">
 													<option value="${langue.idLangue}">${langue.libelleLangue}</option>
 												</c:forEach>
 												</select>
+												<span class="fa fa-language form-control-feedback right" aria-hidden="true"></span>
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
@@ -104,33 +105,63 @@
 											 <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Emetteur<em>*</em></label>	
 											 <div class="col-md-6 col-sm-6 col-xs-12">
 											 <div class="radio">
-													<label> <input type="radio" value="user" name="emetteur" required>
+													<label> <input type="radio" value="user" name="emetteur"  required id="emetuser">
 														utilisateur
 													</label>
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
-													value="unite" name="emetteur" required>
+													value="unite" name="emetteur" required id="emetunite">
 														unité bancaire
 													</label>
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
-													value="contact" name="emetteur" required>
+													value="contact" name="emetteur" required id="emetcontact"> 
 														contact externe
 													</label>
 												</div>
 											</div>
 										</div>
-									    <div class="item form-group ">
+										
+									    <div class="item form-group " id="usersemet" >
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
-												<select name="emetteurC" class="select2_single emetteur form-control" tabindex="-1" required>
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
+												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required>
 													<option value="${newCourrier.emetteur.idUser}">${newCourrier.emetteur.userName} </option>
 												<c:forEach var="user" items="${users}">
 													<option value="${user.idUser}">${user.userName}</option>
 												</c:forEach>
 												</select>
+												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
+									    <div class="item form-group " id="unitesemet" >
+										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
+												<select name="emetteurUnite" class="select2_single emetteur form-control" tabindex="-1" required>
+													<option value="${newCourrier.emetteur.idUser}">${newCourrier.emetteur.userName} </option>
+												<c:forEach var="unite" items="${uniteBancaires}">
+													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
+												</c:forEach>
+												</select>
+												<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
+									    <div class="item form-group " id="contactsemet" >
+										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
+												<select name="emetteurContactExterne" class="select2_single emetteur form-control" tabindex="-1" required>
+													<option value="${newCourrier.emetteur.idUser}">${newCourrier.emetteur.userName} </option>
+												<c:forEach var="contact" items="${contactExternes}">
+													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
+												</c:forEach>
+												</select>
+												<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
@@ -139,34 +170,63 @@
 											 <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Destinataire<em>*</em></label>	
 											 <div class="col-md-6 col-sm-6 col-xs-12">
 											 <div class="radio">
-													<label> <input type="radio" value="user" name="destinataire" required>
+													<label> <input type="radio" value="user" name="destinataire" required id="destuser">
 														utilisateur
 													</label>
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
-													value="unite" name="emetteur" required>
+													value="unite" name="emetteur" required id="destunite">
 														unité bancaire
 													</label>
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
-													value="contact" name="emetteur" required>
+													value="contact" name="emetteur" required id="destcontact">
 														contact externe
 													</label>
 												</div>
 											</div>
 										</div>
 									    
-									    <div class="item form-group ">
+									    <div class="item form-group " id="usersdest">
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
-												<select name="destinataireC" class="select2_single destinataire form-control" tabindex="-1" required>
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
+												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required>
 													<option value="${newCourrier.destinataire.idUser}">${newCourrier.destinataire.userName} </option>
 												<c:forEach var="user" items="${users}">
 													<option value="${user.idUser}">${user.userName}</option>
 												</c:forEach>
 												</select>
+												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
+									    <div class="item form-group " id="unitesdest">
+										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
+												<select name="destinataireUnite" class="select2_single destinataire form-control" tabindex="-1" required>
+													<option value="${newCourrier.destinataire.idUser}">${newCourrier.destinataire.userName} </option>
+												<c:forEach var="unite" items="${uniteBancaires}">
+													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
+												</c:forEach>
+												</select>
+												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
+									    <div class="item form-group " id="contactsdest">
+										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
+												<select name="destinataireContact" class="select2_single destinataire form-control" tabindex="-1" required>
+													<option value="${newCourrier.destinataire.idUser}">${newCourrier.destinataire.userName} </option>
+												<c:forEach var="contact" items="${contactExternes}">
+													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
+												</c:forEach>
+												</select>
+												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
@@ -240,7 +300,58 @@
 
         return false;
       });
-    </script>
+      </script>
+      
+      <script>
+      
+      $(document).ready(function(){
+    	  $('#usersemet').hide();
+    	  $('#unitesemet').hide();
+    	  $('#contactsemet').hide();
+    	  
+    	  $('#usersdest').hide();
+    	  $('#unitesdest').hide();
+    	  $('#contactsdest').hide();
+    	  
+    	  $('#emetuser').click(function(){
+    		  $('#unitesemet').hide();
+    		  $('#contactsemet').hide();
+    		  $('#usersemet').show();
+    	  });
+    	  $('#emetunite').click(function(){
+    		  $('#usersemet').hide();
+    		  $('#contactsemet').hide();
+    		  $('#unitesemet').show();
+    	  });
+    	  $('#emetcontact').click(function(){
+    		  $('#usersemet').hide();
+    		  $('#unitesemet').hide();
+    		  $('#contactsemet').show();
+    	  });
+    	  
+    	  $('#destuser').click(function(){
+    		  $('#unitesdest').hide();
+        	  $('#contactsdest').hide();
+    		  $('#usersdest').show();
+    	  });
+    	  
+    	  $('#destunite').click(function(){
+    		  $('#usersdest').hide();
+        	  $('#contactsdest').hide();
+    		  $('#unitesdest').show();
+    	  });
+    	  
+    	  $('#destcontact').click(function(){
+    		  $('#unitesdest').hide();
+        	  $('#usersdest').hide();
+    		  $('#contactsdest').show();
+    	  });
+    	  
+      });
+      
+      </script>
+    
+    
     <!-- /validator -->
 </body>
 </html>

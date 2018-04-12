@@ -64,6 +64,10 @@
 														<td>${createdUser.userEmail}</td>
 													</tr>
 													<tr>
+														<th >Téléphone:</th>
+														<td>${createdUser.userTel}</td>
+													</tr>
+													<tr>
 														<th >identifiant utilisateur:</th>
 														<td>${createdUser.historiqueIdentifier}</td>
 													</tr>

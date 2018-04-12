@@ -12,6 +12,12 @@
     </function>
     
     <function>
+        <name>enabled</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean enabled(com.sharing.entity.User)</function-signature>
+    </function>
+    
+    <function>
         <name>userSeeButtonValidateReception</name>
         <function-class>com.sharing.ServiceJavaScript</function-class>
         <function-signature>boolean userSeeButtonValidateReception(com.sharing.entity.User,com.sharing.entity.Transfert) </function-signature>

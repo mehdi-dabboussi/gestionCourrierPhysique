@@ -22,6 +22,13 @@
         </function-signature>
 </function>
 
+<function>
+        <name>enabled</name>
+        <function-class>com.Yourclass</function-class>
+        <function-signature>boolean enabled(com.sharing.entity.User)
+        </function-signature>
+</function>
+
 <body class="nav-md footer_fixed">
 	<div class="container body">
 		<div class="main_container">
@@ -57,66 +64,84 @@
 											
 								         <div class="item form-group">
 									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
-									        <div class="col-md-6 col-sm-6 col-xs-12">
+									        <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
-								                		name="userName" value="${newUser.userName}" required>    		
+								                		name="userName" value="${newUser.userName}" required>  
+								                		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>  		
 											</div>
 									     </div>
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Prénom<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputPrenom" placeholder="prenom"
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
+												 <input type="text" class="form-control col-md-7 col-xs-12 "id="inputPrenom" placeholder="prenom"
 												 		name="surName" value="${newUser.surName}" required>
+												 		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span> 
 											 </div>
 										</div>
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
 												 		name="userEmail" value="${newUser.userEmail}" required>
+												 		<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
 											 </div>
 										</div>
+										
+										<div class="item form-group">
+										     <label for="userTel"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
+												 <input type="tel" class="form-control col-md-7 col-xs-12" id="userTel" placeholder="Téléphone"
+												 		name="userTel" value="${newUser.userTel}" data-validate-lenght="8" required >
+												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+											 </div>
+										</div>
+										
 										<div class="item form-group ">
 										     <label for="historiqueIdentifier"  class="control-label col-md-3 col-sm-3 col-xs-12">Identitifant utilisateur<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="historiqueIdentifier" placeholder="Identitifant utilisateur"
 								              			name="historiqueIdentifier" value="${newUser.historiqueIdentifier}" required>
+								              			<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span> 
 											 </div> 
 									    </div>  
 										<div class="item form-group ">
 										     <label for="inputLoginLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Login<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="Login" placeholder="login"
 								              			name="login" value="${newUser.login}" required>
+								              			<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span> 
 											 </div> 
 									    </div>
 									    <div class="item form-group">
 										     <label for="inputPasswordLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Password<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 								                <input id="password" placeholder="mot de passe" type="password" name="password" class="form-control col-md-7 col-xs-12" 
 								                  value="${newUser.password}"  data-validate-length="5" required>
+								                  <span class="fa fa-key form-control-feedback right" aria-hidden="true"></span> 
 								              	<div class="help-block">Minimum of 6 characters</div>
 											 </div> 
 									    </div>
 									    <div class="item form-group ">
 										     <label for="inputLoginLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Confirm password<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<input id="inputPasswordConfirm" type="password" class="form-control col-md-7 col-xs-12" 
 						                         	  data-validate-linked="password"   value="${newUser.password}" 
 						                         	  placeholder="Confirmer mot de passe" required>
+						                         	  <span class="fa fa-key form-control-feedback right" aria-hidden="true"></span> 
 												<div class="help-block with-errors"></div>
 											 </div> 
 									    </div> 
 									    
 									    <div class="item form-group ">
 										     <label for="inputUniteBancaireLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Unité bancaire<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="uniteB" class="select2_single form-control" tabindex="-1" required>
 													<option value="${newUser.uniteBancaire.idUniteBancaire}">${newUser.uniteBancaire.nomUniteBancaire}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
 												</c:forEach>
 												</select>
+												<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span> 
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
@@ -148,41 +173,46 @@
 										<c:when test="${newUser.idUser==0}">
 									    <div class="item form-group ">
 										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="enabled" class="form-control" required>
 												<option value="yes" selected="selected">Yes</option>
 												<option value="no" >No</option>
 												</select>
+												<span class="fa fa-check-circle form-control-feedback right" aria-hidden="true"></span> 
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
 									    </c:when>
 										<c:otherwise>
-										<c:if test="${newUser.enabled == true } ">
+										<c:choose>
+										<c:when test="${ myfn:enabled(newUser) }">
 										<div class="item form-group ">
 										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="enabled" class="form-control" required>
 												<option value="yes" selected="selected">Yes</option>
 												<option value="no"  >No</option>
 												</select>
+												<span class="fa fa-check-circle form-control-feedback right" aria-hidden="true"></span> 
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
-									    </c:if>
+									    </c:when>
 									    
-									    <c:if test="${newUser.enabled == false }">
+									    <c:otherwise>
 										<div class="item form-group ">
 										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="enabled" class="form-control" required>
-												<option value="yes" >Yes</option>
+												<option value="yes" selected="selected" >Yes</option>
 												<option value="no" selected="selected" >No</option>
 												</select>
+												<span class="fa fa-check-circle form-control-feedback right" aria-hidden="true"></span> 
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
-									    </c:if>
+									    </c:otherwise>
+									    </c:choose>
 									    </c:otherwise>
 									    </c:choose>
 										<div class="ln_solid"></div>

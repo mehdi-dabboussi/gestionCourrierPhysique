@@ -31,6 +31,7 @@ public class User implements Serializable {
 	private String surName;
 	private boolean enabled;
 	private String userEmail;
+	private String userTel;
 
 	private String historiqueIdentifier;
 	private List<Role> roles;
@@ -138,6 +139,16 @@ public class User implements Serializable {
 	public void setUniteBancaire(UniteBancaire uniteBancaire) {
 		this.uniteBancaire = uniteBancaire;
 	}
+
+	public String getUserTel() {
+		return userTel;
+	}
+
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
+	}
+	
+	
 
 	/*public List<Courrier> getCourriersEnvoyer() {
 		return courriersEnvoyer;

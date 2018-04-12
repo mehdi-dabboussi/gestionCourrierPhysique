@@ -50,37 +50,42 @@
 											
 								         <div class="item form-group">
 									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom de l'unite<em>*</em></label>	
-									        <div class="col-md-6 col-sm-6 col-xs-12">
+									        <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="Nom de l'unite"
 								                		name="nomUniteBancaire" value="${newUniteBancaire.nomUniteBancaire}" required>    		
+								                		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span> 
 											</div>
 									     </div>
 										<div class="item form-group">
 										     <label for="inputAdressLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Adresse<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputAdress" placeholder="Adresse"
 												 		name="adresseUniteBancaire" value="${newUniteBancaire.adresseUniteBancaire}" required>
+												 		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span> 
 											 </div>
 										</div>
 										<div class="item form-group">
 										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12">
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputTelUniteBancaire" placeholder="Téléphone"
 												 		name="telUniteBancaire" value="${newUniteBancaire.telUniteBancaire}" data-validate-lenght="8" required >
+												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span> 
 											 </div>
 										</div>
 										<div class="item form-group ">
 										     <label for="inputEmailUniteBancaire"  class="control-label col-md-3 col-sm-3 col-xs-12">e-mail<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputEmailUniteBancaire" placeholder="e-mail"
 								              			name="emailUniteBancaire" value="${newUniteBancaire.emailUniteBancaire}" required>
+								              			<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span> 
 											 </div> 
 									    </div>  
 										<div class="item form-group ">
 										     <label for="FaxUniteBancaire"  class="control-label col-md-3 col-sm-3 col-xs-12">Fax<em>*</em></label>	
-										      <div class="col-md-6 col-sm-6 col-xs-12">
+										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="FaxUniteBancaire" placeholder="Fax"
 								              			name="faxUniteBancaire" value="${newUniteBancaire.faxUniteBancaire}" data-validate-length="7" required>
+								              			<span class="fa fa-fax form-control-feedback right" aria-hidden="true"></span> 
 											 </div> 
 									    </div>
 									 
