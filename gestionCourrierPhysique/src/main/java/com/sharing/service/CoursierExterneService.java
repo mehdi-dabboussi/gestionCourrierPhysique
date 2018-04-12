@@ -13,7 +13,7 @@ public interface CoursierExterneService {
 
 	CoursierExterne findCoursierExterneByNameSurname(String nomCoursierExterne, String prenomCoursierExterne);
 	
-	CoursierExterneService findCoursierExterneServiceById(long idCoursierExterneService);
+	CoursierExterne findCoursierExterneServiceById(long idCoursierExterneService);
 
 	List<CoursierExterne> getCoursierExternesByTransporteurExterne(
 			TransporteurExterne transporteurExterne);

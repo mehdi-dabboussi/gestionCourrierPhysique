@@ -19,7 +19,7 @@ public class CoursierExterne implements Serializable {
 	private String nomCoursierExterne;
 	private String prenomCoursierExterne;
 	private String telCoursierExterne;
-	private String emailCouriserExterne;
+	private String emailCoursierExterne;
 	private TransporteurExterne transporteurExterne;
 	private static final long serialVersionUID = 1L;
 	
@@ -56,12 +56,12 @@ public class CoursierExterne implements Serializable {
 	public void setTelCoursierExterne(String telCoursierExterne) {
 		this.telCoursierExterne = telCoursierExterne;
 	}   
-	public String getEmailCouriserExterne() {
-		return this.emailCouriserExterne;
+	public String getEmailCoursierExterne() {
+		return this.emailCoursierExterne;
 	}
 
-	public void setEmailCouriserExterne(String emailCouriserExterne) {
-		this.emailCouriserExterne = emailCouriserExterne;
+	public void setEmailCoursierExterne(String emailCoursierExterne) {
+		this.emailCoursierExterne = emailCoursierExterne;
 	}
    
 	@ManyToOne

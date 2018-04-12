@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.sharing.entity.ContactExterne;
+import com.sharing.entity.CoursierExterne;
+import com.sharing.entity.SousContactExterne;
 import com.sharing.entity.TransporteurExterne;
 import com.sharing.service.CoursierExterneService;
 import com.sharing.service.GlobalCrudService;
@@ -120,6 +122,83 @@ public class TransporteurController {
 				this.globalCrudService.remove(transporteurExterne, idTransporteurExterne);
 				return "redirect:/admin/allTransporteurExterne";
 		}
+		// ------------------------ Coursier Externe ------------------------//
+		
+		// ************ create Coursier Externe  *****************//
+		
+				@RequestMapping(value = "/admin/createCoursierExterne", method = RequestMethod.GET)
+				public ModelAndView createCoursierExterne(Long idTransporteurExterne) {
+					ModelAndView modelAndView = new ModelAndView("admin/createCoursierExterne.jsp");
+					CoursierExterne newCoursierExterne = new CoursierExterne();
+					TransporteurExterne transporteurExterne = transporteurExterneService.findTransporteurExterneById(idTransporteurExterne);
+					System.out.println(transporteurExterne.getNomTransporteurExterne());
+					
+					modelAndView.addObject("newCoursierExterne", newCoursierExterne);
+					modelAndView.addObject("Societe", transporteurExterne.getNomTransporteurExterne());
+					return modelAndView;
+				}
+				@RequestMapping(value = "/admin/createCoursierExterne", method = RequestMethod.POST)
+				public String processcreateCoursierExterne(
+						@ModelAttribute(value = "newCoursierExterne") CoursierExterne newCoursierExterne,
+						Long idTransporteurExterne) {
+					TransporteurExterne transporteurExterne = transporteurExterneService.findTransporteurExterneById(idTransporteurExterne);
+					System.out.println(transporteurExterne.getNomTransporteurExterne());
+					newCoursierExterne.setTransporteurExterne(transporteurExterne);
+					globalCrudService.save(newCoursierExterne);
+					return "redirect:/admin/transporteurExterne-"+ newCoursierExterne.getTransporteurExterne().getIdTransporteurExterne();
+				}
 
-}
+				// ************ consult Coursier Externe *****************//
+				
+				@RequestMapping(value = "/admin/coursierExterne-{idCoursierExterne}")
+				public ModelAndView showSousContactExterne(
+						@PathVariable("idCoursierExterne") long idCoursierExterne) {
+					ModelAndView modelAndView = new ModelAndView(
+							"admin/showCoursierExterne.jsp");
+					CoursierExterne coursierExterne= coursierExterneService.findCoursierExterneServiceById(idCoursierExterne);
+					modelAndView.addObject("createdCoursierExterne", coursierExterne);
+					modelAndView.addObject("Societe", coursierExterne.getTransporteurExterne().getNomTransporteurExterne());
+					return modelAndView;
+				}
+				
+				// ************ edit Coursier Externe  *****************//
+
+				@RequestMapping(value = "/admin/coursierExterne-{idCoursierExterne}-edit", method = RequestMethod.GET)
+				public ModelAndView initUpdateCoursierExterneForm(
+						@PathVariable("idCoursierExterne") long idCoursierExterne,
+						Long idTransporteurExterne) {
+					ModelAndView modelAndView = new ModelAndView("admin/createCoursierExterne.jsp");
+					CoursierExterne newcoursierExterne = coursierExterneService.findCoursierExterneServiceById(idCoursierExterne);
+					modelAndView.addObject("newcoursierExterne", newcoursierExterne);
+					modelAndView.addObject("Societe", newcoursierExterne.getTransporteurExterne().getNomTransporteurExterne());
+					return modelAndView;
+				}
+
+				@RequestMapping(value = "/admin/coursierExterne-{idCoursierExterne}-edit", method = RequestMethod.POST)
+				public String processUpdateCoursierExterneeForm(
+						CoursierExterne newcoursierExterne,
+						@PathVariable("idCoursierExterne") long idCoursierExterne,
+						Long idTransporteurExterne) {
+					newcoursierExterne.setIdCoursierExterne(idCoursierExterne);
+					TransporteurExterne transporteurExterne = transporteurExterneService.findTransporteurExterneById(idTransporteurExterne);
+					newcoursierExterne.setTransporteurExterne(transporteurExterne);
+					this.globalCrudService.update(newcoursierExterne);
+					return "redirect:/admin/transporteurExterne-"
+							+ newcoursierExterne.getTransporteurExterne().getIdTransporteurExterne();
+				}
+				
+				
+				// ************ deleteCoursier Externe *****************//
+				
+						@RequestMapping(value = "/admin/coursierExterne-{idCoursierExterne}/delete", method = RequestMethod.GET)
+						public String processDeleteCoursierExterne(@PathVariable("idCoursierExterne") long idCoursierExterne, Long idTransporteurExterne) 
+						{
+							CoursierExterne coursierExterne = coursierExterneService.findCoursierExterneServiceById(idCoursierExterne);
+							this.globalCrudService.remove(coursierExterne, idCoursierExterne);
+							return "redirect:/admin/coursierExterne-" + idTransporteurExterne;
+						}
+		}
+
+
+
 

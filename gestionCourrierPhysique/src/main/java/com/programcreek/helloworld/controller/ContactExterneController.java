@@ -151,8 +151,7 @@ public class ContactExterneController {
 				@PathVariable("idSousContactExterne") long idSousContactExterne) {
 			ModelAndView modelAndView = new ModelAndView(
 					"bo/showSousContactExterne.jsp");
-			SousContactExterne sousContactExterne = sousContactExterneService
-					.findSousContactExterneById(idSousContactExterne);
+			SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
 			modelAndView.addObject("createdSousContactExterne", sousContactExterne);
 			modelAndView.addObject("Societe", sousContactExterne
 					.getContactExterne().getNomContactExterne());

@@ -38,9 +38,9 @@ public class CoursierExterneServiceImpl implements CoursierExterneService {
 	}
 
 	@Transactional
-	public CoursierExterneService findCoursierExterneServiceById(
-			long idCoursierExterneService) {
-		return em.find(CoursierExterneService.class, idCoursierExterneService);
+	public CoursierExterne findCoursierExterneServiceById(
+			long idCoursierExterne) {
+		return em.find(CoursierExterne.class, idCoursierExterne);
 	}
 
 	@Override

@@ -36,7 +36,7 @@
 								Les Transporteurs
 							</h2>
 							<ul class="nav navbar-right panel_toolbox">
-								<a href="<c:url value="/bo/createContactExterne" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> nouveau transporteur </a>
+								<a href="<c:url value="/admin/createTransporteurExterne" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> nouveau transporteur </a>
 								
 							</ul>
 							<div class="clearfix"></div>

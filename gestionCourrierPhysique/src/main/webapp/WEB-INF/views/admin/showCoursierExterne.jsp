@@ -14,8 +14,6 @@
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
 
-
-
 <body class="nav-md footer_fixed">
 	<div class="container body">
 		<div class="main_container">
@@ -35,7 +33,7 @@
 							<div class="col-xs-12 invoice-header">
 								<h2>
 									<i class="fa fa-user-o"></i>
-									Informations sur le transporteur</
+									Information sous contact externe</
 								</h2>
 							</div> 
 							<!-- /.col -->
@@ -55,23 +53,23 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdTransporteurExterne.nomTransporteurExterne}</td>
+														<td>${createdCoursierExterne.nomCoursierExterne}</td>
 													</tr>
 													<tr>
-														<th >Adresse :</th>
-														<td>${createdTransporteurExterne.adresseTransporteurExterne}</td>
+														<th >Prenom : </th>
+														<td>${createdCoursierExterne.prenomCoursierExterne}</td>
 													</tr>
 													<tr>
 														<th >Téléphone :</th>
-														<td>${createdTransporteurExterne.telTransporteurExterne}</td>
+														<td>${createdCoursierExterne.telCoursierExterne}</td>
 													</tr>
 													<tr>
 														<th >E-mail :</th>
-														<td>${createdTransporteurExterne.emailTransporteurExterne}</td>
+														<td>${createdCoursierExterne.emailCoursierExterne}</td>
 													</tr>
 													<tr>
-														<th >Fax :</th>
-														<td>${createdTransporteurExterne.faxTransporteurExterne}</td>
+														<th >Société :</th>
+														<td>${Societe}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -83,10 +81,11 @@
 						                  </spring:url>
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
-						                 <spring:url value="transporteurExterne-{idTransporteurExterne}-edit" var="editUrl">
-						                      	<spring:param name="idTransporteurExterne" value="${createdTransporteurExterne.idTransporteurExterne}"/>
+						                 <spring:url value="coursierExterne-{idCoursierExterne}-edit" var="editUrl">
+						                      	<spring:param name="idCoursierExterne" value="${createdCoursierExterne.idCoursierExterne}"/>
+						                      	<spring:param name="idTransporteurExterne" value="${createdCoursierExterne.transporteurExterne.idTransporteurExterne}"/>
 						                 </spring:url>
-					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
+					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right"> Editer </a></td>
 						            </div>
 									<!-- /.col -->
 							</div>
@@ -94,65 +93,7 @@
 					  </div>
 				   </div>	
 				</div>
-				  <div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="x_panel">
-						<div class="x_title">
-							<h2>
-								Les coursiers externes
-							</h2>
-							   <ul class="nav navbar-right panel_toolbox">
-							<spring:url value="/admin/createCoursierExterne" var="addUrl">
-						        <spring:param name="idTransporteurExterne" value="${createdTransporteurExterne.idTransporteurExterne}"/>
-						    </spring:url>
-								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Nouveau Coursiers extene  </a>
-								
-							</ul>
-							<div class="clearfix"></div>
-						</div>
-						<div class="x_content">
-							<table id="datatable-keytable" class="table table-striped table-bordered">
-								  <thead>
-								    <tr>
-								      <th>Nom</th>
-								      <th>Prénom</th>
-								      <th>Email</th>
-								      <th>Téléphone</th>
-								      <th></th>
-								      <th></th>
-								      <th></th>
-								    </tr>
-								  </thead>
-								<c:forEach var="coursierExterneToShow" items="${coursierExterne}">
-									  	<tr>
-									      <td >${coursierExterneToShow.nomCoursierExterne}</td>
-									      <td >${coursierExterneToShow.prenomCoursierExterne}</td>
-									      <td >${coursierExterneToShow.emailCoursierExterne}</td>
-									      <td>${coursierExterneToShow.telCoursierExterne}</td>
-					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/admin/coursierExterne-{idCoursierExterne}" var="displayUrl">
-						                      	<spring:param name="idCoursierExterne" value="${coursierExterneToShow.idCoursierExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                </td>
-						                <td style="text-align: center">	  
-										      <spring:url value="/admin/coursierExterne-{idCoursierExterne}-edit" var="editUrl">
-						                      	<spring:param name="idCoursierExterne" value="${coursierExterneToShow.idCoursierExterne}"/>
-						                      	<spring:param name="idTransporteurExterne" value="${createdTransporteurExterne.idTransporteurExterne}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
-					                	  </td>
-					                	  <td style="text-align: center">	  
-										      <spring:url value="{userId}/delete" var="deleteUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
-					                	  </td>
-									    </tr>
-								  </c:forEach>
-							</table>
-						</div>
-					</div>
-				</div>				
+							
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->
