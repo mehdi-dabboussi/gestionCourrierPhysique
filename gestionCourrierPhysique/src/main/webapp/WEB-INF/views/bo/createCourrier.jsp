@@ -61,8 +61,8 @@
 										<div class="item form-group">
 										     <label for="inputObjetLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Objet<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
-								                		name="nomSousContactExterne" value="${newCourrier.objetCourrier}" required> 
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="Objet"
+								                		name="objetCourrier" value="${newCourrier.objetCourrier}" required> 
 											 </div>
 										</div>
 										<div class="item form-group">

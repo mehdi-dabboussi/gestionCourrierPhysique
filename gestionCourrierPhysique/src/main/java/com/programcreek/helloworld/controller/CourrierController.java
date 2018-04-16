@@ -95,7 +95,7 @@ public class CourrierController {
 			@ModelAttribute("newCourrier") Courrier newCourrier, BindingResult bindingResult, String emetteur,
 			long emetteurUser, Long emetteurUnite, Long emetteurContactExterne,
 			String destinataire, long destinataireUser, Long destinataireUnite, Long destinataireContact,
-			Long natureC, Long langueC, String etat){
+			Long natureC, Long langueC, String etat, String objetCourrier){
 		for( FieldError fieldError : bindingResult.getFieldErrors() )
 		    System.out.println(fieldError.getField() +" : "+fieldError.getDefaultMessage());
 		
@@ -148,6 +148,7 @@ public class CourrierController {
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
 		newCourrier.setDateCreationCourrier(dateFormat.format(date));
+		newCourrier.setObjetCourrier(objetCourrier);
 		System.out.println(newCourrier.getObjetCourrier());
 		System.out.println(newCourrier);
 		globalCrudService.save(newCourrier);
