@@ -48,7 +48,6 @@
 
 								<form:form class="form-horizontal form-label-leftr" 
 											data-toggle="validator" role="form" modelAttribute="newCourrier" >
-											
 								         <div class="item form-group">
 									        <label for="EtatLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Etat<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12">
@@ -62,15 +61,15 @@
 										<div class="item form-group">
 										     <label for="inputObjetLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Objet<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
-												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputObjet" placeholder="Objet"
-												 		name="objet" value="${newCourrier.objetCourrier}" required>
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
+								                		name="nomSousContactExterne" value="${newCourrier.objetCourrier}" required> 
 											 </div>
 										</div>
 										<div class="item form-group">
 										     <label for="inputDetailLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Details<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
 												 <textarea type="detail" class="form-control col-md-7 col-xs-12" id="inputDetail" rows="3" placeholder="Détails"
-												 		name="telContactExterne" value="${newCourrier.detailsCourrier}" required ></textarea>
+												 		name="detailsCourrier" value="${newCourrier.detailsCourrier}" required ></textarea>
 											 </div>
 										</div>
 										
@@ -127,10 +126,10 @@
 									    <div class="item form-group " id="usersemet" >
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
-												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required>
-													<option value="${newCourrier.emetteur.idUser}">${newCourrier.emetteur.userName} </option>
+												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUser">
+													<!--  <option value="${newCourrier.emetteurUser.idUser}">${newCourrier.emetteurUser.userName} </option>-->
 												<c:forEach var="user" items="${users}">
-													<option value="${user.idUser}">${user.userName}</option>
+													<option value="${user.idUser}">${user.surName} ${user.userName}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -141,8 +140,8 @@
 									    <div class="item form-group " id="unitesemet" >
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
-												<select name="emetteurUnite" class="select2_single emetteur form-control" tabindex="-1" required>
-													<option value="${newCourrier.emetteur.idUser}">${newCourrier.emetteur.userName} </option>
+												<select name="emetteurUnite" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUnite">
+													<!--  <option value="${newCourrier.emetteurUnite.idUniteBancaire}">${newCourrier.emetteurUnite.nomUniteBancaire} </option>-->
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
 												</c:forEach>
@@ -155,8 +154,8 @@
 									    <div class="item form-group " id="contactsemet" >
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
-												<select name="emetteurContactExterne" class="select2_single emetteur form-control" tabindex="-1" required>
-													<option value="${newCourrier.emetteur.idUser}">${newCourrier.emetteur.userName} </option>
+												<select name="emetteurContactExterne" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetContact">
+													<!--  <option value="${newCourrier.emetteurContact.idContactExterne}">${newCourrier.emetteurContact.nomContactExterne} </option>-->
 												<c:forEach var="contact" items="${contactExternes}">
 													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
 												</c:forEach>
@@ -176,13 +175,13 @@
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
-													value="unite" name="emetteur" required id="destunite">
+													value="unite" name="destinataire" required id="destunite">
 														unité bancaire
 													</label>
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
-													value="contact" name="emetteur" required id="destcontact">
+													value="contact" name="destinataire" required id="destcontact">
 														contact externe
 													</label>
 												</div>
@@ -192,10 +191,10 @@
 									    <div class="item form-group " id="usersdest">
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required>
-													<option value="${newCourrier.destinataire.idUser}">${newCourrier.destinataire.userName} </option>
+												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUser">
+													<!--  <option value="${newCourrier.destinataireUser.idUser}">${newCourrier.destinataireUser.userName} </option>-->
 												<c:forEach var="user" items="${users}">
-													<option value="${user.idUser}">${user.userName}</option>
+													<option value="${user.idUser}">${user.surName} ${user.userName}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -206,8 +205,8 @@
 									    <div class="item form-group " id="unitesdest">
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-												<select name="destinataireUnite" class="select2_single destinataire form-control" tabindex="-1" required>
-													<option value="${newCourrier.destinataire.idUser}">${newCourrier.destinataire.userName} </option>
+												<select name="destinataireUnite" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUnite">
+													<!--  <option value="${newCourrier.destinataireUnite.idUniteBancaire}">${newCourrier.destinataireUnite.nomUniteBancaire} </option>-->
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
 												</c:forEach>
@@ -220,8 +219,8 @@
 									    <div class="item form-group " id="contactsdest">
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-												<select name="destinataireContact" class="select2_single destinataire form-control" tabindex="-1" required>
-													<option value="${newCourrier.destinataire.idUser}">${newCourrier.destinataire.userName} </option>
+												<select name="destinataireContact" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestContact">
+													<!--  <option value="${newCourrier.destinataireContact.idContactExterne}">${newCourrier.destinataireContact.nomContactExterne} </option>-->
 												<c:forEach var="contact" items="${contactExternes}">
 													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
 												</c:forEach>
@@ -236,7 +235,7 @@
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newContactExterne.idContactExterne==0}">
+										                <c:when test="${newCourrier.idCourrier==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Créer</button>
 															<spring:url value="/admin/allContactExterne" var="returnUrl">
 									                    	</spring:url>
@@ -317,34 +316,46 @@
     		  $('#unitesemet').hide();
     		  $('#contactsemet').hide();
     		  $('#usersemet').show();
+    		  $('#selectEmetUnite').prop("required", false);
+    		  $('#selectEmetContact').prop("required", false);
     	  });
     	  $('#emetunite').click(function(){
     		  $('#usersemet').hide();
     		  $('#contactsemet').hide();
     		  $('#unitesemet').show();
+    		  $('#selectEmetUser').prop("required", false);
+    		  $('#selectEmetContact').prop("required", false);
     	  });
     	  $('#emetcontact').click(function(){
     		  $('#usersemet').hide();
     		  $('#unitesemet').hide();
     		  $('#contactsemet').show();
+    		  $('#selectEmetUnite').prop("required", false);
+    		  $('#selectEmetUser').prop("required", false);
     	  });
     	  
     	  $('#destuser').click(function(){
     		  $('#unitesdest').hide();
         	  $('#contactsdest').hide();
     		  $('#usersdest').show();
+    		  $('#selectDestUnite').prop("required", false);
+    		  $('#selectDestContact').prop("required", false);
     	  });
     	  
     	  $('#destunite').click(function(){
     		  $('#usersdest').hide();
         	  $('#contactsdest').hide();
     		  $('#unitesdest').show();
+    		  $('#selectDestUser').prop("required", false);
+    		  $('#selectDestContact').prop("required", false);
     	  });
     	  
     	  $('#destcontact').click(function(){
     		  $('#unitesdest').hide();
         	  $('#usersdest').hide();
     		  $('#contactsdest').show();
+    		  $('#selectDestUnite').prop("required", false);
+    		  $('#selectDestUser').prop("required", false);
     	  });
     	  
       });

@@ -16,28 +16,36 @@ import javax.persistence.*;
 public class Courrier implements Serializable {
 
 	
-	private Long idCourrier;
+	private long idCourrier;
 	private String etatCourrier;
 	private String objetCourrier;
 	private String detailsCourrier;
-	private Date dateCreationCourrier;
+	private String dateCreationCourrier;
 	private Nature nature;
 	private Langue langue;
-	private User emetteur;
-	private User destinataire;
+	
+	private User emetteurUser;
+	private User destinataireUser;
+	
+	private UniteBancaire emetteurUnite;
+	private UniteBancaire destinataireUnite;
+	
+	private ContactExterne emetteurContact;
+	private ContactExterne destinataireContact;
 	
 	private static final long serialVersionUID = 1L;
 
 	public Courrier() {
 		super();
 	}   
+	
 	@Id    
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getIdCourrier() {
+	public long getIdCourrier() {
 		return this.idCourrier;
 	}
 
-	public void setIdCourrier(Long idCourrier) {
+	public void setIdCourrier(long idCourrier) {
 		this.idCourrier = idCourrier;
 	}   
 	public String getEtatCourrier() {
@@ -61,11 +69,11 @@ public class Courrier implements Serializable {
 	public void setDetailsCourrier(String detailsCourrier) {
 		this.detailsCourrier = detailsCourrier;
 	}   
-	public Date getDateCreationCourrier() {
+	public String getDateCreationCourrier() {
 		return this.dateCreationCourrier;
 	}
 
-	public void setDateCreationCourrier(Date dateCreationCourrier) {
+	public void setDateCreationCourrier(String dateCreationCourrier) {
 		this.dateCreationCourrier = dateCreationCourrier;
 	}
 	
@@ -88,21 +96,71 @@ public class Courrier implements Serializable {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "idUser", insertable=false , updatable=false)
-	public User getEmetteur() {
-		return emetteur;
+	@JoinColumn(name = "idUserEmetteur")
+	public User getEmetteurUser() {
+		return emetteurUser;
 	}
-	public void setEmetteur(User emetteur) {
-		this.emetteur = emetteur;
+	public void setEmetteurUser(User emetteurUser) {
+		this.emetteurUser = emetteurUser;
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "idUser", insertable=false , updatable=false)
-	public User getDestinataire() {
-		return destinataire;
+	@JoinColumn(name = "idUserDestinataire")
+	public User getDestinataireUser() {
+		return destinataireUser;
 	}
-	public void setDestinataire(User destinataire) {
-		this.destinataire = destinataire;
+	public void setDestinataireUser(User destinataireUser) {
+		this.destinataireUser = destinataireUser;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idUniteBancaireEmetteur")
+	public UniteBancaire getEmetteurUnite() {
+		return emetteurUnite;
+	}
+	public void setEmetteurUnite(UniteBancaire emetteurUnite) {
+		this.emetteurUnite = emetteurUnite;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idUniteBancaireDestinataire")
+	public UniteBancaire getDestinataireUnite() {
+		return destinataireUnite;
+	}
+	public void setDestinataireUnite(UniteBancaire destinataireUnite) {
+		this.destinataireUnite = destinataireUnite;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idContactExterneEmetteur")
+	public ContactExterne getEmetteurContact() {
+		return emetteurContact;
+	}
+	public void setEmetteurContact(ContactExterne emetteurContact) {
+		this.emetteurContact = emetteurContact;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "idContactExterneDestinataire")
+	public ContactExterne getDestinataireContact() {
+		return destinataireContact;
+	}
+	public void setDestinataireContact(ContactExterne destinataireContact) {
+		this.destinataireContact = destinataireContact;
+	}
+
+	@Override
+	public String toString() {
+		return "Courrier [idCourrier=" + idCourrier + ", etatCourrier="
+				+ etatCourrier + ", objetCourrier=" + objetCourrier
+				+ ", detailsCourrier=" + detailsCourrier
+				+ ", dateCreationCourrier=" + dateCreationCourrier
+				+ ", nature=" + nature + ", langue=" + langue
+				+ ", emetteurUser=" + emetteurUser + ", destinataireUser="
+				+ destinataireUser + ", emetteurUnite=" + emetteurUnite
+				+ ", destinataireUnite=" + destinataireUnite
+				+ ", emetteurContact=" + emetteurContact
+				+ ", destinataireContact=" + destinataireContact + "]";
 	}
 	
 	
