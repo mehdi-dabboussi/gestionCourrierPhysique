@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -113,35 +114,47 @@ public class CourrierController {
 		
 		System.out.println(newCourrier);
 		
-		if(emetteur.equals("user")){
+		if(emetteur.equals("user_emet")){
 			User user = userService.findUSerById(emetteurUser);
+			//newCourrier.setEmetteurType("user");
+			//newCourrier.setEmetteur(emetteurUser);
 			newCourrier.setEmetteurUser(user);
 		}
 		
-		else if(emetteur.equals("unite")){
+		else if(emetteur.equals("unite_emet")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(emetteurUnite);
+			//newCourrier.setEmetteurType("unite");
+			//newCourrier.setEmetteur(emetteurUnite);
 			newCourrier.setEmetteurUnite(uniteBancaire);
 		}
 		
 		else{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(emetteurContactExterne);
+			//newCourrier.setEmetteurType("contact");
+			//newCourrier.setEmetteur(emetteurContactExterne);
 			newCourrier.setEmetteurContact(contactExterne);
 		}
 		
 		System.out.println(newCourrier);
 		
-		if(destinataire.equals("user")){
+		if(destinataire.equals("user_dest")){
 			User user = userService.findUSerById(destinataireUser);
+			//newCourrier.setDestinataireType("user");
+			//newCourrier.setDestinataire(destinataireUser);
 			newCourrier.setDestinataireUser(user);
 		}
 		
-		else if (destinataire.equals("unite")){
+		else if (destinataire.equals("unite_dest")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(destinataireUnite);
+			//newCourrier.setDestinataireType("unite");
+			//newCourrier.setDestinataire(destinataireUnite);
 			newCourrier.setDestinataireUnite(uniteBancaire);
 		}
 		else
 		{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(destinataireContact);
+			//newCourrier.setDestinataireType("contact");
+			//newCourrier.setDestinataire(destinataireContact);
 			newCourrier.setDestinataireContact(contactExterne);
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -152,8 +165,32 @@ public class CourrierController {
 		System.out.println(newCourrier.getObjetCourrier());
 		System.out.println(newCourrier);
 		globalCrudService.save(newCourrier);
-		return "redirect:/bo/allContactExterne";
+		return "redirect:/bo/courrier-" + newCourrier.getIdCourrier();
 		
+	}
+	
+	
+	@RequestMapping(value = "/bo/courrier-{idCourrier}")
+	public ModelAndView showUserAfterCreate(@PathVariable("idCourrier") long idCourrier) {
+		ModelAndView modelAndView = new ModelAndView(
+				"bo/showCourrierAfterCreate.jsp");
+		Courrier createdCourrier = courrierService.findCourrierById(idCourrier);
+		modelAndView.addObject("createdCourrier", createdCourrier);
+		
+		if(createdCourrier.getEmetteurUser() != null )
+			modelAndView.addObject("emetteur", createdCourrier.getEmetteurUser().getUserName() + createdCourrier.getEmetteurUser().getSurName());
+		else if (createdCourrier.getEmetteurUnite() != null )
+			modelAndView.addObject("emetteur", createdCourrier.getEmetteurUnite().getNomUniteBancaire());
+		else 
+			modelAndView.addObject("emetteur", createdCourrier.getEmetteurContact().getNomContactExterne());
+		
+		if(createdCourrier.getDestinataireUser() != null)
+			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUser().getUserName() + createdCourrier.getEmetteurUser().getSurName());
+		else if(createdCourrier.getDestinataireUnite() != null)
+			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUnite().getNomUniteBancaire());
+		else
+			modelAndView.addObject("destinataire", createdCourrier.getDestinataireContact().getNomContactExterne());
+		return modelAndView;
 	}
 	
 }

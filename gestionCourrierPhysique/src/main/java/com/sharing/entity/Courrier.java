@@ -24,6 +24,12 @@ public class Courrier implements Serializable {
 	private Nature nature;
 	private Langue langue;
 	
+	/*private Long emetteur;
+	private Long destinataire;
+	
+	private String emetteurType;
+	private String destinataireType;*/
+	
 	private User emetteurUser;
 	private User destinataireUser;
 	
@@ -94,6 +100,40 @@ public class Courrier implements Serializable {
 	public void setLangue(Langue langue) {
 		this.langue = langue;
 	}
+
+	
+	/*public Long getEmetteur() {
+		return emetteur;
+	}
+
+	public void setEmetteur(Long emetteur) {
+		this.emetteur = emetteur;
+	}
+
+	
+	public Long getDestinataire() {
+		return destinataire;
+	}
+
+	public void setDestinataire(Long destinataire) {
+		this.destinataire = destinataire;
+	}
+
+	public String getEmetteurType() {
+		return emetteurType;
+	}
+
+	public void setEmetteurType(String emetteurType) {
+		this.emetteurType = emetteurType;
+	}
+
+	public String getDestinataireType() {
+		return destinataireType;
+	}
+
+	public void setDestinataireType(String destinataireType) {
+		this.destinataireType = destinataireType;
+	}*/
 	
 	@ManyToOne
 	@JoinColumn(name = "idUserEmetteur")
@@ -156,7 +196,7 @@ public class Courrier implements Serializable {
 				+ ", detailsCourrier=" + detailsCourrier
 				+ ", dateCreationCourrier=" + dateCreationCourrier
 				+ ", nature=" + nature + ", langue=" + langue
-				+ ", emetteurUser=" + emetteurUser + ", destinataireUser="
+				+ ", destinataireUser="
 				+ destinataireUser + ", emetteurUnite=" + emetteurUnite
 				+ ", destinataireUnite=" + destinataireUnite
 				+ ", emetteurContact=" + emetteurContact
