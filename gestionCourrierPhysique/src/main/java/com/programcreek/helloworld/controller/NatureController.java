@@ -29,27 +29,27 @@ public class NatureController {
 	}
 	
 	// ************ create nature *****************//
-	@RequestMapping(value = "/admin/newNature", method=RequestMethod.GET)
+	@RequestMapping(value = "/bo/newNature", method=RequestMethod.GET)
 	public ModelAndView addNature()
 	{
-		ModelAndView modelAndView = new ModelAndView("admin/newNature.jsp");
+		ModelAndView modelAndView = new ModelAndView("bo/newNature.jsp");
 		Nature newNature = new Nature();
 		modelAndView.addObject("newNature", newNature);
 		return modelAndView;
 	}
 	
 	
-	@RequestMapping(value = "/admin/newNature", method=RequestMethod.POST)
+	@RequestMapping(value = "/bo/newNature", method=RequestMethod.POST)
 	public String processAddNature(@ModelAttribute(value ="newNature") Nature nature)
 	{
 		globalCrudService.save(nature);
-		return "redirect:/admin/allNature";
+		return "redirect:/bo/allNature";
 	}
 	
 	// ************ All nature *****************//
-			@RequestMapping(value = "/admin/allNature", method = RequestMethod.GET)
+			@RequestMapping(value = "/bo/allNature", method = RequestMethod.GET)
 			public ModelAndView showAllNature() {
-				ModelAndView modelAndView = new ModelAndView("admin/allNature.jsp");
+				ModelAndView modelAndView = new ModelAndView("bo/allNature.jsp");
 				List<Nature> natures = natureService
 						.getAllNature();
 				modelAndView.addObject("natures", natures);
@@ -58,12 +58,12 @@ public class NatureController {
 	
 			// ************ delete nature *****************//
 
-			@RequestMapping(value = "/admin/nature-{idNature}/delete", method = RequestMethod.GET)
+			@RequestMapping(value = "/bo/nature-{idNature}/delete", method = RequestMethod.GET)
 			public String processDeleteNature(
 					@PathVariable("idNature") long idNature) {
 				Nature nature = natureService.findNatureById(idNature);
 				globalCrudService.remove(nature, idNature);
-				return "redirect:/admin/allNature";
+				return "redirect:/bo/allNature";
 			}
 	
 

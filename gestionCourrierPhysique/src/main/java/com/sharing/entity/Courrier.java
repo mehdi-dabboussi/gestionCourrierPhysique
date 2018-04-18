@@ -25,10 +25,10 @@ public class Courrier implements Serializable {
 	private Langue langue;
 	
 	/*private Long emetteur;
-	private Long destinataire;
+	private Long destinataire;*/
 	
 	private String emetteurType;
-	private String destinataireType;*/
+	private String destinataireType;
 	
 	private User emetteurUser;
 	private User destinataireUser;
@@ -117,7 +117,7 @@ public class Courrier implements Serializable {
 
 	public void setDestinataire(Long destinataire) {
 		this.destinataire = destinataire;
-	}
+	}*/
 
 	public String getEmetteurType() {
 		return emetteurType;
@@ -133,7 +133,7 @@ public class Courrier implements Serializable {
 
 	public void setDestinataireType(String destinataireType) {
 		this.destinataireType = destinataireType;
-	}*/
+	}
 	
 	@ManyToOne
 	@JoinColumn(name = "idUserEmetteur")

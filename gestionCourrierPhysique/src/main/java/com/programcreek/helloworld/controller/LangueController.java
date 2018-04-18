@@ -28,27 +28,27 @@ public class LangueController {
 	}
 	
 	// ************ create langue *****************//
-		@RequestMapping(value = "/admin/newLangue", method=RequestMethod.GET)
+		@RequestMapping(value = "/bo/newLangue", method=RequestMethod.GET)
 		public ModelAndView addNature()
 		{
-			ModelAndView modelAndView = new ModelAndView("admin/newLangue.jsp");
+			ModelAndView modelAndView = new ModelAndView("bo/newLangue.jsp");
 			Langue newLangue = new Langue();
 			modelAndView.addObject("newLangue", newLangue);
 			return modelAndView;
 		}
 		
 		
-		@RequestMapping(value = "/admin/newLangue", method=RequestMethod.POST)
+		@RequestMapping(value = "/bo/newLangue", method=RequestMethod.POST)
 		public String processAddNature(@ModelAttribute(value ="newLangue") Langue langue)
 		{
 			globalCrudService.save(langue);
-			return "redirect:/admin/allLangue";
+			return "redirect:/bo/allLangue";
 		}
 		
 		// ************ All langue *****************//
-				@RequestMapping(value = "/admin/allLangue", method = RequestMethod.GET)
+				@RequestMapping(value = "/bo/allLangue", method = RequestMethod.GET)
 				public ModelAndView showAllNature() {
-					ModelAndView modelAndView = new ModelAndView("admin/allLangue.jsp");
+					ModelAndView modelAndView = new ModelAndView("bo/allLangue.jsp");
 					List<Langue> langues = langueService
 							.getAllLangue();
 					modelAndView.addObject("langues", langues);
@@ -57,12 +57,12 @@ public class LangueController {
 		
 				// ************ delete langue *****************//
 
-				@RequestMapping(value = "/admin/langue-{idlangue}/delete", method = RequestMethod.GET)
+				@RequestMapping(value = "/bo/langue-{idlangue}/delete", method = RequestMethod.GET)
 				public String processDeleteNature(
 						@PathVariable("idlangue") long idlangue) {
 					Langue langue = langueService.findLangueById(idlangue);
 					globalCrudService.remove(langue, idlangue);
-					return "redirect:/admin/allLangue";
+					return "redirect:/bo/allLangue";
 				}
 	
 }

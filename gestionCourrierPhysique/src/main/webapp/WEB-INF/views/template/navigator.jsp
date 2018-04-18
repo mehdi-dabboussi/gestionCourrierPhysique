@@ -91,22 +91,22 @@
 						</li>
 					</sec:authorize>
 					
-					<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+					<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
 						 <li><a><i class="fa fa-table"></i> Propriétés courrier <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a>Nature<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="${contextPath}/admin/newNature">Ajouter</a>
+                            <li class="sub_menu"><a href="${contextPath}/bo/newNature">Ajouter</a>
                             </li>
-                            <li><a href="${contextPath}/admin/allNature">Les natures</a>
+                            <li><a href="${contextPath}/bo/allNature">Les natures</a>
                             </li>
                           </ul>
                         </li>
                         <li><a>Langue<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="${contextPath}/admin/newLangue">Ajouter</a>
+                            <li class="sub_menu"><a href="${contextPath}/bo/newLangue">Ajouter</a>
                             </li>
-                            <li><a href="${contextPath}/admin/allLangue">Les Langues</a>
+                            <li><a href="${contextPath}/bo/allLangue">Les Langues</a>
                             </li>
                           </ul>
                         </li>

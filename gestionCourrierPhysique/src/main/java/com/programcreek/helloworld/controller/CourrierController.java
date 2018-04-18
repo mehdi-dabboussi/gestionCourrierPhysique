@@ -78,18 +78,7 @@ public class CourrierController {
 		return modelAndView;
 	}
 	
-	/*@RequestMapping(value="/bo/newCourrier", method=RequestMethod.POST)
-	public String processCreateCourrier(@ModelAttribute("newCourrier") Courrier newCourrier, BindingResult bindingResult, String emetteur,
-			long emetteurUser, Long emetteurUnite, Long emetteurContactExterne,
-			String destinataire, long destinataireUser, Long destinataireUnite, Long destinataireContact,
-			Long natureC, Long langueC, String etat){
-		for( FieldError fieldError : bindingResult.getFieldErrors() )
-		    System.out.println(fieldError.getField() +" : "+fieldError.getDefaultMessage());
-		System.out.println(destinataire);
-		System.out.println(emetteur);
-		System.out.println(etat);
-		return "redirect:/bo/allContactExterne";
-	}*/
+	
 	
 	@RequestMapping(value="/bo/newCourrier", method=RequestMethod.POST)
 	public String processCreateCourrier(
@@ -116,21 +105,21 @@ public class CourrierController {
 		
 		if(emetteur.equals("user_emet")){
 			User user = userService.findUSerById(emetteurUser);
-			//newCourrier.setEmetteurType("user");
+			newCourrier.setEmetteurType("user");
 			//newCourrier.setEmetteur(emetteurUser);
 			newCourrier.setEmetteurUser(user);
 		}
 		
 		else if(emetteur.equals("unite_emet")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(emetteurUnite);
-			//newCourrier.setEmetteurType("unite");
+			newCourrier.setEmetteurType("unite");
 			//newCourrier.setEmetteur(emetteurUnite);
 			newCourrier.setEmetteurUnite(uniteBancaire);
 		}
 		
 		else{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(emetteurContactExterne);
-			//newCourrier.setEmetteurType("contact");
+			newCourrier.setEmetteurType("contact");
 			//newCourrier.setEmetteur(emetteurContactExterne);
 			newCourrier.setEmetteurContact(contactExterne);
 		}
@@ -139,21 +128,21 @@ public class CourrierController {
 		
 		if(destinataire.equals("user_dest")){
 			User user = userService.findUSerById(destinataireUser);
-			//newCourrier.setDestinataireType("user");
+			newCourrier.setDestinataireType("user");
 			//newCourrier.setDestinataire(destinataireUser);
 			newCourrier.setDestinataireUser(user);
 		}
 		
 		else if (destinataire.equals("unite_dest")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(destinataireUnite);
-			//newCourrier.setDestinataireType("unite");
+			newCourrier.setDestinataireType("unite");
 			//newCourrier.setDestinataire(destinataireUnite);
 			newCourrier.setDestinataireUnite(uniteBancaire);
 		}
 		else
 		{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(destinataireContact);
-			//newCourrier.setDestinataireType("contact");
+			newCourrier.setDestinataireType("contact");
 			//newCourrier.setDestinataire(destinataireContact);
 			newCourrier.setDestinataireContact(contactExterne);
 		}
@@ -169,7 +158,7 @@ public class CourrierController {
 		
 	}
 	
-	
+	//consult courrier
 	@RequestMapping(value = "/bo/courrier-{idCourrier}")
 	public ModelAndView showUserAfterCreate(@PathVariable("idCourrier") long idCourrier) {
 		ModelAndView modelAndView = new ModelAndView(
@@ -191,6 +180,27 @@ public class CourrierController {
 		else
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireContact().getNomContactExterne());
 		return modelAndView;
+	}
+	
+	
+	//all courrier
+	@RequestMapping(value = "/bo/allCourriers", method = RequestMethod.GET)
+	public ModelAndView showAllUsers() {
+		ModelAndView modelAndView = new ModelAndView("bo/allCourriers.jsp");
+		List<Courrier> courriers = courrierService.getAllCourrier();
+
+		
+		modelAndView.addObject("courriers", courriers);
+		return modelAndView;
+	}
+	
+	//delete courrier
+	
+	@RequestMapping(value = "/bo/courrier-{idCourrier}/delete", method = RequestMethod.GET)
+	public String processDeleteCourrier(@PathVariable("idCourrier") long idCourrier) {
+		Courrier courrier = courrierService.findCourrierById(idCourrier);
+		globalCrudService.remove(courrier, idCourrier);
+		return "redirect:/bo/allCourriers";
 	}
 	
 }
