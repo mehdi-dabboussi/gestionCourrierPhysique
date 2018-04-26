@@ -244,7 +244,7 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUser">
-													  
+												<option value="${newCourrier.destinataireUser.idUser}">${newCourrier.destinataireUser.surName} ${newCourrier.destinataireUser.userName}</option>
 												<c:forEach var="user" items="${users}">
 													<option value="${user.idUser}">${user.surName} ${user.userName}</option>
 												</c:forEach>
@@ -258,7 +258,7 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireUnite" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUnite">
-													  
+												<option value="${newCourrier.destinataireUnite.idUniteBancaire}">${newCourrier.destinataireUnite.nomUniteBancaire}</option>	  
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
 												</c:forEach>
@@ -272,7 +272,7 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireContact" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestContact">
-													  
+												<option value="${newCourrier.destinataireContact.idContactExterne}">${newCourrier.destinataireContact.nomContactExterne}</option>	  	  
 												<c:forEach var="contact" items="${contactExternes}">
 													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
 												</c:forEach>
