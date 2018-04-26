@@ -82,13 +82,13 @@
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
-										      <spring:url value="{userId}-edit" var="editUrl">
-						                      	<spring:param name="userId" value="${courrierToShow.idCourrier}"/>
+										      <spring:url value="/bo/courrier-{idCourrier}-edit" var="editUrl">
+						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-										      <spring:url value="courrier-{idCourrier}/delete" var="deleteUrl">
+										      <spring:url value="/bo/courrier-{idCourrier}/delete" var="deleteUrl">
 						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
 						                	  </spring:url>
 						                	   <a href="#myModal_${courrierToShow.idCourrier}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>

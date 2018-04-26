@@ -174,7 +174,7 @@ public class CourrierController {
 			modelAndView.addObject("emetteur", createdCourrier.getEmetteurContact().getNomContactExterne());
 		
 		if(createdCourrier.getDestinataireUser() != null)
-			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUser().getUserName() + createdCourrier.getEmetteurUser().getSurName());
+			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUser().getUserName() +" " + createdCourrier.getDestinataireUser().getSurName());
 		else if(createdCourrier.getDestinataireUnite() != null)
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUnite().getNomUniteBancaire());
 		else
@@ -201,6 +201,112 @@ public class CourrierController {
 		Courrier courrier = courrierService.findCourrierById(idCourrier);
 		globalCrudService.remove(courrier, idCourrier);
 		return "redirect:/bo/allCourriers";
+	}
+	
+	
+	//edit courrier
+	@RequestMapping(value = "bo/courrier-{idCourrier}-edit", method = RequestMethod.GET)
+	public ModelAndView editCourrier(@PathVariable("idCourrier") long idCourrier){
+		ModelAndView modelAndView = new ModelAndView("bo/createCourrier.jsp");
+		Courrier newCourrier = courrierService.findCourrierById(idCourrier);
+		modelAndView.addObject("newCourrier", newCourrier);
+		List<Langue> langues = langueService.getAllLangue();
+		List<Nature> natures = natureService.getAllNature();
+		List<User> users = userService.getAllUsers();
+		modelAndView.addObject("langues", langues);
+		modelAndView.addObject("natures", natures);
+		modelAndView.addObject("users", users);
+		
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
+		
+		List<ContactExterne> contactExternes = contactExterneService.getAllContactExterne();
+		modelAndView.addObject("contactExternes", contactExternes);
+		return modelAndView;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "bo/courrier-{idCourrier}-edit", method = RequestMethod.POST)
+	public String processEditCourrier(
+			@PathVariable("idCourrier") long idCourrier,String emetteur,
+			String emetteurUser, String emetteurUnite, String emetteurContactExterne,
+			String destinataire, String destinataireUser, String destinataireUnite, String destinataireContact,
+			String natureC, String langueC, String etat, String objetCourrier, String detailsCourrier){
+		
+		Courrier newCourrier = courrierService.findCourrierById(idCourrier);
+		
+		newCourrier.setEtatCourrier(etat);
+		newCourrier.setDetailsCourrier(detailsCourrier);
+		newCourrier.setObjetCourrier(objetCourrier);
+		
+		Langue langue = langueService.findLangueById(Long.parseLong(langueC));
+		Nature nature = natureService.findNatureById(Long.parseLong(natureC));
+		
+		
+		newCourrier.setLangue(langue);
+		newCourrier.setNature(nature);
+		
+		if(emetteur.equals("user_emet")){
+			User user = userService.findUSerById(Long.parseLong(emetteurUser));
+			newCourrier.setEmetteurType("user");
+			//newCourrier.setEmetteur(emetteurUser);
+			newCourrier.setEmetteurUser(user);
+			newCourrier.setEmetteurUnite(null);
+			newCourrier.setEmetteurContact(null);
+		}
+		
+		else if(emetteur.equals("unite_emet")){
+			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(emetteurUnite));
+			newCourrier.setEmetteurType("unite");
+			//newCourrier.setEmetteur(emetteurUnite);
+			newCourrier.setEmetteurUnite(uniteBancaire);
+			newCourrier.setEmetteurUser(null);
+			newCourrier.setEmetteurContact(null);
+		}
+		
+		else{
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(emetteurContactExterne));
+			newCourrier.setEmetteurType("contact");
+			//newCourrier.setEmetteur(emetteurContactExterne);
+			newCourrier.setEmetteurContact(contactExterne);
+			newCourrier.setEmetteurUser(null);
+			newCourrier.setEmetteurUnite(null);
+		}
+		
+		System.out.println(newCourrier);
+		
+		if(destinataire.equals("user_dest")){
+			User user = userService.findUSerById(Long.parseLong(destinataireUser));
+			newCourrier.setDestinataireType("user");
+			//newCourrier.setDestinataire(destinataireUser);
+			newCourrier.setDestinataireUser(user);
+			newCourrier.setDestinataireUnite(null);
+			newCourrier.setDestinataireContact(null);
+		}
+		
+		else if (destinataire.equals("unite_dest")){
+			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(destinataireUnite));
+			newCourrier.setDestinataireType("unite");
+			//newCourrier.setDestinataire(destinataireUnite);
+			newCourrier.setDestinataireUnite(uniteBancaire);
+			newCourrier.setDestinataireUser(null);
+			newCourrier.setDestinataireContact(null);
+		}
+		else
+		{
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(destinataireContact));
+			newCourrier.setDestinataireType("contact");
+			//newCourrier.setDestinataire(destinataireContact);
+			newCourrier.setDestinataireContact(contactExterne);
+			newCourrier.setDestinataireUser(null);
+			newCourrier.setDestinataireUnite(null);
+		}
+		
+		
+		this.globalCrudService.update(newCourrier);
+		return "redirect:/bo/courrier-" + newCourrier.getIdCourrier();
 	}
 	
 }

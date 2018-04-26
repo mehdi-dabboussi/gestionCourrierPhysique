@@ -15,6 +15,23 @@
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
 
+<function>
+        <name>courrierDepart</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean courrierDepart(com.sharing.entity.Courrier)</function-signature>
+    </function>
+    
+    <function>
+        <name>courrierArrive</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean courrierArrive(com.sharing.entity.Courrier)</function-signature>
+    </function>
+    
+    <function>
+        <name>notNull</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean notNull(java.lang.Object)</function-signature>
+    </function>
 
 <body class="nav-md footer_fixed">
 	<div class="container body">
@@ -51,10 +68,20 @@
 								         <div class="item form-group">
 									        <label for="EtatLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Etat<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12">
-												<select name="etat" class="form-control" required>
+									        <c:choose>
+									        <c:when test="${newCourrier.idCourrier==0 }">
+									        <select name="etat" class="form-control" required>
 												<option value="depart" selected="selected">Départ</option>
 												<option value="arrive" >Arrivé</option>
 												</select>
+									        </c:when>
+									        <c:otherwise>
+												<select name="etat" class="form-control" required>
+												<option value="depart" <c:if test="${ myfn:courrierDepart( newCourrier ) }">selected="selected"</c:if> >Départ</option>
+												<option value="arrive" <c:if test="${ myfn:courrierArrive( newCourrier ) }">selected="selected"</c:if> >Arrivé</option>
+												</select>
+											</c:otherwise>
+											</c:choose>
 												<div class="help-block with-errors"></div>
 											</div>
 									     </div>
@@ -69,7 +96,7 @@
 										     <label for="inputDetailLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Details<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12">
 												 <textarea type="detail" class="form-control col-md-7 col-xs-12" id="inputDetail" rows="3" placeholder="Détails"
-												 		name="detailsCourrier" value="${newCourrier.detailsCourrier}" required ></textarea>
+												 		name="detailsCourrier" value="${newCourrier.detailsCourrier}" required >${newCourrier.detailsCourrier}</textarea>
 											 </div>
 										</div>
 										
@@ -103,6 +130,8 @@
 									    <div class="form-group">
 											 <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Emetteur<em>*</em></label>	
 											 <div class="col-md-6 col-sm-6 col-xs-12">
+											 <c:choose>
+											 <c:when test="${ newCourrier.idCourrier==0}">
 											 <div class="radio">
 													<label> <input type="radio" value="user_emet" name="emetteur"  required id="emetuser">
 														utilisateur
@@ -116,10 +145,32 @@
 												</div>
 												<div class="radio">
 													<label> <input type="radio" 
+													value="contact_emet" name="emetteur" required id="emetcontact" > 
+														contact externe
+													</label>
+												</div>
+												</c:when>
+												<c:otherwise>
+												 <div class="radio">
+													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.emetteurUser ) }">checked="checked"</c:if> 
+													 value="user_emet" name="emetteur"  required id="emetuser">
+														utilisateur
+													</label>
+												</div>
+												<div class="radio">
+													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.emetteurUnite ) }">checked="checked"</c:if>
+													value="unite_emet" name="emetteur" required id="emetunite" >
+														unité bancaire
+													</label>
+												</div>
+												<div class="radio">
+													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.emetteurContact ) }">checked="checked"</c:if>
 													value="contact_emet" name="emetteur" required id="emetcontact"> 
 														contact externe
 													</label>
 												</div>
+												</c:otherwise>
+												</c:choose>
 											</div>
 										</div>
 										
@@ -127,6 +178,7 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUser">
+												<option value="${newCourrier.emetteurUser.idUser}">${newCourrier.emetteurUser.surName} ${newCourrier.emetteurUser.userName}</option>
 												<c:forEach var="user" items="${users}">
 													<option value="${user.idUser}">${user.surName} ${user.userName}</option>
 												</c:forEach>
@@ -140,6 +192,7 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurUnite" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUnite">
+												<option value="${newCourrier.emetteurUnite.idUniteBancaire}">${newCourrier.emetteurUnite.nomUniteBancaire}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
 												</c:forEach>
@@ -153,7 +206,7 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurContactExterne" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetContact">
-													  
+												<option value="${newCourrier.emetteurContact.idContactExterne}">${newCourrier.emetteurContact.nomContactExterne}</option>
 												<c:forEach var="contact" items="${contactExternes}">
 													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
 												</c:forEach>
@@ -167,18 +220,19 @@
 											 <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Destinataire<em>*</em></label>	
 											 <div class="col-md-6 col-sm-6 col-xs-12">
 											 <div class="radio">
-													<label> <input type="radio" value="user_dest" name="destinataire" required id="destuser">
+													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.destinataireUser ) }">checked="checked"</c:if>
+													value="user_dest" name="destinataire" required id="destuser">
 														utilisateur
 													</label>
 												</div>
 												<div class="radio">
-													<label> <input type="radio" 
+													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.destinataireUnite ) }">checked="checked"</c:if>
 													value="unite_dest" name="destinataire" required id="destunite">
 														unité bancaire
 													</label>
 												</div>
 												<div class="radio">
-													<label> <input type="radio" 
+													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.destinataireContact ) }">checked="checked"</c:if>
 													value="contact_dest" name="destinataire" required id="destcontact">
 														contact externe
 													</label>
@@ -310,6 +364,13 @@
     	  $('#unitesdest').hide();
     	  $('#contactsdest').hide();
     	  
+    	  if ($('#emetuser').is(':checked')) { $('#unitesemet').hide();
+		  $('#contactsemet').hide();
+		  $('#usersemet').show();
+		  $('#selectEmetUnite').prop("required", false);
+		  $('#selectEmetContact').prop("required", false);}
+    	  
+    	  
     	  $('#emetuser').click(function(){
     		  $('#unitesemet').hide();
     		  $('#contactsemet').hide();
@@ -317,6 +378,13 @@
     		  $('#selectEmetUnite').prop("required", false);
     		  $('#selectEmetContact').prop("required", false);
     	  });
+    	  
+    	  if ($('#emetunite').is(':checked')) { $('#usersemet').hide();
+		  $('#contactsemet').hide();
+		  $('#unitesemet').show();
+		  $('#selectEmetUser').prop("required", false);
+		  $('#selectEmetContact').prop("required", false);}
+    	  
     	  $('#emetunite').click(function(){
     		  $('#usersemet').hide();
     		  $('#contactsemet').hide();
@@ -324,6 +392,13 @@
     		  $('#selectEmetUser').prop("required", false);
     		  $('#selectEmetContact').prop("required", false);
     	  });
+    	  
+    	  if ($('#emetcontact').is(':checked')) { $('#usersemet').hide();
+		  $('#unitesemet').hide();
+		  $('#contactsemet').show();
+		  $('#selectEmetUnite').prop("required", false);
+		  $('#selectEmetUser').prop("required", false);}
+    	  
     	  $('#emetcontact').click(function(){
     		  $('#usersemet').hide();
     		  $('#unitesemet').hide();
@@ -331,6 +406,12 @@
     		  $('#selectEmetUnite').prop("required", false);
     		  $('#selectEmetUser').prop("required", false);
     	  });
+    	  
+    	  if ($('#destuser').is(':checked')) {  $('#unitesdest').hide();
+    	  $('#contactsdest').hide();
+		  $('#usersdest').show();
+		  $('#selectDestUnite').prop("required", false);
+		  $('#selectDestContact').prop("required", false);}
     	  
     	  $('#destuser').click(function(){
     		  $('#unitesdest').hide();
@@ -340,6 +421,12 @@
     		  $('#selectDestContact').prop("required", false);
     	  });
     	  
+    	  if ($('#destunite').is(':checked')) { $('#usersdest').hide();
+    	  $('#contactsdest').hide();
+		  $('#unitesdest').show();
+		  $('#selectDestUser').prop("required", false);
+		  $('#selectDestContact').prop("required", false);}
+    	  
     	  $('#destunite').click(function(){
     		  $('#usersdest').hide();
         	  $('#contactsdest').hide();
@@ -347,6 +434,12 @@
     		  $('#selectDestUser').prop("required", false);
     		  $('#selectDestContact').prop("required", false);
     	  });
+    	  
+    	  if ($('#destcontact').is(':checked')) { $('#unitesdest').hide();
+    	  $('#usersdest').hide();
+		  $('#contactsdest').show();
+		  $('#selectDestUnite').prop("required", false);
+		  $('#selectDestUser').prop("required", false);}
     	  
     	  $('#destcontact').click(function(){
     		  $('#unitesdest').hide();

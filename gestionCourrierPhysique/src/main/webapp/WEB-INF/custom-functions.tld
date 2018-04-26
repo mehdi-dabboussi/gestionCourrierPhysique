@@ -12,6 +12,26 @@
     </function>
     
     <function>
+        <name>courrierDepart</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean courrierDepart(com.sharing.entity.Courrier)</function-signature>
+    </function>
+    
+    <function>
+        <name>courrierArrive</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean courrierArrive(com.sharing.entity.Courrier)</function-signature>
+    </function>
+    
+    <function>
+        <name>notNull</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>boolean notNull(java.lang.Object)</function-signature>
+    </function>
+    
+    
+    
+    <function>
         <name>enabled</name>
         <function-class>com.sharing.ServiceJavaScript</function-class>
         <function-signature>boolean enabled(com.sharing.entity.User)</function-signature>
