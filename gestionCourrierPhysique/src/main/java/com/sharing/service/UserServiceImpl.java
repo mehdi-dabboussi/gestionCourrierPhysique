@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sharing.entity.Courrier;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 
@@ -77,6 +78,18 @@ public class UserServiceImpl implements UserService {
 			user.setUniteBancaire(null);
 		}
 		
+	}
+
+	@Transactional
+	public List<Courrier> getCourrierEmetteur(User user) {
+		return em.createQuery("select c from Courrier c where c.emetteurUser= :user").
+				setParameter("user", user).getResultList();
+	}
+
+	@Transactional
+	public List<Courrier> getCourrierDestinataire(User user) {
+		return em.createQuery("select c from Courrier c where c.destinataireUser= :user").
+				setParameter("user", user).getResultList();
 	}
 
 }

@@ -2,6 +2,7 @@ package com.sharing.service;
 
 import java.util.List;
 
+import com.sharing.entity.Courrier;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 
@@ -26,5 +27,9 @@ public interface UserService {
 	List<User> getUsersByUB(UniteBancaire createdUniteBancaire);
 	
 	void removeUBFromUser (UniteBancaire uniteBancaire);
+	
+	List<Courrier> getCourrierEmetteur (User user);
+	
+	List<Courrier> getCourrierDestinataire (User user);
 	
 }

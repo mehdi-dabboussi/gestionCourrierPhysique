@@ -2910,6 +2910,7 @@
                           <th>Salary</th>
                           <th>Extn.</th>
                           <th>E-mail</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -2923,6 +2924,7 @@
                           <td>$320,800</td>
                           <td>5421</td>
                           <td>t.nixon@datatables.net</td>
+                          
                         </tr>
                         <tr>
                           <td>Garrett</td>

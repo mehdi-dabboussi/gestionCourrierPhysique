@@ -114,6 +114,13 @@
                   </li> 
 					</sec:authorize>
 					
+					<li><a><i class="fa fa-archive"></i>Mes courriers<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/user/Courrier-recus">Courriers reçus</a></li>
+								<li><a href="${contextPath}/user/Courrier-envoyes">Courriers envoyés</a></li>
+							</ul>
+						</li>
+					
 				</ul>
 			</div>
 		</div>

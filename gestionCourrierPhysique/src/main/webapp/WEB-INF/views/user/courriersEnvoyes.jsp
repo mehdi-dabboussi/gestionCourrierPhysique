@@ -33,12 +33,9 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Les courriers
+								Courriers envoyés
 							</h2>
-							<ul class="nav navbar-right panel_toolbox">
-								<a href="<c:url value="/bo/newCourrier" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Nouveau courrier </a>
-								
-							</ul>
+							
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -49,12 +46,8 @@
 								      <th>etat</th>
 								      <th>objet</th>
 								      <th>date de création</th>
-								      <th>Emetteur</th>
 								      <th>Destinataire</th>
 								      <th>Visualisation</th>
-								      <th>Modification</th>
-								      <th>Suppression</th>
-								      
 								    </tr>
 								  </thead>
 								<c:forEach var="courrierToShow" items="${courriers}">
@@ -63,11 +56,7 @@
 									      <td >${courrierToShow.etatCourrier}</td>
 									      <td>${courrierToShow.objetCourrier}</td>
 									      <td>${courrierToShow.dateCreationCourrier}</td>
-									      <td>
-									      		<c:if test="${courrierToShow.emetteurType == 'user'}">${courrierToShow.emetteurUser.surName} ${courrierToShow.emetteurUser.userName} </c:if> 
-												<c:if test="${courrierToShow.emetteurType == 'unite'}">${courrierToShow.emetteurUnite.nomUniteBancaire}</c:if>
-												<c:if test="${courrierToShow.emetteurType == 'contact'}">${courrierToShow.emetteurContact.nomContactExterne}</c:if> 
-									      </td>
+									      
 									      
 									     <td>
 									      		<c:if test="${courrierToShow.destinataireType == 'user'}">${courrierToShow.destinataireUser.surName} ${courrierToShow.destinataireUser.userName} </c:if> 
@@ -80,38 +69,7 @@
 						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                </td>
-						                <td style="text-align: center">	  
-										      <spring:url value="/bo/courrier-{idCourrier}-edit" var="editUrl">
-						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
-					                	  </td>
-					                	  <td style="text-align: center">	  
-										      <spring:url value="/bo/courrier-{idCourrier}/delete" var="deleteUrl">
-						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
-						                	  </spring:url>
-						                	   <a href="#myModal_${courrierToShow.idCourrier}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${courrierToShow.idCourrier}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
-                    							<div class="modal-dialog modal-sm">
-                      								<div class="modal-content">
-                        								<div class="modal-header">
-                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
-                       									 </div>
-                       									 <div class="modal-body">
-                          								<h4>Attention !!!</h4>
-                          								<p>Etes-vous sur de vouloir supprimer ce courrier ???</p>
-                        								</div>
-                       									 <div class="modal-footer">
-                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/bo/courrier-${courrierToShow.idCourrier}/delete" class="btn btn-primary" ">Supprimer</a>
-                       									 </div>
-
-                      								</div>
-                    							</div>
-                						  </div>
-					                	  </td>
-					                	  
+						                	</td>
 									    </tr>
 								  </c:forEach>
 							</table>

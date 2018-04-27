@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sharing.entity.Courrier;
 import com.sharing.entity.Role;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
@@ -204,6 +205,45 @@ public class UserController {
 			User user = userService.findUSerById(userId);
 			this.userService.deleteUser(user);
 			return "redirect:/admin/allUsers";
+		}
+		
+		
+		//courriers recus
+		
+		@RequestMapping(value = "/user/Courrier-recus")
+		public ModelAndView courriersRecus(){
+			ModelAndView modelAndView = new ModelAndView("user/courriersRecus.jsp");
+			
+			Authentication auth = SecurityContextHolder.getContext()
+					.getAuthentication();
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			User connectedUser = userService.findUserByLogin(userDetail
+					.getUsername());
+			
+			List<Courrier> courriers = userService.getCourrierDestinataire(connectedUser);
+			
+			modelAndView.addObject("courriers", courriers);
+			return modelAndView;
+		}
+		
+		//courriers envoyes
+		
+		@RequestMapping(value = "/user/Courrier-envoyes")
+		public ModelAndView courriersEnvoyes(){
+			ModelAndView modelAndView = new ModelAndView("user/courriersEnvoyes.jsp");
+			
+			Authentication auth = SecurityContextHolder.getContext()
+					.getAuthentication();
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			User connectedUser = userService.findUserByLogin(userDetail
+					.getUsername());
+			
+			System.out.println(connectedUser);
+			
+			List<Courrier> courriers = userService.getCourrierEmetteur(connectedUser);
+			
+			modelAndView.addObject("courriers", courriers);
+			return modelAndView;
 		}
 
 }

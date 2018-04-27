@@ -72,7 +72,7 @@
 									        <c:when test="${newCourrier.idCourrier==0 }">
 									        <select name="etat" class="form-control" required>
 												<option value="depart" selected="selected">Départ</option>
-												<option value="arrive" >Arrivé</option>
+												<option value="arrive" id="etatArrive">Arrivé</option>
 												</select>
 									        </c:when>
 									        <c:otherwise>
@@ -403,6 +403,7 @@
     		  $('#usersemet').hide();
     		  $('#unitesemet').hide();
     		  $('#contactsemet').show();
+    		  $('#etatArrive').prop("selected", true);
     		  $('#selectEmetUnite').prop("required", false);
     		  $('#selectEmetUser').prop("required", false);
     	  });
