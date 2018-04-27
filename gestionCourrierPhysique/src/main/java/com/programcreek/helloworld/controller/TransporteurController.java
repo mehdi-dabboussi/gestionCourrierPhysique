@@ -195,7 +195,7 @@ public class TransporteurController {
 						{
 							CoursierExterne coursierExterne = coursierExterneService.findCoursierExterneServiceById(idCoursierExterne);
 							this.globalCrudService.remove(coursierExterne, idCoursierExterne);
-							return "redirect:/admin/coursierExterne-" + idTransporteurExterne;
+							return "redirect:/admin/transporteurExterne-" + idTransporteurExterne;
 						}
 		}
 

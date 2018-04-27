@@ -146,23 +146,16 @@
 						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
 						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
 						                	  </spring:url>
-						                	  <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-mehdi" >Supprimer</button>
-					                	  </td>
-									    </tr>
-								  </c:forEach>
-							</table>
-							
-							<div class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	 <a href="#myModal_${sousContactToShow.idSousContactExterne}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${sousContactToShow.idSousContactExterne}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
-                          									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span>
-                          									</button>
                           									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
                        									 </div>
                        									 <div class="modal-body">
                           								<h4>Attention !!!</h4>
-                          								<p>Etes-vous sur de vouloir supprimer ce sous contact externe ???</p>
+                          								<p>Etes-vous sur de vouloir supprimer ce sous contact ???</p>
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
@@ -172,6 +165,11 @@
                       								</div>
                     							</div>
                 						  </div>
+					                	  </td>
+									    </tr>
+								  </c:forEach>
+							</table>
+							
 						</div>
 					</div>
 				</div>				
