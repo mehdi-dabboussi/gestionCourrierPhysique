@@ -19,6 +19,7 @@ import com.sharing.entity.Courrier;
 import com.sharing.entity.Role;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
+import com.sharing.service.CourrierService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.RoleService;
 import com.sharing.service.UniteBancaireService;
@@ -32,15 +33,17 @@ public class UserController {
 	private GlobalCrudService globalCrudService;
 	private UniteBancaireService uniteBancaireService;
 	private RoleService roleService;
+	private CourrierService courrierService;
 	
 	
 	@Autowired
 	public UserController(UserService userService, GlobalCrudService globalCrudService, 
-			UniteBancaireService uniteBancaireService, RoleService roleService) {
+			UniteBancaireService uniteBancaireService, RoleService roleService, CourrierService courrierService) {
 		this.userService = userService;
 		this.globalCrudService = globalCrudService;
 		this.uniteBancaireService = uniteBancaireService;
 		this.roleService = roleService;
+		this.courrierService = courrierService;
 	}
 	
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.GET)
@@ -158,17 +161,17 @@ public class UserController {
 	// ******** activer un utilsateur ***********//
 	
 	
-	@RequestMapping(value="/admin/{userId}-enabled")
-	public String enableUser(@PathVariable("userId") long userId){
-		
+	@RequestMapping(value = "/admin/{userId}-enabled")
+	public String enableUser(@PathVariable("userId") long userId) {
+
 		User user = userService.findUSerById(userId);
-		if(user.isEnabled() == false)
-		user.setEnabled(true);
+		if (user.isEnabled() == false)
+			user.setEnabled(true);
 		else
 			user.setEnabled(false);
 		globalCrudService.update(user);
 		return "redirect:/admin/allUsers";
-		
+
 	}
 	
 	// ******** desactiver un utilsateur ***********//
@@ -187,63 +190,101 @@ public class UserController {
 		
 		
 		// ************ All users *****************//
-		@RequestMapping(value = "/admin/allUsers", method = RequestMethod.GET)
-		public ModelAndView showAllUsers() {
-			ModelAndView modelAndView = new ModelAndView("admin/allUsers.jsp");
-			List<User> users = userService.getAllUsers();
+	@RequestMapping(value = "/admin/allUsers", method = RequestMethod.GET)
+	public ModelAndView showAllUsers() {
+		ModelAndView modelAndView = new ModelAndView("admin/allUsers.jsp");
+		List<User> users = userService.getAllUsers();
 
-			for (int i = 0; i < users.size(); i++) {
-				System.out.println(users.get(i).toString());
-			}
-			modelAndView.addObject("users", users);
-			return modelAndView;
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).toString());
 		}
+		modelAndView.addObject("users", users);
+		return modelAndView;
+	}
 		
 		// ************ delete user *****************//
-		@RequestMapping(value = "/admin/{userId}/delete", method = RequestMethod.GET)
-		public String processDeleteUser(@PathVariable("userId") long userId) {
-			User user = userService.findUSerById(userId);
-			this.userService.deleteUser(user);
-			return "redirect:/admin/allUsers";
-		}
+	@RequestMapping(value = "/admin/{userId}/delete", method = RequestMethod.GET)
+	public String processDeleteUser(@PathVariable("userId") long userId) {
+		User user = userService.findUSerById(userId);
+		this.userService.deleteUser(user);
+		return "redirect:/admin/allUsers";
+	}
 		
 		
 		//courriers recus
 		
-		@RequestMapping(value = "/user/Courrier-recus")
-		public ModelAndView courriersRecus(){
-			ModelAndView modelAndView = new ModelAndView("user/courriersRecus.jsp");
-			
-			Authentication auth = SecurityContextHolder.getContext()
-					.getAuthentication();
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			User connectedUser = userService.findUserByLogin(userDetail
-					.getUsername());
-			
-			List<Courrier> courriers = userService.getCourrierDestinataire(connectedUser);
-			
-			modelAndView.addObject("courriers", courriers);
-			return modelAndView;
-		}
+	@RequestMapping(value = "/user/Courrier-recus")
+	public ModelAndView courriersRecus() {
+		ModelAndView modelAndView = new ModelAndView("user/courriersRecus.jsp");
+
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+		User connectedUser = userService.findUserByLogin(userDetail
+				.getUsername());
+
+		List<Courrier> courriers = userService
+				.getCourrierDestinataire(connectedUser);
+
+		modelAndView.addObject("courriers", courriers);
+		return modelAndView;
+	}
 		
 		//courriers envoyes
 		
-		@RequestMapping(value = "/user/Courrier-envoyes")
-		public ModelAndView courriersEnvoyes(){
-			ModelAndView modelAndView = new ModelAndView("user/courriersEnvoyes.jsp");
-			
-			Authentication auth = SecurityContextHolder.getContext()
-					.getAuthentication();
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			User connectedUser = userService.findUserByLogin(userDetail
-					.getUsername());
-			
-			System.out.println(connectedUser);
-			
-			List<Courrier> courriers = userService.getCourrierEmetteur(connectedUser);
-			
-			modelAndView.addObject("courriers", courriers);
-			return modelAndView;
-		}
+	@RequestMapping(value = "/user/Courrier-envoyes")
+	public ModelAndView courriersEnvoyes() {
+		ModelAndView modelAndView = new ModelAndView(
+				"user/courriersEnvoyes.jsp");
+
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+		User connectedUser = userService.findUserByLogin(userDetail
+				.getUsername());
+
+		System.out.println(connectedUser);
+
+		List<Courrier> courriers = userService
+				.getCourrierEmetteur(connectedUser);
+
+		modelAndView.addObject("courriers", courriers);
+		return modelAndView;
+	}
+		
+		
+		//courriers en attente
+		
+	@RequestMapping(value = "/user/Courrier-attente")
+	public ModelAndView courriersEnAttente() {
+		ModelAndView modelAndView = new ModelAndView(
+				"user/courriersEnAttente.jsp");
+
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+		User connectedUser = userService.findUserByLogin(userDetail
+				.getUsername());
+
+		System.out.println(connectedUser);
+
+		List<Courrier> courriers = userService.getCourrierEnAttente();
+
+		modelAndView.addObject("courriers", courriers);
+		return modelAndView;
+	}
+				
+				
+				
+				//Confirmer courrier
+				
+	@RequestMapping(value = "/user/courrier-{idCourrier}/confirmer")
+	public String confirmerCourrier(@PathVariable("idCourrier") long idCourrier) {
+
+		Courrier courrier = courrierService.findCourrierById(idCourrier);
+		courrier.setRecu(true);
+		globalCrudService.update(courrier);
+		return "redirect:/user/Courrier-attente";
+	}
 
 }

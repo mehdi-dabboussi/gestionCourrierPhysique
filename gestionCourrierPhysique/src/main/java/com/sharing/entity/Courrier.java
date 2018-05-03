@@ -23,6 +23,7 @@ public class Courrier implements Serializable {
 	private String dateCreationCourrier;
 	private Nature nature;
 	private Langue langue;
+	private boolean recu;
 	
 	/*private Long emetteur;
 	private Long destinataire;*/
@@ -100,6 +101,8 @@ public class Courrier implements Serializable {
 	public void setLangue(Langue langue) {
 		this.langue = langue;
 	}
+	
+	
 
 	
 	/*public Long getEmetteur() {
@@ -118,6 +121,14 @@ public class Courrier implements Serializable {
 	public void setDestinataire(Long destinataire) {
 		this.destinataire = destinataire;
 	}*/
+
+	public boolean isRecu() {
+		return recu;
+	}
+
+	public void setRecu(boolean recu) {
+		this.recu = recu;
+	}
 
 	public String getEmetteurType() {
 		return emetteurType;

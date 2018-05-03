@@ -151,6 +151,7 @@ public class CourrierController {
 		System.out.println(dateFormat.format(date));
 		newCourrier.setDateCreationCourrier(dateFormat.format(date));
 		newCourrier.setObjetCourrier(objetCourrier);
+		newCourrier.setRecu(false);
 		System.out.println(newCourrier.getObjetCourrier());
 		System.out.println(newCourrier);
 		globalCrudService.save(newCourrier);
