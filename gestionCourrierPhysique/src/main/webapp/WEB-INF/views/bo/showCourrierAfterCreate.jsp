@@ -33,7 +33,7 @@
 							<div class="col-xs-12 invoice-header">
 								<h2>
 									<i class="fa fa-user-o"></i>
-									Information courrier</
+									Information courrier
 								</h2>
 							</div> 
 							<!-- /.col -->
@@ -103,7 +103,7 @@
 						                 <spring:url value="{userId}-edit" var="editUrl">
 						                      	<spring:param name="userId" value="${createdCourrier.idCourrier}"/>
 						                 </spring:url>
-					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
+					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a>
 						            </div>
 									<!-- /.col -->
 							</div>
@@ -111,7 +111,88 @@
 					  </div>
 				   </div>	
 				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>
+								Les Transferts
+							</h2>
+							   <ul class="nav navbar-right panel_toolbox">
+							<spring:url value="/bo/createTransfert" var="addUrl">
+						        <spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
+						    </spring:url>
+								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Nouveau transfert </a>
 								
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<table id="datatable-keytable" class="table table-striped table-bordered">
+								  <thead>
+								    <tr>
+								      <th>Emetteur</th>
+								      <th>Destinataire</th>
+								      <th>Date de transfert </th>
+								      <th>Estimation</th>
+								      <th>jj</th>
+								      <th>jj</th>
+								      <th>hh</th>
+								    </tr>
+								  </thead>
+								<c:forEach var="transfertToShow" items="${transferts}">
+									  	<tr>
+									      <td >${transfertToShow.emetteurUnite.nomUniteBancaire}</td>
+									      <td>
+									      <c:if test="${createdtransfert.destinataireType == 'unite'}">${createdtransfert.destinataireUnite.nomUniteBancaire}</c:if>
+							    	      <c:if test="${createdtransfert.destinataireType == 'contact'}">${createdtransfert.destinataireContact.nomContactExterne}</c:if> 
+										</td>
+									      <td >${transfertToShow.dateTransfert}</td>
+									      <td>${transfertToShow.estimation}</td>
+					                	  <td style="text-align: center">
+					                	 		 <spring:url value="/bo/transfert-{idTransfert}" var="displayUrl">
+						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>
+						                	  </spring:url>
+						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
+						                </td>
+						                <td style="text-align: center">	  
+										      <spring:url value="/bo/transfert-{idTransfert}-edit" var="editUrl">
+						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>
+						                      	<spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
+						                	  </spring:url>
+						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
+					                	  </td>
+					                	  <td style="text-align: center">	  
+										      <spring:url value="/bo/transfert-{idTransfert}/delete" var="deleteUrl">
+						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>
+						                      	<spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
+						                	  </spring:url>
+						                	 <a href="#myModal_${transfertToShow.idTransfert}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${transfertToShow.idTransfert}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+                    							<div class="modal-dialog modal-sm">
+                      								<div class="modal-content">
+                        								<div class="modal-header">
+                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
+                       									 </div>
+                       									 <div class="modal-body">
+                          								<h4>Attention !!!</h4>
+                          								<p>Etes-vous sur de vouloir supprimer ce transfert ???</p>
+                        								</div>
+                       									 <div class="modal-footer">
+                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
+                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" >Supprimer</a>
+                       									 </div>
+
+                      								</div>
+                    							</div>
+                						  </div>
+					                	  </td>
+									    </tr>
+								  </c:forEach>
+							</table>
+							
+						</div>
+					</div>
+				</div>				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->
@@ -122,6 +203,87 @@
 	</div>
 	<!-- Js files -->
 	<jsp:include page="../newTemplate/jsFiles.jsp" />
+	<script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+          ajax: "js/datatables/json/scroller-demo.json",
+          deferRender: true,
+          scrollY: 380,
+          scrollCollapse: true,
+          scroller: true
+        });
+
+        $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+        $datatable.on('draw.dt', function() {
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+          });
+        });
+
+        TableManageButtons.init();
+      });
+    </script>
+	
+	 <!-- Datatables -->
 	<!-- /Js files -->
 </body>
 </html>

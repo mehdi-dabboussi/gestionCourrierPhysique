@@ -19,6 +19,7 @@ import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
 import com.sharing.entity.Langue;
 import com.sharing.entity.Nature;
+import com.sharing.entity.Transfert;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
@@ -26,6 +27,8 @@ import com.sharing.service.CourrierService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.LangueService;
 import com.sharing.service.NatureService;
+import com.sharing.service.TransfertService;
+import com.sharing.service.TransfertServiceImpl;
 import com.sharing.service.UniteBancaireService;
 import com.sharing.service.UserService;
 
@@ -40,12 +43,13 @@ public class CourrierController {
 	private UserService userService;
 	private UniteBancaireService uniteBancaireService;
 	private ContactExterneService contactExterneService;
+	private TransfertService tansfertService;
 	
 	
 	@Autowired
 	public CourrierController(GlobalCrudService globalCrudService,CourrierService courrierService,
 			LangueService langueService, NatureService natureService, UserService userService,
-			UniteBancaireService uniteBancaireService, ContactExterneService contactExterneService){
+			UniteBancaireService uniteBancaireService, ContactExterneService contactExterneService, TransfertService transfertService){
 		this.globalCrudService = globalCrudService;
 		this.courrierService = courrierService;
 		this.langueService = langueService;
@@ -53,6 +57,7 @@ public class CourrierController {
 		this.userService = userService;
 		this.uniteBancaireService = uniteBancaireService;
 		this.contactExterneService = contactExterneService;
+		this.tansfertService =transfertService;
 	}
 	
 	
@@ -167,6 +172,13 @@ public class CourrierController {
 		Courrier createdCourrier = courrierService.findCourrierById(idCourrier);
 		modelAndView.addObject("createdCourrier", createdCourrier);
 		
+		List<Transfert> transferts = tansfertService.getTransfertsByCourrier(idCourrier);
+		for (Transfert transfert:transferts){
+			System.out.println(transfert);
+		}
+		modelAndView.addObject("transferts", transferts);
+		
+	
 		if(createdCourrier.getEmetteurUser() != null )
 			modelAndView.addObject("emetteur", createdCourrier.getEmetteurUser().getUserName() + createdCourrier.getEmetteurUser().getSurName());
 		else if (createdCourrier.getEmetteurUnite() != null )
@@ -184,7 +196,7 @@ public class CourrierController {
 	}
 	
 	
-	//all courrier
+	//all courriers 
 	@RequestMapping(value = "/bo/allCourriers", method = RequestMethod.GET)
 	public ModelAndView showAllUsers() {
 		ModelAndView modelAndView = new ModelAndView("bo/allCourriers.jsp");

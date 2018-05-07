@@ -16,6 +16,7 @@
       <class>com.sharing.entity.Courrier</class>
       <class>com.sharing.entity.Nature</class>
       <class>com.sharing.entity.Langue</class>
+      <class>com.sharing.entity.Transfert</class>
    </persistence-unit>
 </persistence>
 
