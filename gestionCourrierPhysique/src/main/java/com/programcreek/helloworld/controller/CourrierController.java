@@ -88,9 +88,9 @@ public class CourrierController {
 	@RequestMapping(value="/bo/newCourrier", method=RequestMethod.POST)
 	public String processCreateCourrier(
 			@ModelAttribute("newCourrier") Courrier newCourrier, BindingResult bindingResult, String emetteur,
-			long emetteurUser, Long emetteurUnite, Long emetteurContactExterne,
-			String destinataire, long destinataireUser, Long destinataireUnite, Long destinataireContact,
-			Long natureC, Long langueC, String etat, String objetCourrier){
+			String emetteurUser, String emetteurUnite, String emetteurContactExterne,
+			String destinataire, String destinataireUser, String destinataireUnite, String destinataireContact,
+			String natureC, String langueC, String etat, String objetCourrier){
 		for( FieldError fieldError : bindingResult.getFieldErrors() )
 		    System.out.println(fieldError.getField() +" : "+fieldError.getDefaultMessage());
 		
@@ -99,8 +99,8 @@ public class CourrierController {
 		
 		newCourrier.setEtatCourrier(etat);
 		
-		Langue langue = langueService.findLangueById(langueC);
-		Nature nature = natureService.findNatureById(natureC);
+		Langue langue = langueService.findLangueById(Long.parseLong(langueC));
+		Nature nature = natureService.findNatureById(Long.parseLong(natureC));
 		
 		
 		newCourrier.setLangue(langue);
@@ -109,21 +109,21 @@ public class CourrierController {
 		System.out.println(newCourrier);
 		
 		if(emetteur.equals("user_emet")){
-			User user = userService.findUSerById(emetteurUser);
+			User user = userService.findUSerById(Long.parseLong(emetteurUser));
 			newCourrier.setEmetteurType("user");
 			//newCourrier.setEmetteur(emetteurUser);
 			newCourrier.setEmetteurUser(user);
 		}
 		
 		else if(emetteur.equals("unite_emet")){
-			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(emetteurUnite);
+			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(emetteurUnite));
 			newCourrier.setEmetteurType("unite");
 			//newCourrier.setEmetteur(emetteurUnite);
 			newCourrier.setEmetteurUnite(uniteBancaire);
 		}
 		
 		else{
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(emetteurContactExterne);
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(emetteurContactExterne));
 			newCourrier.setEmetteurType("contact");
 			//newCourrier.setEmetteur(emetteurContactExterne);
 			newCourrier.setEmetteurContact(contactExterne);
@@ -132,21 +132,21 @@ public class CourrierController {
 		System.out.println(newCourrier);
 		
 		if(destinataire.equals("user_dest")){
-			User user = userService.findUSerById(destinataireUser);
+			User user = userService.findUSerById(Long.parseLong(destinataireUser));
 			newCourrier.setDestinataireType("user");
 			//newCourrier.setDestinataire(destinataireUser);
 			newCourrier.setDestinataireUser(user);
 		}
 		
 		else if (destinataire.equals("unite_dest")){
-			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(destinataireUnite);
+			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(destinataireUnite));
 			newCourrier.setDestinataireType("unite");
 			//newCourrier.setDestinataire(destinataireUnite);
 			newCourrier.setDestinataireUnite(uniteBancaire);
 		}
 		else
 		{
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(destinataireContact);
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(destinataireContact));
 			newCourrier.setDestinataireType("contact");
 			//newCourrier.setDestinataire(destinataireContact);
 			newCourrier.setDestinataireContact(contactExterne);

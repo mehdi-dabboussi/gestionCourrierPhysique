@@ -17,17 +17,9 @@
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
 
-<function> <name>courrierDepart</name> <function-class>com.sharing.ServiceJavaScript</function-class>
-<function-signature>boolean
-courrierDepart(com.sharing.entity.Courrier)</function-signature> </function>
-
-<function> <name>courrierArrive</name> <function-class>com.sharing.ServiceJavaScript</function-class>
-<function-signature>boolean
-courrierArrive(com.sharing.entity.Courrier)</function-signature> </function>
 
 <function> <name>notNull</name> <function-class>com.sharing.ServiceJavaScript</function-class>
-<function-signature>boolean
-notNull(java.lang.Object)</function-signature> </function>
+<function-signature>boolean notNull(java.lang.Object)</function-signature> </function>
 
 <body class="nav-md footer_fixed">
 	<div class="container body">
@@ -65,6 +57,18 @@ notNull(java.lang.Object)</function-signature> </function>
 								<form:form class="form-horizontal form-label-leftr"
 									data-toggle="validator" role="form"
 									modelAttribute="newCourrier">
+									
+									<div class="item form-group">
+										<label for="inputObjetLab"
+											class="control-label col-md-3 col-sm-3 col-xs-12">
+											Estimation ( par heure ) <em>*</em>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="number" class="form-control col-md-7 col-xs-12"
+												id="inputNom" placeholder="Estimation en heure" name="estimation"
+												value="${newTransfert.estimation}" required>
+										</div>
+									</div>
 
 									<div class="form-group">
 										<label for="inputEmetteurLab"
@@ -124,17 +128,7 @@ notNull(java.lang.Object)</function-signature> </function>
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
-									<div class="item form-group">
-										<label for="inputObjetLab"
-											class="control-label col-md-3 col-sm-3 col-xs-12">
-											Estimation ( par heure ) <em>*</em>
-										</label>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="number" class="form-control col-md-7 col-xs-12"
-												id="inputNom" placeholder="Objet" name="estimation"
-												value="${newTransfert.estimation}" required>
-										</div>
-									</div>
+									
 
 
 									<div class="ln_solid"></div>

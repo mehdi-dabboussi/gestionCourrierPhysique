@@ -121,7 +121,7 @@
 							<spring:url value="/bo/createTransfert" var="addUrl">
 						        <spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
 						    </spring:url>
-								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Nouveau transfert </a>
+								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-send"></i> Nouveau transfert </a>
 								
 							</ul>
 							<div class="clearfix"></div>
@@ -143,8 +143,8 @@
 									  	<tr>
 									      <td >${transfertToShow.emetteurUnite.nomUniteBancaire}</td>
 									      <td>
-									      <c:if test="${createdtransfert.destinataireType == 'unite'}">${createdtransfert.destinataireUnite.nomUniteBancaire}</c:if>
-							    	      <c:if test="${createdtransfert.destinataireType == 'contact'}">${createdtransfert.destinataireContact.nomContactExterne}</c:if> 
+									      <c:if test="${transfertToShow.destinataireType == 'unite'}">${transfertToShow.destinataireUnite.nomUniteBancaire}</c:if>
+							    	      <c:if test="${transfertToShow.destinataireType == 'contact'}">${transfertToShow.destinataireContact.nomContactExterne}</c:if> 
 										</td>
 									      <td >${transfertToShow.dateTransfert}</td>
 									      <td>${transfertToShow.estimation}</td>

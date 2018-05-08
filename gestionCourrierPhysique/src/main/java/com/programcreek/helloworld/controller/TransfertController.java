@@ -145,7 +145,7 @@ public class TransfertController {
 	 {
 	 ModelAndView modelAndView = new ModelAndView("bo/createTransfert.jsp");
 	 Transfert newtransfert = transfertService.findTransfertById(idTransfert);
-	  modelAndView.addObject("newtransfert", newtransfert); 
+	  modelAndView.addObject("newTransfert", newtransfert); 
 	  List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
 		modelAndView.addObject("uniteBancaires", uniteBancaires);
 		
@@ -155,32 +155,33 @@ public class TransfertController {
 	  }
 	  
 	 @RequestMapping(value = "/bo/transfert-{idTransfert}-edit", method=RequestMethod.POST) 
-	 public String processUpdateTransfertForm(Transfert newtransfert,
-			 @PathVariable("idTransfert") long idTransfert,Long idCourrier,
-			 String destinataire, String destinataireUnite, String destinataireContact) 
+	 public String processUpdateTransfertForm(@PathVariable("idTransfert") long idTransfert,
+			 Long idCourrier,
+			 String destinataire, String destinataireUnite, String destinataireContact,
+			 String estimation) 
 	 {
-	  newtransfert.setIdTransfert(idTransfert); 
+		 Transfert newTransfert = transfertService.findTransfertById(idTransfert);
+		 //newTransfert.setIdTransfert(idTransfert); 
 	  Courrier courrier = courrierService.findCourrierById(idCourrier);
-	  newtransfert.setCourrier(courrier);
+	  newTransfert.setCourrier(courrier);
 	  
 	  if (destinataire.equals("unite_dest")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(destinataireUnite));
-			newtransfert.setDestinataireType("unite");
-			newtransfert.setDestinataireUnite(uniteBancaire);
-			newtransfert.setDestinataireContact(null);
+			newTransfert.setDestinataireType("unite");
+			newTransfert.setDestinataireUnite(uniteBancaire);
+			newTransfert.setDestinataireContact(null);
 		}
 		else
 		{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(destinataireContact));
-			newtransfert.setDestinataireType("contact");
-			newtransfert.setDestinataireContact(contactExterne);
-			newtransfert.setDestinataireUnite(null);
+			newTransfert.setDestinataireType("contact");
+			newTransfert.setDestinataireContact(contactExterne);
+			newTransfert.setDestinataireUnite(null);
 		}
 		
-	  
-	  this.globalCrudService.update(newtransfert); 
-	  return "redirect:/bo/courrier-"
-			  +idCourrier;
+	  newTransfert.setEstimation(estimation);
+	  this.globalCrudService.update(newTransfert); 
+	  return "redirect:/bo/courrier-" + courrier.getIdCourrier();
 	  
 	  }
 	  
@@ -194,7 +195,7 @@ public class TransfertController {
 	  {
 	  Transfert transfert = transfertService.findTransfertById(idTransfert);
 	  globalCrudService.remove(transfert, idTransfert); 
-	  return "redirect:/bo/transfert-"+idCourrier; 
+	  return "redirect:/bo/courrier-"+transfert.getCourrier().getIdCourrier(); 
 	  }
 	 
 }

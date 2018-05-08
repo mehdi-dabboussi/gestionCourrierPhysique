@@ -94,8 +94,9 @@
 					  </div>
 				   </div>	
 				</div>
-				  <div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="x_panel">
+				 
+				 <div class="clearfix"></div>
+				 <div class="row">
 						<div class="x_title">
 							<h2>
 								Les sous contacts externes
@@ -172,10 +173,18 @@
 							
 						</div>
 					</div>
-				</div>				
+				 <div class="clearfix"></div>
+				 <div class="clearfix"></div>
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->
+			
+			
+			 
+					
+								
+		
+			
 			<!-- footer content -->
 			<jsp:include page="../newTemplate/footer.jsp" />
 			<!-- /footer content -->

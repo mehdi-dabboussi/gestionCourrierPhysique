@@ -268,7 +268,7 @@ public class UserController {
 
 		System.out.println(connectedUser);
 
-		List<Courrier> courriers = userService.getCourrierEnAttente();
+		List<Courrier> courriers = userService.getCourrierEnAttente(connectedUser);
 
 		modelAndView.addObject("courriers", courriers);
 		return modelAndView;

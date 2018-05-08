@@ -32,5 +32,5 @@ public interface UserService {
 	
 	List<Courrier> getCourrierDestinataire (User user);
 	
-	List<Courrier> getCourrierEnAttente();
+	List<Courrier> getCourrierEnAttente(User user);
 }
