@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="printBordereau" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b21ea2df-23cb-4522-b63c-d9e4a6bd2e4c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="objet" class="java.lang.String"/>
+	<field name="destinataire" class="java.lang.String"/>
+	<field name="transfert" class="java.lang.String"/>
+	<field name="ville" class="java.lang.String"/>
+	<field name="sysDate" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="230" y="24" width="100" height="30" uuid="baad8b3d-ba66-4566-9862-cd516776bc86"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ville}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="917c4ba3-2b83-4e81-8c02-1d3bd8b83419"/>
+				<textFieldExpression><![CDATA[$F{sysDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="6f90090a-42f2-42c1-af25-45e870f1e58a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62399fd6-9792-4cc7-ab9e-e090715cbc3f"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="100" height="30" uuid="6ace2e5f-535a-4747-91a5-419f776ceab4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5df4c3e0-4634-4f83-a989-b4b45ecf155b"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Objet]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="100" height="30" uuid="187c94c9-80a9-4dca-b559-c6a1465d614a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="98817f39-c302-46f2-ae4c-02adf103d353"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destinataire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="50532177-595e-4cbf-a7de-a63935fe73b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f930ac7-248b-4fc3-89c7-02747398ec55"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transfert]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="40" uuid="63e80b0f-a42e-4754-85bc-51fbd9d821a4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62399fd6-9792-4cc7-ab9e-e090715cbc3f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="5" width="100" height="30" uuid="d8f3b7f6-49df-4731-b9df-023c7572cfb1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5df4c3e0-4634-4f83-a989-b4b45ecf155b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{objet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="5" width="100" height="30" uuid="8c8439f2-d947-45ce-bc54-aceb0fdd2a89">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="98817f39-c302-46f2-ae4c-02adf103d353"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{destinataire}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="3a5c17c1-f4da-4f97-b5de-7ddfa1ef5488">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f930ac7-248b-4fc3-89c7-02747398ec55"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{transfert}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

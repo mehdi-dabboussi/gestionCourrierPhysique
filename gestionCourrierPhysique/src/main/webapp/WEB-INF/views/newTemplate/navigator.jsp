@@ -122,6 +122,16 @@
 							</ul>
 						</li>
 					
+					
+					<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
+						<li><a><i class="fa fa-clipboard"></i>Bordereau<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/bo/generateBordereau">Générer un bordereau</a></li>
+								<li><a href="${contextPath}/bo/allCourriers">Les bordereaux</a></li>
+							</ul>
+						</li>
+					</sec:authorize>
+					
 				</ul>
 			</div>
 		</div>
@@ -136,13 +146,8 @@
 
 		<!-- /menu footer buttons -->
 		<div class="sidebar-footer hidden-small">
-			<a data-toggle="tooltip" data-placement="top" title="Settings"> 
-				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-			</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-				<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-			</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> 
-				<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-			</a> <a data-toggle="tooltip" data-placement="top" title="Logout"> 
+			
+			</a> <a data-toggle="tooltip" data-placement="top" title="Logout" href="<c:url value="/logout" />"> 
 				<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 			</a>
 		</div>

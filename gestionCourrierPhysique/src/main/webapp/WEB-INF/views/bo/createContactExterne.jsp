@@ -34,7 +34,7 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2> <c:if test="${newContactExterne.idContactExterne==0}">Nouvel </c:if>Contact externe</h2>
+								<h2> <c:if test="${newContactExterne.id==0}">Nouvel </c:if>Contact externe</h2>
 								<!-- <ul class="nav navbar-right panel_toolbox">
                       				<li>
                       					<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -52,7 +52,7 @@
 									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom du contact externe<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="Nom du contact externe"
-								                		name="nomContactExterne" value="${newContactExterne.nomContactExterne}" required>   
+								                		name="nom" value="${newContactExterne.nom}" required>   
 								                		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>  		
 											</div>
 									     </div>
@@ -60,15 +60,25 @@
 										     <label for="inputAdressLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Adresse<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputAdress" placeholder="Adresse"
-												 		name="adresseContactExterne" value="${newContactExterne.adresseContactExterne}" required>
+												 		name="adresse" value="${newContactExterne.adresse}" required>
 												 		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span> 
 											 </div>
 										</div>
+										
+										<div class="item form-group">
+										     <label for="inputVilleLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Ville<em>*</em></label>
+										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
+												 <input type="text" class="form-control col-md-7 col-xs-12"id="inputville" placeholder="Ville"
+												 		name="ville" value="${newContactExterne.ville}" required>
+												 		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span> 
+											 </div>
+										</div>
+										
 										<div class="item form-group">
 										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputTelContactExterne" placeholder="Téléphone"
-												 		name="telContactExterne" value="${newContactExterne.telContactExterne}" required>
+												 		name="tel" value="${newContactExterne.tel}" required>
 												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span> 
 											 </div>
 										</div>
@@ -76,7 +86,7 @@
 										     <label for="inputEmailContactExterne"  class="control-label col-md-3 col-sm-3 col-xs-12">e-mail<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputEmailContactExterne" placeholder="e-mail"
-								              			name="emailContactExterne" value="${newContactExterne.emailContactExterne}" required>
+								              			name="email" value="${newContactExterne.email}" required>
 								              			<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
 											 </div> 
 									    </div>  
@@ -84,7 +94,7 @@
 										     <label for="FaxContactExterne"  class="control-label col-md-3 col-sm-3 col-xs-12">Fax<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="FaxContactExterne" placeholder="Fax"
-								              			name="faxContactExterne" value="${newContactExterne.faxContactExterne}" data-validate-length="7" required>
+								              			name="fax" value="${newContactExterne.fax}" data-validate-length="7" required>
 								              			<span class="fa fa-fax form-control-feedback right" aria-hidden="true"></span>
 											 </div> 
 									    </div>
@@ -93,7 +103,7 @@
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newContactExterne.idContactExterne==0}">
+										                <c:when test="${newContactExterne.id==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Créer</button>
 															<spring:url value="/admin/allContactExterne" var="returnUrl">
 									                    	</spring:url>

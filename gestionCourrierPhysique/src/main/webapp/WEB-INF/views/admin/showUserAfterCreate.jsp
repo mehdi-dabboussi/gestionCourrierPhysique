@@ -53,7 +53,7 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdUser.userName}</td>
+														<td>${createdUser.nom}</td>
 													</tr>
 													<tr>
 														<th >Prénom:</th>
@@ -61,11 +61,11 @@
 													</tr>
 													<tr>
 														<th >Email:</th>
-														<td>${createdUser.userEmail}</td>
+														<td>${createdUser.email}</td>
 													</tr>
 													<tr>
 														<th >Téléphone:</th>
-														<td>${createdUser.userTel}</td>
+														<td>${createdUser.tel}</td>
 													</tr>
 													<tr>
 														<th >identifiant utilisateur:</th>
@@ -98,7 +98,7 @@
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
 						                 <spring:url value="{userId}-edit" var="editUrl">
-						                      	<spring:param name="userId" value="${createdUser.idUser}"/>
+						                      	<spring:param name="userId" value="${createdUser.id}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
 						            </div>

@@ -57,9 +57,9 @@
 								  </thead>
 								<c:forEach var="userToShow" items="${users}">
 									  	<tr>
-									      <td >${userToShow.userName}</td>
+									      <td >${userToShow.nom}</td>
 									      <td >${userToShow.surName}</td>
-									      <td>${userToShow.uniteBancaire.nomUniteBancaire }</td>
+									      <td>${userToShow.uniteBancaire.nom }</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
 												<c:if test="${userToShow.roles.get(0).name == 'ROLE_USER'}">Simple Utilisateur</c:if>
@@ -70,22 +70,22 @@
 									      
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/admin/{userId}" var="displayUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+						                      	<spring:param name="userId" value="${userToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
 										      <spring:url value="{userId}-edit" var="editUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+						                      	<spring:param name="userId" value="${userToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
 										      <spring:url value="{userId}/delete" var="deleteUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+						                      	<spring:param name="userId" value="${userToShow.id}"/>
 						                	  </spring:url>
-						                	   <a href="#myModal_${userToShow.idUser}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${userToShow.idUser}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	   <a href="#myModal_${userToShow.id}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${userToShow.id}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
@@ -97,7 +97,7 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/admin/${userToShow.idUser}/delete" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/${userToShow.id}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>
@@ -107,16 +107,16 @@
 					                	  
 					                	   <td style="text-align: center">
 									      <spring:url value="/admin/{userId}-enabled" var="enableUrl">
-									      <spring:param name="userId" value="${userToShow.idUser }"/>
+									      <spring:param name="userId" value="${userToShow.id }"/>
 									      </spring:url>
 									      <c:if test="${userToShow.enabled == false }">
-									      <a href="#myModal2_${userToShow.idUser}" role="button" class="btn btn-success btn-xs" data-toggle="modal">Activer</a>
+									      <a href="#myModal2_${userToShow.id}" role="button" class="btn btn-success btn-xs" data-toggle="modal">Activer</a>
 									      </c:if>
 									     
 									      <c:if test="${userToShow.enabled == true }">
-									      <a href="#myModal2_${userToShow.idUser}" role="button" class="btn btn-warning btn-xs" data-toggle="modal">Desactiver</a>
+									      <a href="#myModal2_${userToShow.id}" role="button" class="btn btn-warning btn-xs" data-toggle="modal">Desactiver</a>
 									      </c:if>
-									      <div id="myModal2_${userToShow.idUser}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+									      <div id="myModal2_${userToShow.id}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
@@ -128,7 +128,7 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/admin/${userToShow.idUser}-enabled" class="btn btn-primary" ">Enregistrer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/${userToShow.id}-enabled" class="btn btn-primary" ">Enregistrer</a>
                        									 </div>
 
                       								</div>

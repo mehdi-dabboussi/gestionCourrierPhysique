@@ -24,8 +24,8 @@
 		<authentication-provider>
 			<password-encoder hash="bcrypt" />
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select login,password, enabled from user where login=?"
-				authorities-by-username-query="Select login,name from user,user_role,role where login=? and user.idUser=user_role.idUser and user_role.idRole=role.idRole" />
+				users-by-username-query="select login,password, enabled from emetteur_recepteur where login=?"
+				authorities-by-username-query="Select login,name from emetteur_recepteur,user_role,role where login=? and emetteur_recepteur.id=user_role.idUser and user_role.idRole=role.idRole" />
 		</authentication-provider>
 	</authentication-manager>
 

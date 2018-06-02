@@ -141,10 +141,10 @@
 								  </thead>
 								<c:forEach var="transfertToShow" items="${transferts}">
 									  	<tr>
-									      <td >${transfertToShow.emetteurUnite.nomUniteBancaire}</td>
+									      <td >${transfertToShow.emetteurUnite.nom}</td>
 									      <td>
-									      <c:if test="${transfertToShow.destinataireType == 'unite'}">${transfertToShow.destinataireUnite.nomUniteBancaire}</c:if>
-							    	      <c:if test="${transfertToShow.destinataireType == 'contact'}">${transfertToShow.destinataireContact.nomContactExterne}</c:if> 
+									      <c:if test="${transfertToShow.destinataireType == 'unite'}">${transfertToShow.destinataireUnite.nom}</c:if>
+							    	      <c:if test="${transfertToShow.destinataireType == 'contact'}">${transfertToShow.destinataireContact.nom}</c:if> 
 										</td>
 									      <td >${transfertToShow.dateTransfert}</td>
 									      <td>${transfertToShow.estimation}</td>

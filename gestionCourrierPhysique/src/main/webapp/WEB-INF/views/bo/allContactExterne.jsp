@@ -57,27 +57,27 @@
 								  </thead>
 								<c:forEach var="contactExterneToShow" items="${contactExternes}">
 									  	<tr>
-									      <td >${contactExterneToShow.nomContactExterne}</td>
-									      <td >${contactExterneToShow.adresseContactExterne}</td>
-									      <td >${contactExterneToShow.telContactExterne}</td>
-									      <td>${contactExterneToShow.emailContactExterne}</td>
-									      <td>${contactExterneToShow.faxContactExterne}</td>
+									      <td >${contactExterneToShow.nom}</td>
+									      <td >${contactExterneToShow.adresse}</td>
+									      <td >${contactExterneToShow.tel}</td>
+									      <td>${contactExterneToShow.email}</td>
+									      <td>${contactExterneToShow.fax}</td>
 									      
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/bo/contactexterne-{idContactExterne}" var="displayUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
 										      <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.idContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${contactExterneToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-						                	  <a href="#myModal_${contactExterneToShow.idContactExterne}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${contactExterneToShow.idContactExterne}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	  <a href="#myModal_${contactExterneToShow.id}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${contactExterneToShow.id}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
@@ -89,7 +89,7 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/bo/contactexterne-${contactExterneToShow.idContactExterne}/delete" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/bo/contactexterne-${contactExterneToShow.id}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>

@@ -152,19 +152,19 @@
 												</c:when>
 												<c:otherwise>
 												 <div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.emetteurUser ) }">checked="checked"</c:if> 
+													<label> <input type="radio" <c:if test="${newCourrier.emetteurType == 'user'}">checked="checked"</c:if> 
 													 value="user_emet" name="emetteur"  required id="emetuser">
 														utilisateur
 													</label>
 												</div>
 												<div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.emetteurUnite ) }">checked="checked"</c:if>
+													<label> <input type="radio" <c:if test="${newCourrier.emetteurType == 'unite'}">checked="checked"</c:if>
 													value="unite_emet" name="emetteur" required id="emetunite" >
 														unité bancaire
 													</label>
 												</div>
 												<div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.emetteurContact ) }">checked="checked"</c:if>
+													<label> <input type="radio" <c:if test="${newCourrier.emetteurType == 'contact'}">checked="checked"</c:if>
 													value="contact_emet" name="emetteur" required id="emetcontact"> 
 														contact externe
 													</label>
@@ -178,9 +178,8 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUser">
-												<option value="${newCourrier.emetteurUser.idUser}">${newCourrier.emetteurUser.surName} ${newCourrier.emetteurUser.userName}</option>
 												<c:forEach var="user" items="${users}">
-													<option value="${user.idUser}">${user.surName} ${user.userName}</option>
+													<option value="${user.id}">${user.surName} ${user.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -192,9 +191,8 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurUnite" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUnite">
-												<option value="${newCourrier.emetteurUnite.idUniteBancaire}">${newCourrier.emetteurUnite.nomUniteBancaire}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
-													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
+													<option value="${unite.id}">${unite.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
@@ -206,9 +204,8 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurContactExterne" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetContact">
-												<option value="${newCourrier.emetteurContact.idContactExterne}">${newCourrier.emetteurContact.nomContactExterne}</option>
 												<c:forEach var="contact" items="${contactExternes}">
-													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
+													<option value="${contact.id}">${contact.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
@@ -220,19 +217,19 @@
 											 <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Destinataire<em>*</em></label>	
 											 <div class="col-md-6 col-sm-6 col-xs-12">
 											 <div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.destinataireUser ) }">checked="checked"</c:if>
+													<label> <input type="radio" <c:if test="${newCourrier.destinataireType == 'user'}">checked="checked"</c:if>
 													value="user_dest" name="destinataire" required id="destuser">
 														utilisateur
 													</label>
 												</div>
 												<div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.destinataireUnite ) }">checked="checked"</c:if>
+													<label> <input type="radio" <c:if test="${newCourrier.destinataireType == 'unite'}">checked="checked"</c:if>
 													value="unite_dest" name="destinataire" required id="destunite">
 														unité bancaire
 													</label>
 												</div>
 												<div class="radio">
-													<label> <input type="radio" <c:if test="${ myfn:notNull( newCourrier.destinataireContact ) }">checked="checked"</c:if>
+													<label> <input type="radio" <c:if test="${newCourrier.destinataireType == 'contact'}">checked="checked"</c:if>
 													value="contact_dest" name="destinataire" required id="destcontact">
 														contact externe
 													</label>
@@ -244,9 +241,9 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUser">
-												<option value="${newCourrier.destinataireUser.idUser}">${newCourrier.destinataireUser.surName} ${newCourrier.destinataireUser.userName}</option>
+												
 												<c:forEach var="user" items="${users}">
-													<option value="${user.idUser}">${user.surName} ${user.userName}</option>
+													<option value="${user.id}">${user.surName} ${user.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -258,9 +255,9 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireUnite" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUnite">
-												<option value="${newCourrier.destinataireUnite.idUniteBancaire}">${newCourrier.destinataireUnite.nomUniteBancaire}</option>	  
+												
 												<c:forEach var="unite" items="${uniteBancaires}">
-													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
+													<option value="${unite.id}">${unite.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -272,9 +269,9 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireContact" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestContact">
-												<option value="${newCourrier.destinataireContact.idContactExterne}">${newCourrier.destinataireContact.nomContactExterne}</option>	  	  
+												
 												<c:forEach var="contact" items="${contactExternes}">
-													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
+													<option value="${contact.id}">${contact.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>

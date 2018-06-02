@@ -4,5 +4,6 @@ encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/views/echarts.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/form.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/general_elements.jsp=UTF-8
+encoding//src/main/webapp/report/printBordereau.jrxml=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

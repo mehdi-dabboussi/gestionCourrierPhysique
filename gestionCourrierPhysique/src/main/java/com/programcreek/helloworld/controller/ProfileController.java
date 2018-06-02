@@ -99,7 +99,7 @@ public class ProfileController {
 			newUser.setRoles(user.getRoles());
 		}
 
-		newUser.setIdUser(user.getIdUser());
+		newUser.setId(user.getId());
 		newUser.setEnabled(true);
 
 		if (!newUser.getPassword().equals(user.getPassword())) {

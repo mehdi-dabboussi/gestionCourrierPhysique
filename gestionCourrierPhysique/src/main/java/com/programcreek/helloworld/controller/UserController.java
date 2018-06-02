@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
 import com.sharing.entity.Role;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
+import com.sharing.service.ContactExterneService;
 import com.sharing.service.CourrierService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.RoleService;
@@ -34,16 +36,19 @@ public class UserController {
 	private UniteBancaireService uniteBancaireService;
 	private RoleService roleService;
 	private CourrierService courrierService;
+	private ContactExterneService contactExterneService;
 	
 	
 	@Autowired
 	public UserController(UserService userService, GlobalCrudService globalCrudService, 
-			UniteBancaireService uniteBancaireService, RoleService roleService, CourrierService courrierService) {
+			UniteBancaireService uniteBancaireService, RoleService roleService, CourrierService courrierService,
+			ContactExterneService contactExterneService) {
 		this.userService = userService;
 		this.globalCrudService = globalCrudService;
 		this.uniteBancaireService = uniteBancaireService;
 		this.roleService = roleService;
 		this.courrierService = courrierService;
+		this.contactExterneService = contactExterneService;
 	}
 	
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.GET)
@@ -94,7 +99,7 @@ public class UserController {
 		String hashedPassword = passwordEncoder.encode(newUser.getPassword());
 		newUser.setPassword(hashedPassword);
 		userService.CreateUser(newUser);
-		return "redirect:/admin/" + newUser.getIdUser();
+		return "redirect:/admin/" + newUser.getId();
 	}
 
 	@RequestMapping(value = "/admin/{userId}")
@@ -106,7 +111,7 @@ public class UserController {
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
 		if(user.getUniteBancaire() != null)
 		modelAndView.addObject("uniteBancaire", user.getUniteBancaire()
-				.getNomUniteBancaire());
+				.getNom());
 		/*if(user.getUniteBancaire() == null)
 			modelAndView.addObject("haveUB", 0);
 		else
@@ -141,7 +146,7 @@ public class UserController {
 
 		newUser.setRoles(roles);
 
-		newUser.setIdUser(userId);
+		newUser.setId(userId);
 		newUser.setEnabled(true);
 		UniteBancaire uniteBancaire = uniteBancaireService
 				.findUniteBancaireById(uniteB);
@@ -154,7 +159,7 @@ public class UserController {
 			newUser.setPassword(hashedPassword);
 		}
 		this.userService.updateUser(newUser);
-		return "redirect:/admin/" + newUser.getIdUser();
+		return "redirect:/admin/" + newUser.getId();
 	}
 	
 	
@@ -227,6 +232,14 @@ public class UserController {
 				.getCourrierDestinataire(connectedUser);
 
 		modelAndView.addObject("courriers", courriers);
+		List<User> users = userService.getAllUsers();
+		modelAndView.addObject("users", users);
+		
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
+		
+		List<ContactExterne> contactExternes = contactExterneService.getAllContactExterne();
+		modelAndView.addObject("contactExternes", contactExternes);
 		return modelAndView;
 	}
 		
@@ -249,6 +262,14 @@ public class UserController {
 				.getCourrierEmetteur(connectedUser);
 
 		modelAndView.addObject("courriers", courriers);
+		List<User> users = userService.getAllUsers();
+		modelAndView.addObject("users", users);
+		
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
+		
+		List<ContactExterne> contactExternes = contactExterneService.getAllContactExterne();
+		modelAndView.addObject("contactExternes", contactExternes);
 		return modelAndView;
 	}
 		
@@ -271,6 +292,14 @@ public class UserController {
 		List<Courrier> courriers = userService.getCourrierEnAttente(connectedUser);
 
 		modelAndView.addObject("courriers", courriers);
+		List<User> users = userService.getAllUsers();
+		modelAndView.addObject("users", users);
+		
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
+		
+		List<ContactExterne> contactExternes = contactExterneService.getAllContactExterne();
+		modelAndView.addObject("contactExternes", contactExternes);
 		return modelAndView;
 	}
 				

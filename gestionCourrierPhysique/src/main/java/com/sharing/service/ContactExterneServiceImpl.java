@@ -22,11 +22,11 @@ public class ContactExterneServiceImpl implements ContactExterneService {
 	}
 
 	@Transactional
-	public ContactExterne findContactExterneByName(String nomContactExterne) {
+	public ContactExterne findContactExterneByName(String nom) {
 		return (ContactExterne) em
 				.createQuery(
-						"select c from ContactExterne c where c.nomContactExterne=:nomContactExterne")
-				.setParameter("nomContactExterne", nomContactExterne).getSingleResult();
+						"select c from ContactExterne c where c.nom=:nom")
+				.setParameter("nom", nom).getSingleResult();
 	}
 
 	@Transactional

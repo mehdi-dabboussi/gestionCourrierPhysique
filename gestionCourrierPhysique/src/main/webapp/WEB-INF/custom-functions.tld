@@ -29,6 +29,13 @@
         <function-signature>boolean notNull(java.lang.Object)</function-signature>
     </function>
     
+    <function>
+        <name>getNom</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>String getNom(java.lang.Object, com.sharing.entity.Emetteur_Recepteur ,
+        java.util.List,java.util.List,java.util.List)</function-signature>
+    </function>
+    
     
     
     <function>

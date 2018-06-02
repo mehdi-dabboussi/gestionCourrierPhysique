@@ -17,6 +17,8 @@
       <class>com.sharing.entity.Nature</class>
       <class>com.sharing.entity.Langue</class>
       <class>com.sharing.entity.Transfert</class>
+      <class>com.sharing.entity.Emetteur_Recepteur</class>
+      <class>com.sharing.entity.Bordereau</class>
    </persistence-unit>
 </persistence>
 

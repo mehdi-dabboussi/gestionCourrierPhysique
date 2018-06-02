@@ -8,19 +8,21 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="myfn" uri="/WEB-INF/custom-functions.tld"  %>
 
 <html lang="en">
 <!-- css files -->
-<jsp:include page="../newTemplate/staticFiles.jsp" />
+<jsp:include page="../newTemplate/staticFiles2.jsp" />
 <!-- /css files -->
 
-<function>
-        <name>getNom</name>
-        <function-class>com.sharing.ServiceJavaScript</function-class>
-        <function-signature>String getNom(java.lang.Object, com.sharing.entity.Emetteur_Recepteur ,
-        java.util.List,java.util.List,java.util.List)</function-signature>
-</function>
+
+
+
+<head>
+<title> ${ville} </title>
+</head>
+
+
+
 
 <body class="nav-md footer_fixed">
 	<div class="container body">
@@ -41,48 +43,79 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Courriers recus
+								Bordereau ${ville}
 							</h2>
 							
 							<div class="clearfix"></div>
 						</div>
+						
 						<div class="x_content">
-							<table id="datatable-keytable" class="table table-striped table-bordered">
+						<form:form class="form-horizontal form-label-leftr" 
+											data-toggle="validator" role="form" >
+						<div class="item form-group ">
+										     <label for="inputTransporteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Choisir le transporteur<em>*</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select name="transporteur" class="select2_single nature form-control" tabindex="-1" required>
+													<option ></option>
+												<c:forEach var="transporteur" items="${transporteurs}">
+													<option value="${transporteur.idTransporteurExterne}">${transporteur.nomTransporteurExterne}</option>
+												</c:forEach>
+												</select>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+						
+						
+							<table id="datatable-buttons" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
-								      <th>id</th>
-								      <th>etat</th>
-								      <th>objet</th>
-								      <th>date de création</th>
-								      <th>Emetteur</th>
-								      <th>Visualisation</th>
+								      <th>
+								      <div class="checkbox">
+								      <input type="checkbox" id="checkBoxAll" /></th>
+								      </div>
+								      <th>Id courrier </th>
+								      <th>Objet</th> 
+								      <th>Destinataire</th>
+								      <th>Transfert vers</th>
+								      <th>Date de transfert </th>
+								      <th>Estimation</th>
+								      
 								    </tr>
 								  </thead>
-								<c:forEach var="courrierToShow" items="${courriers}">
+								<c:forEach var="transfertToShow" items="${transferts}">
 									  	<tr>
-									      <td >${courrierToShow.idCourrier}</td>
-									      <td >${courrierToShow.etatCourrier}</td>
-									      <td>${courrierToShow.objetCourrier}</td>
-									      <td>${courrierToShow.dateCreationCourrier}</td>
-									      
-									      
+									  	<td> 
+									  	<div class="checkbox">
+									  	<input class="chkCheckBoxId" type="checkbox" value="${transfertToShow.idTransfert}" name="idTransfert" /> </td>
+									    </div>  
+									      <td >${transfertToShow.courrier.idCourrier}</td>
+									      <td >${transfertToShow.courrier.objetCourrier}</td>
+									      <td >${transfertToShow.courrier.destinataire.nom}</td>
 									      <td>
-									      	${myfn:getNom(courrierToShow.emetteurType,courrierToShow.emetteur,users,uniteBancaires,contactExternes)}	
-									      </td>
-									      
-					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/courrier-{idCourrier}" var="displayUrl">
-						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                	</td>
+									      <c:if test="${transfertToShow.destinataireType == 'unite'}">${transfertToShow.destinataireUnite.nom}</c:if>
+							    	      <c:if test="${transfertToShow.destinataireType == 'contact'}">${transfertToShow.destinataireContact.nom}</c:if> 
+										</td>
+									      <td >${transfertToShow.dateTransfert}</td>
+									      <td>${transfertToShow.estimation} Heure</td>
+					                	 
 									    </tr>
 								  </c:forEach>
 							</table>
-							
+                						  
+                			<div class="ln_solid"></div>
+										<div class="form-group" style="margin-left: 95%;margin-top: 2%;">
+<!-- 					                        <div > -->
+										                   	<button type="submit" class="btn btn-success btn-xs source" >Confirmer</button>
+<!-- 					                        </div> -->
+				                       </div>
+                						  </form:form>
 						</div>
 					</div>
 				</div>
+				
+				
+										
+				
 				<!-- /Put your main JSP here -->
 			</div>
 			<!-- /page content -->
@@ -101,25 +134,9 @@
               dom: "Bfrtip",
               buttons: [
                 {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
                   extend: "print",
                   className: "btn-sm"
-                },
+                }
               ],
               responsive: true
             });
@@ -172,8 +189,20 @@
         TableManageButtons.init();
       });
     </script>
-	
+
 	 <!-- Datatables -->
+	 
+	 <script>
+	 	$(document).ready(function(){
+	 		$('#checkBoxAll').click(function(){
+	 			if ($(this).is(":checked"))
+	 				$('.chkCheckBoxId').prop('checked', true);
+	 			else
+	 				$('.chkCheckBoxId').prop('checked', false);
+	 		});
+	 	});
+	 </script>
+	 
 	<!-- /Js files -->
 </body>
 </html>

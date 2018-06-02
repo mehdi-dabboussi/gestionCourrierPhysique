@@ -48,7 +48,7 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2> <c:if test="${newUser.idUser==0}">Nouvel </c:if>Utilisateur</h2>
+								<h2> <c:if test="${newUser.id==0}">Nouvel </c:if>Utilisateur</h2>
 								<!-- <ul class="nav navbar-right panel_toolbox">
                       				<li>
                       					<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -66,7 +66,7 @@
 									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
-								                		name="userName" value="${newUser.userName}" required>  
+								                		name="nom" value="${newUser.nom}" required>  
 								                		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>  		
 											</div>
 									     </div>
@@ -82,7 +82,7 @@
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
-												 		name="userEmail" value="${newUser.userEmail}" required>
+												 		name="email" value="${newUser.email}" required>
 												 		<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
 											 </div>
 										</div>
@@ -91,7 +91,7 @@
 										     <label for="userTel"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="userTel" placeholder="Téléphone"
-												 		name="userTel" value="${newUser.userTel}" data-validate-lenght="8" required >
+												 		name="tel" value="${newUser.tel}" data-validate-lenght="8" required >
 												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
 											 </div>
 										</div>
@@ -136,9 +136,9 @@
 										     <label for="inputUniteBancaireLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Unité bancaire<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="uniteB" class="select2_single form-control" tabindex="-1" required>
-													<option value="${newUser.uniteBancaire.idUniteBancaire}">${newUser.uniteBancaire.nomUniteBancaire}</option>
+													<option value="${newUser.uniteBancaire.id}">${newUser.uniteBancaire.nom}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
-													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
+													<option value="${unite.id}">${unite.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span> 
@@ -170,7 +170,7 @@
 											</div>
 										</div>
 										<c:choose>
-										<c:when test="${newUser.idUser==0}">
+										<c:when test="${newUser.id==0}">
 									    <div class="item form-group ">
 										     <label for="inputEnabledLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Enabled<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
@@ -219,7 +219,7 @@
 										<div class="form-group" style="margin-left: 65%;margin-top: 2%;">
 <!-- 					                        <div > -->
 					                          <c:choose>
-										                <c:when test="${newUser.idUser==0}">
+										                <c:when test="${newUser.id==0}">
 										                   	<button type="submit" class="btn btn-success btn-xs source" >Créer</button>
 															<spring:url value="/admin/allUsers" var="returnUrl">
 									                    	</spring:url>

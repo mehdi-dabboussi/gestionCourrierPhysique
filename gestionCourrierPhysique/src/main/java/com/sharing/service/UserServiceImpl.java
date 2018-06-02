@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User findUserByLogin(String login) {
 		return (User) em
-				.createQuery("select u from User u where u.login=:login")
+				.createQuery("select u from Emetteur_Recepteur u where u.login=:login")
 				.setParameter("login", login).getSingleResult();
 	}
 
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 	public User findUserByNameSurname(String userName, String surname) {
 		return (User) em
 				.createQuery(
-						"select u from User u where u.userName=:userName and u.surname=:surname")
+						"select u from User u where u.nom=:userName and u.surname=:surname")
 				.setParameter("userName", userName)
 				.setParameter("surname", surname).getSingleResult();
 	}
@@ -82,22 +82,22 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public List<Courrier> getCourrierEmetteur(User user) {
-		return em.createQuery("select c from Courrier c where c.emetteurUser= :user").
-				setParameter("user", user).getResultList();
+		return em.createQuery("select c from Courrier c where c.emetteur.id= :user").
+				setParameter("user", user.getId()).getResultList();
 	}
 
 	@Transactional
 	public List<Courrier> getCourrierDestinataire(User user) {
-		return em.createQuery("select c from Courrier c where c.destinataireUser= :user and c.recu= :recu").
-				setParameter("user", user).setParameter("recu", true).
+		return em.createQuery("select c from Courrier c where c.emetteur.id= :user and c.recu= :recu").
+				setParameter("user", user.getId()).setParameter("recu", true).
 				getResultList();
 	}
 	
 	@Transactional
 	public List<Courrier> getCourrierEnAttente(User user) {
-		return em.createQuery("select c from Courrier c where c.recu= :recu and c.destinataireUser= :user").
+		return em.createQuery("select c from Courrier c where c.recu= :recu and c.destinataire.id= :user").
 				setParameter("recu", false)
-				.setParameter("user",user).getResultList();
+				.setParameter("user",user.getId()).getResultList();
 	}
 
 }

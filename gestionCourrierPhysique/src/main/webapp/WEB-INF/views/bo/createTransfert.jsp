@@ -101,9 +101,9 @@
 												class="select2_single destinataire form-control"
 												tabindex="-1" required id="selectDestUnite">
 												<option
-													value="${newTransfert.destinataireUnite.idUniteBancaire}">${newTransfert.destinataireUnite.nomUniteBancaire}</option>
+													value="${newTransfert.destinataireUnite.idUniteBancaire}">${newTransfert.destinataireUnite.nom}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
-													<option value="${unite.idUniteBancaire}">${unite.nomUniteBancaire}</option>
+													<option value="${unite.id}">${unite.nom}</option>
 												</c:forEach>
 											</select> <span class="fa fa-user form-control-feedback right"
 												aria-hidden="true"></span>
@@ -119,9 +119,9 @@
 												class="select2_single destinataire form-control"
 												tabindex="-1" required id="selectDestContact">
 												<option
-													value="${newTransfert.destinataireContact.idContactExterne}">${newTransfert.destinataireContact.nomContactExterne}</option>
+													value="${newTransfert.destinataireContact.id}">${newTransfert.destinataireContact.nom}</option>
 												<c:forEach var="contact" items="${contactExternes}">
-													<option value="${contact.idContactExterne}">${contact.nomContactExterne}</option>
+													<option value="${contact.id}">${contact.nom}</option>
 												</c:forEach>
 											</select> <span class="fa fa-user form-control-feedback right"
 												aria-hidden="true"></span>

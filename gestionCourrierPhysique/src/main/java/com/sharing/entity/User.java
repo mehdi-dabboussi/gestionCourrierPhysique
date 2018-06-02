@@ -21,17 +21,14 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
-public class User implements Serializable {
+public class User extends Emetteur_Recepteur implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private long idUser;
+	//private long idUser;
 	private String login;
 	private String password;
-	private String userName;
 	private String surName;
 	private boolean enabled;
-	private String userEmail;
-	private String userTel;
 
 	private String historiqueIdentifier;
 	private List<Role> roles;
@@ -48,14 +45,14 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [idUser=" + idUser + ", login=" + login + ", password="
-				+ password + ", userName=" + userName + ", surName=" + surName
-				+ ", enabled=" + enabled + ", userEmail=" + userEmail
+		return "User [login=" + login + ", password="
+				+ password + ", userName="  + ", surName=" + surName
+				+ ", enabled=" + enabled 
 				+ ", historiqueIdentifier=" + historiqueIdentifier
 				+ ", roles=" + roles + "]";
 	}
 
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getIdUser() {
 		return idUser;
@@ -63,7 +60,7 @@ public class User implements Serializable {
 
 	public void setIdUser(long idUser) {
 		this.idUser = idUser;
-	}
+	}*/
 
 	@Column(name = "login")
 	public String getLogin() {
@@ -108,13 +105,6 @@ public class User implements Serializable {
 		this.surName = surName;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public String getHistoriqueIdentifier() {
 		return historiqueIdentifier;
 	}
@@ -122,13 +112,6 @@ public class User implements Serializable {
 		this.historiqueIdentifier = historiqueIdentifier;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
 	
 	@ManyToOne
 	@JoinColumn(name = "idUniteBancaire")
@@ -140,13 +123,6 @@ public class User implements Serializable {
 		this.uniteBancaire = uniteBancaire;
 	}
 
-	public String getUserTel() {
-		return userTel;
-	}
-
-	public void setUserTel(String userTel) {
-		this.userTel = userTel;
-	}
 	
 	
 

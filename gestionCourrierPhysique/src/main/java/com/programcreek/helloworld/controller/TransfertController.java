@@ -131,10 +131,10 @@ public class TransfertController {
 		modelAndView.addObject("createdtransfert", createdTransfert);
 		if (createdTransfert.getDestinataireUnite() != null)
 			modelAndView.addObject("destinataire", createdTransfert
-					.getDestinataireUnite().getNomUniteBancaire());
+					.getDestinataireUnite().getNom());
 		else
 			modelAndView.addObject("destinataire", createdTransfert
-					.getDestinataireContact().getNomContactExterne());
+					.getDestinataireContact().getNom());
 		return modelAndView;
 	}
 	// ************ edit Transfert *****************

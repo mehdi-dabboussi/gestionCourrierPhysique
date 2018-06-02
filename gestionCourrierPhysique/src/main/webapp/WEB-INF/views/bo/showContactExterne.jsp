@@ -55,23 +55,23 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdContactExterne.nomContactExterne}</td>
+														<td>${createdContactExterne.nom}</td>
 													</tr>
 													<tr>
 														<th >Adresse :</th>
-														<td>${createdContactExterne.adresseContactExterne}</td>
+														<td>${createdContactExterne.adresse}</td>
 													</tr>
 													<tr>
 														<th >Téléphone :</th>
-														<td>${createdContactExterne.telContactExterne}</td>
+														<td>${createdContactExterne.tel}</td>
 													</tr>
 													<tr>
 														<th >E-mail :</th>
-														<td>${createdContactExterne.emailContactExterne}</td>
+														<td>${createdContactExterne.email}</td>
 													</tr>
 													<tr>
 														<th >Fax :</th>
-														<td>${createdContactExterne.faxContactExterne}</td>
+														<td>${createdContactExterne.fax}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -84,7 +84,7 @@
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
 						                 <spring:url value="contactexterne-{idContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${createdContactExterne.id}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
 						            </div>
@@ -103,7 +103,7 @@
 							</h2>
 							   <ul class="nav navbar-right panel_toolbox">
 							<spring:url value="/bo/createSousContact" var="addUrl">
-						        <spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
+						        <spring:param name="idContactExterne" value="${createdContactExterne.id}"/>
 						    </spring:url>
 								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Nouveau sous contact </a>
 								
@@ -138,14 +138,14 @@
 						                <td style="text-align: center">	  
 										      <spring:url value="/bo/sousContact-{idSousContactExterne}-edit" var="editUrl">
 						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
-						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${createdContactExterne.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
 										      <spring:url value="/bo/sousContact-{idSousContactExterne}/delete" var="deleteUrl">
 						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
-						                      	<spring:param name="idContactExterne" value="${createdContactExterne.idContactExterne}"/>
+						                      	<spring:param name="idContactExterne" value="${createdContactExterne.id}"/>
 						                	  </spring:url>
 						                	 <a href="#myModal_${sousContactToShow.idSousContactExterne}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
 						                	  <div id="myModal_${sousContactToShow.idSousContactExterne}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">

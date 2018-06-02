@@ -207,6 +207,21 @@
 	
 	<script>
 		$(document).ready(function() {
+			$(".ville").select2({
+				placeholder : "Choisir une ville",
+				allowClear : true
+			});
+			$(".select2_group").select2({});
+			$(".select2_multiple").select2({
+				maximumSelectionLength : 4,
+				placeholder : "With Max Selection limit 4",
+				allowClear : true
+			});
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
 			$(".langue").select2({
 				placeholder : "Choisir une langue",
 				allowClear : true

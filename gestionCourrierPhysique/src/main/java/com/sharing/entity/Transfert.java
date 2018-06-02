@@ -18,6 +18,7 @@ public class Transfert implements Serializable {
 	private UniteBancaire emetteurUnite;
 	private UniteBancaire destinataireUnite;
 	private ContactExterne destinataireContact;
+	private Bordereau bordereau;
 
 	private String destinataireType;
 
@@ -123,5 +124,17 @@ public class Transfert implements Serializable {
 	public void setEmetteurUnite(UniteBancaire emetteurUnite) {
 		this.emetteurUnite = emetteurUnite;
 	}
+
+	@ManyToOne
+	@JoinColumn(name = "idBordereau")
+	public Bordereau getBordereau() {
+		return bordereau;
+	}
+
+	public void setBordereau(Bordereau bordereau) {
+		this.bordereau = bordereau;
+	}
+	
+	
 
 }

@@ -8,11 +8,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="myfn" uri="/WEB-INF/custom-functions.tld"  %>
 
 <html lang="en">
 <!-- css files -->
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
+
+<function>
+        <name>getNom</name>
+        <function-class>com.sharing.ServiceJavaScript</function-class>
+        <function-signature>String getNom(java.lang.Object, com.sharing.entity.Emetteur_Recepteur ,
+        java.util.List,java.util.List,java.util.List)</function-signature>
+</function>
 
 <body class="nav-md footer_fixed">
 	<div class="container body">
@@ -60,9 +68,7 @@
 									      
 									      
 									     <td>
-									      		<c:if test="${courrierToShow.destinataireType == 'user'}">${courrierToShow.destinataireUser.surName} ${courrierToShow.destinataireUser.userName} </c:if> 
-												<c:if test="${courrierToShow.destinataireType == 'unite'}">${courrierToShow.destinataireUnite.nomUniteBancaire}</c:if>
-												<c:if test="${courrierToShow.destinataireType == 'contact'}">${courrierToShow.destinataireContact.nomContactExterne}</c:if> 
+									      		${myfn:getNom(courrierToShow.emetteurType,courrierToShow.emetteur,users,uniteBancaires,contactExternes)}	
 									      </td>
 									      
 					                	  <td style="text-align: center">

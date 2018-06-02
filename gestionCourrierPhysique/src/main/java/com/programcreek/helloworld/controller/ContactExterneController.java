@@ -53,7 +53,7 @@ public class ContactExterneController {
 				@ModelAttribute(value = "newContactExterne") ContactExterne newContactExterne) {
 			globalCrudService.save(newContactExterne);
 			return "redirect:/bo/contactexterne-"
-					+ newContactExterne.getIdContactExterne();
+					+ newContactExterne.getId();
 		}
 
 		// ************ consult contact externe *****************//
@@ -86,10 +86,10 @@ public class ContactExterneController {
 		public String processUpdateContactExterneForm(
 				ContactExterne newContactExterne,
 				@PathVariable("idContactExterne") long idContactExterne) {
-			newContactExterne.setIdContactExterne(idContactExterne);
+			newContactExterne.setId(idContactExterne);
 			this.globalCrudService.update(newContactExterne);
 			return "redirect:/bo/contactexterne-"
-					+ newContactExterne.getIdContactExterne();
+					+ newContactExterne.getId();
 		}
 
 		// ************ All contact externe *****************//
@@ -123,11 +123,11 @@ public class ContactExterneController {
 			SousContactExterne newSousContactExterne = new SousContactExterne();
 			ContactExterne contactExterne = contactExterneService
 					.findContactExterneById(idContactExterne);
-			System.out.println(contactExterne.getNomContactExterne());
+			System.out.println(contactExterne.getNom());
 			// newSousContactExterne.setContactExterne(contactExterne);
 			modelAndView.addObject("newSousContactExterne", newSousContactExterne);
 			modelAndView
-					.addObject("Societe", contactExterne.getNomContactExterne());
+					.addObject("Societe", contactExterne.getNom());
 			return modelAndView;
 		}
 
@@ -137,12 +137,12 @@ public class ContactExterneController {
 				Long idContactExterne) {
 			ContactExterne contactExterne = contactExterneService
 					.findContactExterneById(idContactExterne);
-			System.out.println(contactExterne.getNomContactExterne());
+			System.out.println(contactExterne.getNom());
 			newSousContactExterne.setContactExterne(contactExterne);
 			globalCrudService.save(newSousContactExterne);
 			return "redirect:/bo/contactexterne-"
 					+ newSousContactExterne.getContactExterne()
-							.getIdContactExterne();
+							.getId();
 		}
 
 		// ************ consult sous contact externe *****************//
@@ -154,7 +154,7 @@ public class ContactExterneController {
 			SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(idSousContactExterne);
 			modelAndView.addObject("createdSousContactExterne", sousContactExterne);
 			modelAndView.addObject("Societe", sousContactExterne
-					.getContactExterne().getNomContactExterne());
+					.getContactExterne().getNom());
 			return modelAndView;
 		}
 
@@ -170,7 +170,7 @@ public class ContactExterneController {
 
 			modelAndView.addObject("newSousContactExterne", newSousContactExterne);
 			modelAndView.addObject("Societe", newSousContactExterne
-					.getContactExterne().getNomContactExterne());
+					.getContactExterne().getNom());
 			return modelAndView;
 		}
 
@@ -186,7 +186,7 @@ public class ContactExterneController {
 			this.globalCrudService.update(newSousContactExterne);
 			return "redirect:/bo/contactexterne-"
 					+ newSousContactExterne.getContactExterne()
-							.getIdContactExterne();
+							.getId();
 		}
 		
 		

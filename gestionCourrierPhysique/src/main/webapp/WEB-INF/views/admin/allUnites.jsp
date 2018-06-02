@@ -57,27 +57,27 @@
 								  </thead>
 								<c:forEach var="uniteBancaireToShow" items="${uniteBancaires}">
 									  	<tr>
-									      <td >${uniteBancaireToShow.nomUniteBancaire}</td>
-									      <td >${uniteBancaireToShow.adresseUniteBancaire}</td>
-									      <td >${uniteBancaireToShow.telUniteBancaire}</td>
-									      <td>${uniteBancaireToShow.emailUniteBancaire}</td>
-									      <td>${uniteBancaireToShow.faxUniteBancaire}</td>
+									      <td >${uniteBancaireToShow.nom}</td>
+									      <td >${uniteBancaireToShow.adresse}</td>
+									      <td >${uniteBancaireToShow.tel}</td>
+									      <td>${uniteBancaireToShow.email}</td>
+									      <td>${uniteBancaireToShow.fax}</td>
 									      
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/admin/unite-{idUniteBancaire}" var="displayUrl">
-						                      	<spring:param name="idUniteBancaire" value="${uniteBancaireToShow.idUniteBancaire}"/>
+						                      	<spring:param name="idUniteBancaire" value="${uniteBancaireToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
 										      <spring:url value="unite-{idUniteBancaire}-edit" var="editUrl">
-						                      	<spring:param name="idUniteBancaire" value="${uniteBancaireToShow.idUniteBancaire}"/>
+						                      	<spring:param name="idUniteBancaire" value="${uniteBancaireToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
-						                	  <a href="#myModal_${uniteBancaireToShow.idUniteBancaire}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${uniteBancaireToShow.idUniteBancaire}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	  <a href="#myModal_${uniteBancaireToShow.id}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${uniteBancaireToShow.id}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">
@@ -89,7 +89,7 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/admin/unite-${uniteBancaireToShow.idUniteBancaire}/delete" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/admin/unite-${uniteBancaireToShow.id}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>

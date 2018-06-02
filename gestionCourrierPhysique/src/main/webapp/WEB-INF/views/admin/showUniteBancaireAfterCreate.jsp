@@ -53,23 +53,23 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdUniteBancaire.nomUniteBancaire}</td>
+														<td>${createdUniteBancaire.nom}</td>
 													</tr>
 													<tr>
 														<th >Adresse :</th>
-														<td>${createdUniteBancaire.adresseUniteBancaire}</td>
+														<td>${createdUniteBancaire.adresse}</td>
 													</tr>
 													<tr>
 														<th >Téléphone :</th>
-														<td>${createdUniteBancaire.telUniteBancaire}</td>
+														<td>${createdUniteBancaire.tel}</td>
 													</tr>
 													<tr>
 														<th >E-mail :</th>
-														<td>${createdUniteBancaire.emailUniteBancaire}</td>
+														<td>${createdUniteBancaire.email}</td>
 													</tr>
 													<tr>
 														<th >Fax :</th>
-														<td>${createdUniteBancaire.faxUniteBancaire}</td>
+														<td>${createdUniteBancaire.fax}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -82,7 +82,7 @@
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
 						                 <spring:url value="unite-{uniteBancaireId}-edit" var="editUrl">
-						                      	<spring:param name="uniteBancaireId" value="${createdUniteBancaire.idUniteBancaire}"/>
+						                      	<spring:param name="uniteBancaireId" value="${createdUniteBancaire.id}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
 						            </div>
@@ -117,9 +117,9 @@
 								  </thead>
 								<c:forEach var="userToShow" items="${users}">
 									  	<tr>
-									      <td >${userToShow.userName}</td>
+									      <td >${userToShow.nom}</td>
 									      <td >${userToShow.surName}</td>
-									      <td >${userToShow.userEmail}</td>
+									      <td >${userToShow.email}</td>
 									      <td>${userToShow.login}</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 
@@ -128,19 +128,19 @@
 									      </td>
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/admin/{userId}" var="displayUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+						                      	<spring:param name="userId" value="${userToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
 										      <spring:url value="{userId}-edit" var="editUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+						                      	<spring:param name="userId" value="${userToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
 										      <spring:url value="{userId}/delete" var="deleteUrl">
-						                      	<spring:param name="userId" value="${userToShow.idUser}"/>
+						                      	<spring:param name="userId" value="${userToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">Supprimer</a>
 					                	  </td>

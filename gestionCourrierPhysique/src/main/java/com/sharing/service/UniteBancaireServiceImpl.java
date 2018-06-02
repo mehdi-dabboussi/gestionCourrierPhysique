@@ -28,11 +28,11 @@ public class UniteBancaireServiceImpl implements UniteBancaireService {
 	}
 
 	@Transactional
-	public UniteBancaire findUniteBancaireByName(String nomUniteBancaire) {
+	public UniteBancaire findUniteBancaireByName(String nom) {
 		return (UniteBancaire) em
 				.createQuery(
-						"select u from UniteBancaire u where u.nomUniteBancaire=:nomUniteBancaire")
-				.setParameter("nomUniteBancaire", nomUniteBancaire).getSingleResult();
+						"select u from UniteBancaire u where u.nom=:nom")
+				.setParameter("nom", nom).getSingleResult();
 	}
 
 }

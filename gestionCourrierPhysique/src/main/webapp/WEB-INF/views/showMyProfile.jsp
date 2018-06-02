@@ -53,7 +53,7 @@
 												<tbody>
 													<tr>
 														<th >Nom : </th>
-														<td>${createdUser.userName}</td>
+														<td>${createdUser.nom}</td>
 													</tr>
 													<tr>
 														<th >Prénom:</th>
@@ -61,7 +61,7 @@
 													</tr>
 													<tr>
 														<th >Email:</th>
-														<td>${createdUser.userEmail}</td>
+														<td>${createdUser.email}</td>
 													</tr>
 													<tr>
 														<th >Login:</th>
@@ -85,7 +85,7 @@
 									</div>
 									<div  style="margin-right: 5%;margin-top: 3%;">
 						                 <spring:url value="myProfileUpdate" var="editUrl">
-						                      	<spring:param name="userId" value="${createdUser.idUser}"/>
+						                      	<spring:param name="userId" value="${createdUser.id}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer mon profil</a></td>
 						            </div>

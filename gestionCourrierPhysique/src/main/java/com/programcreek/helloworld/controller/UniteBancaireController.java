@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
+import com.sharing.service.BordereauService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.RoleService;
 import com.sharing.service.UniteBancaireService;
@@ -25,15 +26,18 @@ public class UniteBancaireController {
 	private GlobalCrudService globalCrudService;
 	private UniteBancaireService uniteBancaireService;
 	private RoleService roleService;
+	private BordereauService bordereauService;
 	
 	
 	@Autowired
 	public UniteBancaireController(UserService userService, GlobalCrudService globalCrudService, 
-			UniteBancaireService uniteBancaireService, RoleService roleService) {
+			UniteBancaireService uniteBancaireService, RoleService roleService,
+			BordereauService bordereauService) {
 		this.userService = userService;
 		this.globalCrudService = globalCrudService;
 		this.uniteBancaireService = uniteBancaireService;
 		this.roleService = roleService;
+		this.bordereauService = bordereauService;
 	}
 	
 
@@ -44,7 +48,7 @@ public class UniteBancaireController {
 					"admin/newUniteBancaire.jsp");
 			UniteBancaire newUniteBancaire = new UniteBancaire();
 			modelAndView.addObject("newUniteBancaire", newUniteBancaire);
-
+			System.out.println(bordereauService.getAllVille());
 			return modelAndView;
 		}
 
@@ -54,7 +58,7 @@ public class UniteBancaireController {
 			// List<User> users = new ArrayList<User>();
 			// newUniteBancaire.setUsers(users);
 			globalCrudService.save(newUniteBancaire);
-			return "redirect:/admin/unite-" + newUniteBancaire.getIdUniteBancaire();
+			return "redirect:/admin/unite-" + newUniteBancaire.getId();
 		}
 
 		// ************ consult unité bancaire *****************//
@@ -87,9 +91,9 @@ public class UniteBancaireController {
 		public String processUpdateUniteBancaireForm(
 				UniteBancaire newUniteBancaire,
 				@PathVariable("uniteBancaireId") long uniteBancaireId) {
-			newUniteBancaire.setIdUniteBancaire(uniteBancaireId);
+			newUniteBancaire.setId(uniteBancaireId);
 			this.globalCrudService.update(newUniteBancaire);
-			return "redirect:/admin/unite-" + newUniteBancaire.getIdUniteBancaire();
+			return "redirect:/admin/unite-" + newUniteBancaire.getId();
 		}
 
 		// ************ All unite bancaire *****************//

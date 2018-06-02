@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -24,21 +25,22 @@ public class Courrier implements Serializable {
 	private Nature nature;
 	private Langue langue;
 	private boolean recu;
+	private List<Transfert> transferts;
 	
-	/*private Long emetteur;
-	private Long destinataire;*/
+	private Emetteur_Recepteur emetteur;
+	private Emetteur_Recepteur destinataire;
 	
 	private String emetteurType;
 	private String destinataireType;
 	
-	private User emetteurUser;
+	/*private User emetteurUser;
 	private User destinataireUser;
 	
 	private UniteBancaire emetteurUnite;
 	private UniteBancaire destinataireUnite;
 	
 	private ContactExterne emetteurContact;
-	private ContactExterne destinataireContact;
+	private ContactExterne destinataireContact;*/
 	
 	private static final long serialVersionUID = 1L;
 
@@ -104,23 +106,26 @@ public class Courrier implements Serializable {
 	
 	
 
-	
-	/*public Long getEmetteur() {
+	@ManyToOne
+	@JoinColumn(name = "idEmetteur")
+	public Emetteur_Recepteur getEmetteur() {
 		return emetteur;
 	}
 
-	public void setEmetteur(Long emetteur) {
+	public void setEmetteur(Emetteur_Recepteur emetteur) {
 		this.emetteur = emetteur;
 	}
 
 	
-	public Long getDestinataire() {
+	@ManyToOne
+	@JoinColumn(name = "idRecepteur")
+	public Emetteur_Recepteur getDestinataire() {
 		return destinataire;
 	}
 
-	public void setDestinataire(Long destinataire) {
+	public void setDestinataire(Emetteur_Recepteur destinataire) {
 		this.destinataire = destinataire;
-	}*/
+	}
 
 	public boolean isRecu() {
 		return recu;
@@ -146,7 +151,7 @@ public class Courrier implements Serializable {
 		this.destinataireType = destinataireType;
 	}
 	
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "idUserEmetteur")
 	public User getEmetteurUser() {
 		return emetteurUser;
@@ -198,7 +203,7 @@ public class Courrier implements Serializable {
 	}
 	public void setDestinataireContact(ContactExterne destinataireContact) {
 		this.destinataireContact = destinataireContact;
-	}
+	}*/
 
 	@Override
 	public String toString() {
@@ -208,10 +213,20 @@ public class Courrier implements Serializable {
 				+ ", dateCreationCourrier=" + dateCreationCourrier
 				+ ", nature=" + nature + ", langue=" + langue
 				+ ", destinataireUser="
-				+ destinataireUser + ", emetteurUnite=" + emetteurUnite
-				+ ", destinataireUnite=" + destinataireUnite
-				+ ", emetteurContact=" + emetteurContact
-				+ ", destinataireContact=" + destinataireContact + "]";
+				//+ destinataireUser + ", emetteurUnite=" + emetteurUnite
+				//+ ", destinataireUnite=" + destinataireUnite
+				//+ ", emetteurContact=" + emetteurContact
+				//+ ", destinataireContact=" + destinataireContact 
+				+ "]";
+	}
+
+	@OneToMany(mappedBy = "courrier",fetch=FetchType.EAGER)
+	public List<Transfert> getTransferts() {
+		return transferts;
+	}
+
+	public void setTransferts(List<Transfert> transferts) {
+		this.transferts = transferts;
 	}
 	
 	

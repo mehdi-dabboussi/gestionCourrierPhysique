@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
+import com.sharing.entity.Emetteur_Recepteur;
 import com.sharing.entity.Langue;
 import com.sharing.entity.Nature;
 import com.sharing.entity.Transfert;
@@ -24,6 +25,7 @@ import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
 import com.sharing.service.CourrierService;
+import com.sharing.service.EmetteurRecepteurService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.LangueService;
 import com.sharing.service.NatureService;
@@ -44,12 +46,14 @@ public class CourrierController {
 	private UniteBancaireService uniteBancaireService;
 	private ContactExterneService contactExterneService;
 	private TransfertService tansfertService;
+	private EmetteurRecepteurService emetteurRecepteurService;
 	
 	
 	@Autowired
 	public CourrierController(GlobalCrudService globalCrudService,CourrierService courrierService,
 			LangueService langueService, NatureService natureService, UserService userService,
-			UniteBancaireService uniteBancaireService, ContactExterneService contactExterneService, TransfertService transfertService){
+			UniteBancaireService uniteBancaireService, ContactExterneService contactExterneService, TransfertService transfertService,
+			EmetteurRecepteurService emetteurRecepteurService){
 		this.globalCrudService = globalCrudService;
 		this.courrierService = courrierService;
 		this.langueService = langueService;
@@ -58,6 +62,7 @@ public class CourrierController {
 		this.uniteBancaireService = uniteBancaireService;
 		this.contactExterneService = contactExterneService;
 		this.tansfertService =transfertService;
+		this.emetteurRecepteurService = emetteurRecepteurService;
 	}
 	
 	
@@ -69,9 +74,10 @@ public class CourrierController {
 		modelAndView.addObject("newCourrier", newCourrier);
 		List<Langue> langues = langueService.getAllLangue();
 		List<Nature> natures = natureService.getAllNature();
-		List<User> users = userService.getAllUsers();
 		modelAndView.addObject("langues", langues);
 		modelAndView.addObject("natures", natures);
+		
+		List<User> users = userService.getAllUsers();
 		modelAndView.addObject("users", users);
 		
 		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
@@ -111,22 +117,31 @@ public class CourrierController {
 		if(emetteur.equals("user_emet")){
 			User user = userService.findUSerById(Long.parseLong(emetteurUser));
 			newCourrier.setEmetteurType("user");
-			//newCourrier.setEmetteur(emetteurUser);
-			newCourrier.setEmetteurUser(user);
+			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
+			//emetteur_Recepteur.setId(user.getId());
+			//globalCrudService.save(emetteur_Recepteur);
+			newCourrier.setEmetteur(user);
+			//newCourrier.setEmetteurUser(user);
 		}
 		
 		else if(emetteur.equals("unite_emet")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(emetteurUnite));
 			newCourrier.setEmetteurType("unite");
-			//newCourrier.setEmetteur(emetteurUnite);
-			newCourrier.setEmetteurUnite(uniteBancaire);
+			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
+			//emetteur_Recepteur.setId(uniteBancaire.getId());
+			//globalCrudService.save(emetteur_Recepteur);
+			newCourrier.setEmetteur(uniteBancaire);
+			//newCourrier.setEmetteurUnite(uniteBancaire);
 		}
 		
 		else{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(emetteurContactExterne));
 			newCourrier.setEmetteurType("contact");
-			//newCourrier.setEmetteur(emetteurContactExterne);
-			newCourrier.setEmetteurContact(contactExterne);
+			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
+			//emetteur_Recepteur.setId(contactExterne.getIdContactExterne());
+			//globalCrudService.save(emetteur_Recepteur);
+			newCourrier.setEmetteur(contactExterne);
+			//newCourrier.setEmetteurContact(contactExterne);
 		}
 		
 		System.out.println(newCourrier);
@@ -134,22 +149,31 @@ public class CourrierController {
 		if(destinataire.equals("user_dest")){
 			User user = userService.findUSerById(Long.parseLong(destinataireUser));
 			newCourrier.setDestinataireType("user");
-			//newCourrier.setDestinataire(destinataireUser);
-			newCourrier.setDestinataireUser(user);
+			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
+			//emetteur_Recepteur.setId(user.getId());
+			//globalCrudService.save(emetteur_Recepteur);
+			newCourrier.setDestinataire(user);
+			//newCourrier.setDestinataireUser(user);
 		}
 		
 		else if (destinataire.equals("unite_dest")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(destinataireUnite));
 			newCourrier.setDestinataireType("unite");
-			//newCourrier.setDestinataire(destinataireUnite);
-			newCourrier.setDestinataireUnite(uniteBancaire);
+			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
+			//emetteur_Recepteur.setId(uniteBancaire.getId());
+			//globalCrudService.save(emetteur_Recepteur);
+			newCourrier.setDestinataire(uniteBancaire);
+			//newCourrier.setDestinataireUnite(uniteBancaire);
 		}
 		else
 		{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(destinataireContact));
 			newCourrier.setDestinataireType("contact");
-			//newCourrier.setDestinataire(destinataireContact);
-			newCourrier.setDestinataireContact(contactExterne);
+			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
+			//emetteur_Recepteur.setId(contactExterne.getIdContactExterne());
+			//globalCrudService.save(emetteur_Recepteur);
+			newCourrier.setDestinataire(contactExterne);
+			//newCourrier.setDestinataireContact(contactExterne);
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -179,19 +203,41 @@ public class CourrierController {
 		modelAndView.addObject("transferts", transferts);
 		
 	
-		if(createdCourrier.getEmetteurUser() != null )
+		/*if(createdCourrier.getEmetteurUser() != null )
 			modelAndView.addObject("emetteur", createdCourrier.getEmetteurUser().getUserName() + createdCourrier.getEmetteurUser().getSurName());
 		else if (createdCourrier.getEmetteurUnite() != null )
 			modelAndView.addObject("emetteur", createdCourrier.getEmetteurUnite().getNomUniteBancaire());
 		else 
 			modelAndView.addObject("emetteur", createdCourrier.getEmetteurContact().getNomContactExterne());
+		*/
 		
-		if(createdCourrier.getDestinataireUser() != null)
+		if(createdCourrier.getEmetteurType().equals("user") ){
+			User user = userService.findUSerById(createdCourrier.getEmetteur().getId());
+			modelAndView.addObject("emetteur", user.getNom() +" "+ user.getSurName());}
+		else if (createdCourrier.getEmetteurType().equals("unite") ){
+			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(createdCourrier.getEmetteur().getId());
+			modelAndView.addObject("emetteur", uniteBancaire.getNom());}
+		else {
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(createdCourrier.getEmetteur().getId());
+			modelAndView.addObject("emetteur", contactExterne.getNom());}
+		
+		/*if(createdCourrier.getDestinataireUser() != null)
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUser().getUserName() +" " + createdCourrier.getDestinataireUser().getSurName());
 		else if(createdCourrier.getDestinataireUnite() != null)
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUnite().getNomUniteBancaire());
 		else
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireContact().getNomContactExterne());
+		*/
+		
+		if(createdCourrier.getDestinataireType().equals("user") ){
+			User user = userService.findUSerById(createdCourrier.getDestinataire().getId());
+			modelAndView.addObject("destinataire", user.getNom() + user.getSurName());}
+		else if (createdCourrier.getDestinataireType().equals("unite") ){
+			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(createdCourrier.getDestinataire().getId());
+			modelAndView.addObject("destinataire", uniteBancaire.getNom());}
+		else {
+			ContactExterne contactExterne = contactExterneService.findContactExterneById(createdCourrier.getDestinataire().getId());
+			modelAndView.addObject("destinataire", contactExterne.getNom());}
 		return modelAndView;
 	}
 	
@@ -204,6 +250,15 @@ public class CourrierController {
 
 		
 		modelAndView.addObject("courriers", courriers);
+		
+		List<User> users = userService.getAllUsers();
+		modelAndView.addObject("users", users);
+		
+		List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
+		modelAndView.addObject("uniteBancaires", uniteBancaires);
+		
+		List<ContactExterne> contactExternes = contactExterneService.getAllContactExterne();
+		modelAndView.addObject("contactExternes", contactExternes);
 		return modelAndView;
 	}
 	
@@ -264,28 +319,41 @@ public class CourrierController {
 		if(emetteur.equals("user_emet")){
 			User user = userService.findUSerById(Long.parseLong(emetteurUser));
 			newCourrier.setEmetteurType("user");
-			//newCourrier.setEmetteur(emetteurUser);
-			newCourrier.setEmetteurUser(user);
+			//Emetteur_Recepteur emetteur_Recepteur = emetteurRecepteurService.findUSerById(newCourrier.getEmetteur().getPrim());
+			//emetteur_Recepteur.setId(user.getIdUser());
+			//globalCrudService.update(emetteur_Recepteur);
+			newCourrier.setEmetteur(user);
+			/*newCourrier.setEmetteurUser(user);
 			newCourrier.setEmetteurUnite(null);
-			newCourrier.setEmetteurContact(null);
+			newCourrier.setEmetteurContact(null);*/
 		}
 		
 		else if(emetteur.equals("unite_emet")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(emetteurUnite));
 			newCourrier.setEmetteurType("unite");
-			//newCourrier.setEmetteur(emetteurUnite);
-			newCourrier.setEmetteurUnite(uniteBancaire);
+			//Emetteur_Recepteur emetteur_Recepteur = emetteurRecepteurService.findUSerById(newCourrier.getEmetteur().getPrim());
+			//emetteur_Recepteur.setId(uniteBancaire.getIdUniteBancaire());
+			//globalCrudService.update(emetteur_Recepteur);
+			newCourrier.setEmetteur(uniteBancaire);
+			
+			/*newCourrier.setEmetteurUnite(uniteBancaire);
 			newCourrier.setEmetteurUser(null);
-			newCourrier.setEmetteurContact(null);
+			newCourrier.setEmetteurContact(null);*/
 		}
 		
 		else{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(emetteurContactExterne));
 			newCourrier.setEmetteurType("contact");
 			//newCourrier.setEmetteur(emetteurContactExterne);
-			newCourrier.setEmetteurContact(contactExterne);
+			
+			//Emetteur_Recepteur emetteur_Recepteur = emetteurRecepteurService.findUSerById(newCourrier.getEmetteur().getPrim());
+			//emetteur_Recepteur.setId(contactExterne.getIdContactExterne());
+			//globalCrudService.update(emetteur_Recepteur);
+			newCourrier.setEmetteur(contactExterne);
+			
+			/*newCourrier.setEmetteurContact(contactExterne);
 			newCourrier.setEmetteurUser(null);
-			newCourrier.setEmetteurUnite(null);
+			newCourrier.setEmetteurUnite(null);*/
 		}
 		
 		System.out.println(newCourrier);
@@ -293,28 +361,46 @@ public class CourrierController {
 		if(destinataire.equals("user_dest")){
 			User user = userService.findUSerById(Long.parseLong(destinataireUser));
 			newCourrier.setDestinataireType("user");
-			//newCourrier.setDestinataire(destinataireUser);
-			newCourrier.setDestinataireUser(user);
+			
+			//Emetteur_Recepteur emetteur_Recepteur = emetteurRecepteurService.findUSerById(newCourrier.getDestinataire().getPrim());
+			//emetteur_Recepteur.setId(user.getIdUser());
+			//globalCrudService.update(emetteur_Recepteur);
+			newCourrier.setDestinataire(user);
+			
+			
+			/*newCourrier.setDestinataireUser(user);
 			newCourrier.setDestinataireUnite(null);
-			newCourrier.setDestinataireContact(null);
+			newCourrier.setDestinataireContact(null);*/
 		}
 		
 		else if (destinataire.equals("unite_dest")){
 			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(Long.parseLong(destinataireUnite));
 			newCourrier.setDestinataireType("unite");
 			//newCourrier.setDestinataire(destinataireUnite);
-			newCourrier.setDestinataireUnite(uniteBancaire);
+			
+			//Emetteur_Recepteur emetteur_Recepteur = emetteurRecepteurService.findUSerById(newCourrier.getDestinataire().getPrim());
+			//emetteur_Recepteur.setId(uniteBancaire.getIdUniteBancaire());
+			//globalCrudService.update(emetteur_Recepteur);
+			newCourrier.setDestinataire(uniteBancaire);
+			
+			/*newCourrier.setDestinataireUnite(uniteBancaire);
 			newCourrier.setDestinataireUser(null);
-			newCourrier.setDestinataireContact(null);
+			newCourrier.setDestinataireContact(null);*/
 		}
 		else
 		{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(destinataireContact));
 			newCourrier.setDestinataireType("contact");
 			//newCourrier.setDestinataire(destinataireContact);
-			newCourrier.setDestinataireContact(contactExterne);
+			
+			//Emetteur_Recepteur emetteur_Recepteur = emetteurRecepteurService.findUSerById(newCourrier.getDestinataire().getPrim());
+			//emetteur_Recepteur.setId(contactExterne.getIdContactExterne());
+			//globalCrudService.update(emetteur_Recepteur);
+			newCourrier.setDestinataire(contactExterne);
+			
+			/*newCourrier.setDestinataireContact(contactExterne);
 			newCourrier.setDestinataireUser(null);
-			newCourrier.setDestinataireUnite(null);
+			newCourrier.setDestinataireUnite(null);*/
 		}
 		
 		
