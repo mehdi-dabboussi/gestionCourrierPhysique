@@ -127,7 +127,7 @@
 						<li><a><i class="fa fa-clipboard"></i>Bordereau<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="${contextPath}/bo/generateBordereau">Générer un bordereau</a></li>
-								<li><a href="${contextPath}/bo/allCourriers">Les bordereaux</a></li>
+								<li><a href="${contextPath}/bo/allBordereau">Les bordereaux</a></li>
 							</ul>
 						</li>
 					</sec:authorize>

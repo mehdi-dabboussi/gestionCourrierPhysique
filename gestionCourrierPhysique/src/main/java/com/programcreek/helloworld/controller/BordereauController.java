@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
+
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sharing.entity.Bordereau;
 import com.sharing.entity.Courrier;
 import com.sharing.entity.Transfert;
 import com.sharing.entity.TransporteurExterne;
@@ -128,24 +131,62 @@ public class BordereauController {
 	
 	
 	@RequestMapping(value = "/bo/generateBordereauFinal", method=RequestMethod.POST)
-	public ModelAndView processGenerateBordereauFinal(HttpServletRequest request, String transporteur){
+	public String processGenerateBordereauFinal(HttpServletRequest request, String transporteur){
 		
-		ModelAndView modelAndView = new ModelAndView("bo/printBordereau.jsp");
+		Bordereau bordereau = new Bordereau();
 		
-		System.out.println("test");
 		ArrayList<Transfert> transferts = new ArrayList<Transfert>();
 		for (String idTransfert : request.getParameterValues("idTransfert")){
 			transferts.add(transfertService.findTransfertById(Long.parseLong(idTransfert)));
+			
 		}
 		
 		String ville = transferts.get(0).getDestinataireUnite().getVille();
 		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		
+		TransporteurExterne transporteurExterne = transporteurExterneService.
+				findTransporteurExterneById(Long.parseLong(transporteur));
+
+		
+		bordereau.setTransporteurExterne(transporteurExterne);
+		bordereau.setDateCreation(dateFormat.format(date));
+		bordereau.setTransferts(transferts);
+		bordereau.setVille(ville);
+		
+		globalCrudService.save(bordereau);
+		
+		for (Transfert transfert : transferts){
+			transfert.setBordereau(bordereau);
+			globalCrudService.update(transfert);
+		}
+		
+		return "redirect:/bo/bordereau-" + bordereau.getIdBordereau();
+		
+	}
+	
+	@RequestMapping(value = "/bo/bordereau-{idBordereau}")
+	public ModelAndView showBordereau(@PathVariable("idBordereau") long idBordereau){
+		ModelAndView modelAndView = new ModelAndView(
+				"bo/showBordereau.jsp");
+		
+		Bordereau bordereau = bordereauService.findBordereauById(idBordereau);
+		modelAndView.addObject("bordereau", bordereau);
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/bo/bordereau-{idBordereau}-print")
+	public ModelAndView printBordereau(@PathVariable("idBordereau") long idBordereau){
+		ModelAndView modelAndView = new ModelAndView("bo/printBordereau.jsp");
+		Bordereau bordereau = bordereauService.findBordereauById(idBordereau);
+		
 		List<Map<String, ?>> listTransferts = new ArrayList<Map<String, ?>>();
 		
 		
-		for( Transfert transfert : transferts)
+		for( Transfert transfert : bordereau.getTransferts())
 		{
-			System.out.println(transfert);
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("id", transfert.getCourrier().getIdCourrier());
 			m.put("objet", transfert.getCourrier().getObjetCourrier());
@@ -155,25 +196,37 @@ public class BordereauController {
 		}
 		modelAndView.addObject("listTransferts", listTransferts);
 		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		Date date = new Date();
-		
-		
-		
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("nomTransporteur", transporteurExterneService.
-				findTransporteurExterneById(Long.parseLong(transporteur)).getNomTransporteurExterne());
+		parameters.put("nomTransporteur", bordereau.getTransporteurExterne().getNomTransporteurExterne());
+		parameters.put("sysDate", bordereau.getDateCreation());
 		
-		parameters.put("sysDate", dateFormat.format(date));
-		
-		parameters.put("ville", ville);
+		parameters.put("ville", bordereau.getVille());
 		
 		modelAndView.addObject("parameters", parameters);
 		
-		
-		
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/bo/allBordereau")
+	public ModelAndView getAllBordereau(){
+		ModelAndView modelAndView = new ModelAndView("bo/allBordereau.jsp");
 		
+		List<Bordereau> bordereaux = bordereauService.getAllBordereau();
+		modelAndView.addObject("bordereaux", bordereaux);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/bo/bordereau-{idBordereau}/delete", method = RequestMethod.GET)
+	public String processDeleteCourrier(@PathVariable("idBordereau") long idBordereau) {
+		Bordereau bordereau = bordereauService.findBordereauById(idBordereau);
+		
+		for (Transfert transfert : bordereau.getTransferts()){
+			transfert.setBordereau(null);
+			globalCrudService.update(transfert);
+		}
+		
+		globalCrudService.remove(bordereau, idBordereau);
+		return "redirect:/bo/allBordereau";
 	}
 
 }

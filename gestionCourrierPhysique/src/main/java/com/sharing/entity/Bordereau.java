@@ -18,12 +18,15 @@ public class Bordereau implements Serializable {
 	private long idBordereau;
 	private String dateCreation;
 	private TransporteurExterne transporteurExterne;
+	private String ville;
 	private static final long serialVersionUID = 1L;
 
 	public Bordereau() {
 		super();
 	}   
+	
 	@Id    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getIdBordereau() {
 		return this.idBordereau;
 	}
@@ -39,6 +42,16 @@ public class Bordereau implements Serializable {
 		this.dateCreation = dateCreation;
 	}
 	
+	
+	
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
 	@OneToMany(mappedBy = "bordereau",fetch=FetchType.EAGER)
 	public List<Transfert> getTransferts() {
 		return transferts;

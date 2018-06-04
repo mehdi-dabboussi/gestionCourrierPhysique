@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gestion Recouvrement </title>
+    <title>Gestion des courriers </title>
 
     <link href="../nCss/bootstrap.min.css" rel="stylesheet">
     <link href="../nCss/font-awesome.min.css" rel="stylesheet">
