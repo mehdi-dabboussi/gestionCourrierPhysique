@@ -18,6 +18,7 @@
     <script src="../nJs/starrr.js"></script>
 
     <script src="../nJs/custom.min.js"></script>
+    <script src="../nJs/canvasjs.min.js"></script>
     
     <script src="../nJs/pnotify.js"></script>
     <script src="../nJs/pnotify.buttons.js"></script>

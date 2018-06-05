@@ -13,5 +13,9 @@ public interface UniteBancaireService {
 	List<UniteBancaire> getAllUniteBancaire();
 
 	UniteBancaire findUniteBancaireByName(String nomUniteBancaire);
+	
+	Integer countCourreirArrivé(UniteBancaire uniteBancaire);
+	
+	Integer countCourreirDepart(UniteBancaire uniteBancaire);
 
 }

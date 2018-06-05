@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sharing.entity.Bordereau;
 import com.sharing.entity.ContactExterne;
+import com.sharing.entity.Courrier;
 import com.sharing.entity.UniteBancaire;
 
 
@@ -45,6 +46,12 @@ public class BordereauServiceImpl implements BordereauService {
 			set.add(contactExterne.getVille());
 		
 		return set;
+	}
+
+	@Override
+	public Integer getTotalBordereau() {
+		List<Bordereau> bordereaux = getAllBordereau();
+		return bordereaux.size();
 	}
 
 }

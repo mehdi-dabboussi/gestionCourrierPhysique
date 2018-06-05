@@ -108,6 +108,7 @@ public class BordereauController {
 				
 				
 				for (Courrier courrier : courriers){
+					if(courrier.getTransferts().size() > 0){
 					int last = courrier.getTransferts().size() - 1;
 					String villeDestinataire;
 					if(courrier.getTransferts().get(last).getDestinataireType().equals("unite"))
@@ -119,7 +120,7 @@ public class BordereauController {
 					{
 						transfertsBord.add(courrier.getTransferts().get(last));
 					}
-					
+					}
 				}
 		
 				modelAndView.addObject("transferts", transfertsBord);

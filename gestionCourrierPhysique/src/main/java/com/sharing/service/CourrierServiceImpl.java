@@ -27,4 +27,10 @@ public class CourrierServiceImpl implements CourrierService {
 		return em.createQuery("select c from Courrier c").getResultList();
 	}
 
+	@Override
+	public Integer countTotalCourriers() {
+		List<Courrier> courriers = em.createQuery("select c from Courrier c").getResultList();
+		return courriers.size();
+	}
+
 }

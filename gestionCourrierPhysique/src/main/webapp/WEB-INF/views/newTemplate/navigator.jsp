@@ -132,6 +132,14 @@
 						</li>
 					</sec:authorize>
 					
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+						<li><a><i class="fa fa-area-chart	"></i>Statistiques<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/admin/charts">Consulter</a></li>
+							</ul>
+						</li>
+					</sec:authorize>
+					
 				</ul>
 			</div>
 		</div>

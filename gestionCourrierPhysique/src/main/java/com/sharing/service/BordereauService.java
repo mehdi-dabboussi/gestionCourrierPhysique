@@ -12,5 +12,7 @@ public interface BordereauService {
 	List<Bordereau> getAllBordereau();
 	
 	TreeSet<String> getAllVille();
+	
+	Integer getTotalBordereau();
 
 }

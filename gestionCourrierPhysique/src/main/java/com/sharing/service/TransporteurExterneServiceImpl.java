@@ -8,6 +8,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sharing.entity.Bordereau;
+import com.sharing.entity.Courrier;
 import com.sharing.entity.TransporteurExterne;
 
 @Repository
@@ -36,5 +38,15 @@ public class TransporteurExterneServiceImpl implements
 			long idTransporteurExterne) {
 		return em.find(TransporteurExterne.class, idTransporteurExterne);
 	}
+
+	@Override
+	public Integer countBordereau(TransporteurExterne transporteurExterne) {
+		List<Bordereau> bordereaux =  em.createQuery("select b from Bordereau b where b.transporteurExterne=:transporteurExterne").
+				setParameter("transporteurExterne", transporteurExterne).getResultList();
+		return bordereaux.size();
+	}
+
+	
+
 
 }

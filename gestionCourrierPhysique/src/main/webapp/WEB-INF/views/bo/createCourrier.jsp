@@ -178,6 +178,7 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUser">
+												<option value="${newCourrier.emetteur.id}">${newCourrier.emetteur.nom }</option>
 												<c:forEach var="user" items="${users}">
 													<option value="${user.id}">${user.surName} ${user.nom}</option>
 												</c:forEach>
@@ -191,6 +192,7 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurUnite" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUnite">
+												<option value="${newCourrier.emetteur.id}">${newCourrier.emetteur.nom}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.id}">${unite.nom}</option>
 												</c:forEach>
@@ -204,6 +206,7 @@
 										     <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
 												<select name="emetteurContactExterne" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetContact">
+												<option value="${newCourrier.emetteur.id}">${newCourrier.emetteur.nom}</option>
 												<c:forEach var="contact" items="${contactExternes}">
 													<option value="${contact.id}">${contact.nom}</option>
 												</c:forEach>
@@ -241,7 +244,7 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUser">
-												
+												<option value="${newCourrier.destinataire.id}">${newCourrier.destinataire.nom}</option>
 												<c:forEach var="user" items="${users}">
 													<option value="${user.id}">${user.surName} ${user.nom}</option>
 												</c:forEach>
@@ -255,7 +258,7 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireUnite" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUnite">
-												
+												<option value="${newCourrier.destinataire.id}">${newCourrier.destinataire.nom}</option>
 												<c:forEach var="unite" items="${uniteBancaires}">
 													<option value="${unite.id}">${unite.nom}</option>
 												</c:forEach>
@@ -269,7 +272,7 @@
 										     <label for="inputDestinataireLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em></em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												<select name="destinataireContact" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestContact">
-												
+												<option value="${newCourrier.destinataire.id}">${newCourrier.destinataire.nom}</option>
 												<c:forEach var="contact" items="${contactExternes}">
 													<option value="${contact.id}">${contact.nom}</option>
 												</c:forEach>

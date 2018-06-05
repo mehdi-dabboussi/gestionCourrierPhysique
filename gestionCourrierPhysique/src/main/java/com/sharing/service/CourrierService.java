@@ -10,5 +10,7 @@ public interface CourrierService {
 	Courrier findCourrierById(long idCourrier);
 
 	List<Courrier> getAllCourrier();
+	
+	Integer countTotalCourriers();
 
 }
