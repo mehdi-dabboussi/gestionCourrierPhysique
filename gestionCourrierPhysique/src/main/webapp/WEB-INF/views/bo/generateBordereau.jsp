@@ -55,7 +55,7 @@
 						<div class="item form-group ">
 										     <label for="inputTransporteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Choisir le transporteur<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
-												<select name="transporteur" class="select2_single nature form-control" tabindex="-1" required>
+												<select name="transporteur" class="select2_single transporteur form-control" tabindex="-1" required>
 													<option ></option>
 												<c:forEach var="transporteur" items="${transporteurs}">
 													<option value="${transporteur.idTransporteurExterne}">${transporteur.nomTransporteurExterne}</option>

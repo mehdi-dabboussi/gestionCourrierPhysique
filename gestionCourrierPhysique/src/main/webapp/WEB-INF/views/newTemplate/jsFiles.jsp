@@ -208,6 +208,21 @@
 	
 	<script>
 		$(document).ready(function() {
+			$(".transporteur").select2({
+				placeholder : "Choisir le transporteur",
+				allowClear : true
+			});
+			$(".select2_group").select2({});
+			$(".select2_multiple").select2({
+				maximumSelectionLength : 4,
+				placeholder : "With Max Selection limit 4",
+				allowClear : true
+			});
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
 			$(".ville").select2({
 				placeholder : "Choisir une ville",
 				allowClear : true

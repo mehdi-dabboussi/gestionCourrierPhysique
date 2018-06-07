@@ -126,7 +126,7 @@
 							</ul>
 							<div class="clearfix"></div>
 						</div>
-						<div class="x_content">
+						<div class="row">
 							<table id="datatable-keytable" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
@@ -134,9 +134,9 @@
 								      <th>Destinataire</th>
 								      <th>Date de transfert </th>
 								      <th>Estimation</th>
-								      <th>jj</th>
-								      <th>jj</th>
-								      <th>hh</th>
+								      
+								      <th>Modification</th>
+								      <th>Suppression</th>
 								    </tr>
 								  </thead>
 								<c:forEach var="transfertToShow" items="${transferts}">
@@ -148,12 +148,6 @@
 										</td>
 									      <td >${transfertToShow.dateTransfert}</td>
 									      <td>${transfertToShow.estimation}</td>
-					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/transfert-{idTransfert}" var="displayUrl">
-						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
-						                </td>
 						                <td style="text-align: center">	  
 										      <spring:url value="/bo/transfert-{idTransfert}-edit" var="editUrl">
 						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>

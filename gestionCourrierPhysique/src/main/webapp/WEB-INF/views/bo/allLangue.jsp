@@ -36,7 +36,7 @@
 								Langue
 							</h2>
 							<ul class="nav navbar-right panel_toolbox">
-								<a href="<c:url value="/admin/newLangue" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Ajouter une langue </a>
+								<a href="<c:url value="/bo/newLangue" />" class="btn btn-success btn-xs"><i class="fa fa-user-plus"></i> Ajouter une langue </a>
 								
 							</ul>
 							<div class="clearfix"></div>
@@ -67,7 +67,7 @@
                         								</div>
                        									 <div class="modal-footer">
                           									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${pageContext.request.contextPath}/admin/langue-${langueToShow.idLangue}/delete" class="btn btn-primary" ">Supprimer</a>
+                         									 <a href="${pageContext.request.contextPath}/bo/langue-${langueToShow.idLangue}/delete" class="btn btn-primary" ">Supprimer</a>
                        									 </div>
 
                       								</div>
