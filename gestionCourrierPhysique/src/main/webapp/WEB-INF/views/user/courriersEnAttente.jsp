@@ -41,7 +41,7 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>
-								Courriers envoyés
+								Courriers en attente
 							</h2>
 							
 							<div class="clearfix"></div>
@@ -54,7 +54,7 @@
 								      <th>etat</th>
 								      <th>objet</th>
 								      <th>date de création</th>
-								      <th>Destinataire</th>
+								      <th>Emetteur</th>
 								      <th>Visualisation</th>
 								      <th>Confirmer</th>
 								    </tr>
@@ -65,14 +65,10 @@
 									      <td >${courrierToShow.etatCourrier}</td>
 									      <td>${courrierToShow.objetCourrier}</td>
 									      <td>${courrierToShow.dateCreationCourrier}</td>
-									      
-									      
-									     <td>
-									      		${myfn:getNom(courrierToShow.emetteurType,courrierToShow.emetteur,users,uniteBancaires,contactExternes)}	
-									      </td>
+									      <td>${courrierToShow.emetteur.nom}</td>
 									      
 					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/courrier-{idCourrier}" var="displayUrl">
+					                	 		 <spring:url value="/user/courrier-{idCourrier}" var="displayUrl">
 						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>

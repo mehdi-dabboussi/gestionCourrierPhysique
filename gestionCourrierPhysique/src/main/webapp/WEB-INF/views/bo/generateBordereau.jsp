@@ -51,15 +51,26 @@
 						
 						<div class="x_content">
 						<form:form class="form-horizontal form-label-leftr" 
-											data-toggle="validator" role="form" >
+											data-toggle="validator" role="form" name="myForm">
 						<div class="item form-group ">
 										     <label for="inputTransporteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Choisir le transporteur<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12">
-												<select name="transporteur" class="select2_single transporteur form-control" tabindex="-1" required>
+												<select id="comboBoxTransporteur" name="transporteur" class="select2_single transporteur form-control" tabindex="-1" required>
 													<option ></option>
 												<c:forEach var="transporteur" items="${transporteurs}">
 													<option value="${transporteur.idTransporteurExterne}">${transporteur.nomTransporteurExterne}</option>
 												</c:forEach>
+												</select>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
+									    <div class="item form-group " id="divCoursier">
+										     <label for="inputCoursierLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Choisir le coursier<em>(facultatif)</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select id="comboBoxTCoursier" name="coursier" class="select2_single coursier form-control" tabindex="-1" >
+													<option ></option>
+												
 												</select>
 												<div class="help-block with-errors"></div>
 											 </div>
@@ -82,11 +93,12 @@
 								      
 								    </tr>
 								  </thead>
+								  <div class="erreur"></div>
 								<c:forEach var="transfertToShow" items="${transferts}">
 									  	<tr>
 									  	<td> 
 									  	<div class="checkbox">
-									  	<input class="chkCheckBoxId" type="checkbox" value="${transfertToShow.idTransfert}" name="idTransfert" /> </td>
+									  	<input id="chkId" class="chkCheckBoxId" type="checkbox" value="${transfertToShow.idTransfert}" name="idTransfert" /> </td>
 									    </div>  
 									      <td >${transfertToShow.courrier.idCourrier}</td>
 									      <td >${transfertToShow.courrier.objetCourrier}</td>
@@ -105,7 +117,7 @@
                 			<div class="ln_solid"></div>
 										<div class="form-group" style="margin-left: 95%;margin-top: 2%;">
 <!-- 					                        <div > -->
-										                   	<button type="submit" class="btn btn-success btn-xs source" >Confirmer</button>
+										                   	<button id="btnSubmit" type="submit" class="btn btn-success btn-xs source" >Confirmer</button>
 <!-- 					                        </div> -->
 				                       </div>
                 						  </form:form>
@@ -202,6 +214,51 @@
 	 		});
 	 	});
 	 </script>
+	 
+	 <c:url var="findCoursierURL" value="/bo/bordereau/loadCoursier" /> 
+<script type="text/javascript">
+$(document).ready(function() { 
+	$('#divCoursier').hide();
+	$('#comboBoxTransporteur').change(
+		function() {
+			$('#divCoursier').show();
+			$.getJSON('${findCoursierURL}', {
+				TransporteurId : $(this).val(),
+				ajax : 'true'
+			}, function(data) {
+				var html = '<option value=""></option>';
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					html += '<option value="' + data[i].idCoursierExterne + '">'
+							+ data[i].nomCoursierExterne + '</option>';
+				}
+				html += '</option>';
+ 
+				$('#comboBoxTCoursier').html(html);
+			});
+		});
+});
+</script>
+
+<script>
+	$('form').submit(function(e) {
+        e.preventDefault();
+        var submit = true;
+        var anyBoxesChecked = false;
+        if ($('.chkCheckBoxId').is(":checked")) {
+        	anyBoxesChecked = true
+        } 
+
+        if (anyBoxesChecked)
+          this.submit();
+        else
+        	alert("Veuillez sélectionner au moins un transfert");
+
+        return false;
+      });
+</script>
+
+   
 	 
 	<!-- /Js files -->
 </body>

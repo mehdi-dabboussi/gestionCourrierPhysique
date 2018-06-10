@@ -56,10 +56,6 @@
 														<td>${createdUser.nom}</td>
 													</tr>
 													<tr>
-														<th >Prénom:</th>
-														<td>${createdUser.surName}</td>
-													</tr>
-													<tr>
 														<th >Email:</th>
 														<td>${createdUser.email}</td>
 													</tr>

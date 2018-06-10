@@ -73,4 +73,15 @@ public class CoursierExterne implements Serializable {
 	public void setTransporteurExterne(TransporteurExterne transporteurExterne) {
 		this.transporteurExterne = transporteurExterne;
 	}
+	@Override
+	public String toString() {
+		return "CoursierExterne [idCoursierExterne=" + idCoursierExterne
+				+ ", nomCoursierExterne=" + nomCoursierExterne
+				+ ", prenomCoursierExterne=" + prenomCoursierExterne
+				+ ", telCoursierExterne=" + telCoursierExterne
+				+ ", emailCoursierExterne=" + emailCoursierExterne
+				+ ", transporteurExterne=" + transporteurExterne + "]";
+	}
+	
+	
 }

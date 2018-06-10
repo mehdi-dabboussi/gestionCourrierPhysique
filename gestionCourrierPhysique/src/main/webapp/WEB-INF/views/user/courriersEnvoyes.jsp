@@ -64,14 +64,10 @@
 									      <td >${courrierToShow.etatCourrier}</td>
 									      <td>${courrierToShow.objetCourrier}</td>
 									      <td>${courrierToShow.dateCreationCourrier}</td>
-									      
-									      
-									     <td>
-									      		${myfn:getNom(courrierToShow.destinataireType,courrierToShow.destinataire,users,uniteBancaires,contactExternes) }
-									      </td>
+									      <td>${courrierToShow.destinataire.nom}</td>
 									      
 					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/courrier-{idCourrier}" var="displayUrl">
+					                	 		 <spring:url value="/user/courrier-{idCourrier}" var="displayUrl">
 						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>

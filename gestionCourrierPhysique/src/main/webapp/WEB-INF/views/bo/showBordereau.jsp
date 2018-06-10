@@ -60,6 +60,10 @@
 														<td>${bordereau.transporteurExterne.nomTransporteurExterne}</td>
 													</tr>
 													<tr>
+														<th >Coursier :</th>
+														<td>${bordereau.coursierExterne.nomCoursierExterne} ${bordereau.coursierExterne.prenomCoursierExterne}</td>
+													</tr>
+													<tr>
 														<th >Date de la création :</th>
 														<td>${bordereau.dateCreation}</td>
 													</tr>

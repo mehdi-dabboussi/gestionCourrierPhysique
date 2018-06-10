@@ -15,12 +15,6 @@
 <jsp:include page="../newTemplate/staticFiles.jsp" />
 <!-- /css files -->
 
-<function>
-        <name>getNom</name>
-        <function-class>com.sharing.ServiceJavaScript</function-class>
-        <function-signature>String getNom(java.lang.Object, com.sharing.entity.Emetteur_Recepteur ,
-        java.util.List,java.util.List,java.util.List)</function-signature>
-</function>
 
 <body class="nav-md footer_fixed">
 	<div class="container body">
@@ -64,14 +58,10 @@
 									      <td >${courrierToShow.etatCourrier}</td>
 									      <td>${courrierToShow.objetCourrier}</td>
 									      <td>${courrierToShow.dateCreationCourrier}</td>
-									      
-									      
-									      <td>
-									      	${myfn:getNom(courrierToShow.emetteurType,courrierToShow.emetteur,users,uniteBancaires,contactExternes)}	
-									      </td>
+									      <td>${courrierToShow.emetteur.nom}</td>
 									      
 					                	  <td style="text-align: center">
-					                	 		 <spring:url value="/bo/courrier-{idCourrier}" var="displayUrl">
+					                	 		 <spring:url value="/user/courrier-{idCourrier}" var="displayUrl">
 						                      	<spring:param name="idCourrier" value="${courrierToShow.idCourrier}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>

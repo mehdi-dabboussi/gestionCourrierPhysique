@@ -52,20 +52,17 @@
 											<table class="table table-striped" style="margin-bottom:5px;">
 												<tbody>
 													<tr>
-														<th >Nom : </th>
-														<td>${createdSousContactExterne.nomSousContactExterne}</td>
+														<th >Nom & Prénom: </th>
+														<td>${createdSousContactExterne.nom}</td>
 													</tr>
-													<tr>
-														<th >Prenom : </th>
-														<td>${createdSousContactExterne.prenomSousContactExterne}</td>
-													</tr>
+													
 													<tr>
 														<th >Téléphone :</th>
-														<td>${createdSousContactExterne.telSousContactExterne}</td>
+														<td>${createdSousContactExterne.tel}</td>
 													</tr>
 													<tr>
 														<th >E-mail :</th>
-														<td>${createdSousContactExterne.emailSousContactExterne}</td>
+														<td>${createdSousContactExterne.email}</td>
 													</tr>
 													<tr>
 														<th >Société :</th>
@@ -82,8 +79,8 @@
 						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
 
 						                 <spring:url value="sousContact-{idSousContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idSousContactExterne" value="${createdSousContactExterne.idSousContactExterne}"/>
-						                      	<spring:param name="idContactExterne" value="${createdSousContactExterne.contactExterne.idContactExterne}"/>
+						                      	<spring:param name="idSousContactExterne" value="${createdSousContactExterne.id}"/>
+						                      	<spring:param name="idContactExterne" value="${createdSousContactExterne.contactExterne.id}"/>
 						                 </spring:url>
 					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a></td>
 						            </div>

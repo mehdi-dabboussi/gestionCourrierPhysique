@@ -18,6 +18,7 @@
 window.onload = function() {
 	functionBar();
 	functionPie();
+	functionCourrierRecuVsEnvoyes();
 	}
  
 	function functionBar(){
@@ -122,6 +123,72 @@ var namePie;
 chartPie.render();
  
 }
+
+function functionCourrierRecuVsEnvoyes() {
+	var dps = [[], []];
+	var chart = new CanvasJS.Chart("chartContainerRecu", {
+		exportEnabled: true,
+		animationEnabled: true,
+		title: {
+			text: "Courriers envoyes / Courriers recus par les destinataires"
+		},
+		subtitles: [{
+			text: "Cliquez sur Légende pour masquer ou afficher les séries de données"
+		}],
+		axisX: {
+			title: "Unité bancaire"
+		},
+		axisY: {
+			title: "courriers"
+		},
+		toolTip: {
+			shared: true
+		},
+		legend: {
+			cursor: "pointer",
+			verticalAlign: "top",
+			itemclick: toggleDataSeriesBar
+		},
+		data: [{
+			type: "column",
+			name: "Envoyé",
+			showInLegend: true,
+			dataPoints: dps[0]
+		},
+		{
+			type: "column",
+			name: "Récu par destinataire",
+			showInLegend: true,
+			dataPoints: dps[1]
+		}]
+	});
+	 
+	var yValue;
+	var label;
+	 
+	<c:forEach items="${dataPointsList2}" var="dataPoints" varStatus="loop">	
+		<c:forEach items="${dataPoints}" var="dataPoint">
+			yValue = parseFloat("${dataPoint.y}");
+			label = "${dataPoint.label}";
+			dps[parseInt("${loop.index}")].push({
+				label : label,
+				y : yValue,
+			});		
+		</c:forEach>	
+	</c:forEach> 
+	 
+	chart.render();
+		}
+
+
+function toggleDataSeries2(e) {
+	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else {
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
+}
 </script>
 
 <body class="nav-md footer_fixed">
@@ -191,6 +258,31 @@ chartPie.render();
 					</div>
 					  </div>
 				   </div>	
+				   
+				   <div class="row">
+				   <div class="col-md-12">
+							<div class="x_panel">
+								<div class="row">
+									<!-- accepted payments column -->
+									<div class="col-md-12 col-sm-12 col-xs-12">
+				   <div class="x_panel">
+                  <div class="x_title">
+                    
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div id="chartContainerRecu" style="height: 370px; width: 100%;"></div>
+
+                  </div>
+                </div>
+				   </div>
+				   </div>
+				   </div>
+				   </div>
+				   </div>
+				   
 				</div>
 								
 				<!-- /Put your main JSP here -->

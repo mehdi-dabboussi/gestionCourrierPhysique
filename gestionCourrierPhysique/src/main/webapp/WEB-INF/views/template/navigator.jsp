@@ -121,6 +121,22 @@
 								<li><a href="${contextPath}/user/Courrier-attente">Courriers en attente</a></li>
 							</ul>
 						</li>
+						<sec:authorize access="hasAnyRole('ROLE_BUREAU_ORDRE')">
+						<li><a><i class="fa fa-clipboard"></i>Bordereau<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/bo/generateBordereau">Générer un bordereau</a></li>
+								<li><a href="${contextPath}/bo/allBordereau">Les bordereaux</a></li>
+							</ul>
+						</li>
+					</sec:authorize>
+					
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+						<li><a><i class="fa fa-area-chart	"></i>Statistiques<span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="${contextPath}/admin/charts">Consulter</a></li>
+							</ul>
+						</li>
+					</sec:authorize>
 					
 				</ul>
 			</div>

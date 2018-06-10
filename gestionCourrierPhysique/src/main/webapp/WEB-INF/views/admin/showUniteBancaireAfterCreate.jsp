@@ -105,8 +105,7 @@
 							<table id="datatable-keytable" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
-								      <th>Nom</th>
-								      <th>Prénom</th>
+								      <th>Nom & Prénom</th>
 								      <th>Email</th>
 								      <th>Login</th>
 								      <th>Rôle</th>
@@ -118,7 +117,6 @@
 								<c:forEach var="userToShow" items="${users}">
 									  	<tr>
 									      <td >${userToShow.nom}</td>
-									      <td >${userToShow.surName}</td>
 									      <td >${userToShow.email}</td>
 									      <td>${userToShow.login}</td>
 									      <td>

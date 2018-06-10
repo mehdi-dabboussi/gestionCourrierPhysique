@@ -114,8 +114,7 @@
 							<table id="datatable-keytable" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
-								      <th>Nom</th>
-								      <th>Prénom</th>
+								      <th>Nom & Prénom</th>
 								      <th>Email</th>
 								      <th>Téléphone</th>
 								      <th></th>
@@ -125,30 +124,29 @@
 								  </thead>
 								<c:forEach var="sousContactToShow" items="${sousContacts}">
 									  	<tr>
-									      <td >${sousContactToShow.nomSousContactExterne}</td>
-									      <td >${sousContactToShow.prenomSousContactExterne}</td>
-									      <td >${sousContactToShow.emailSousContactExterne}</td>
-									      <td>${sousContactToShow.telSousContactExterne}</td>
+									      <td >${sousContactToShow.nom}</td>
+									      <td >${sousContactToShow.email}</td>
+									      <td>${sousContactToShow.tel}</td>
 					                	  <td style="text-align: center">
 					                	 		 <spring:url value="/bo/sousContact-{idSousContactExterne}" var="displayUrl">
-						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
+						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(displayUrl)}" class="btn btn-primary btn-xs">Visualiser</a>
 						                </td>
 						                <td style="text-align: center">	  
 										      <spring:url value="/bo/sousContact-{idSousContactExterne}-edit" var="editUrl">
-						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
+						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.id}"/>
 						                      	<spring:param name="idContactExterne" value="${createdContactExterne.id}"/>
 						                	  </spring:url>
 						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
 					                	  </td>
 					                	  <td style="text-align: center">	  
 										      <spring:url value="/bo/sousContact-{idSousContactExterne}/delete" var="deleteUrl">
-						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.idSousContactExterne}"/>
+						                      	<spring:param name="idSousContactExterne" value="${sousContactToShow.id}"/>
 						                      	<spring:param name="idContactExterne" value="${createdContactExterne.id}"/>
 						                	  </spring:url>
-						                	 <a href="#myModal_${sousContactToShow.idSousContactExterne}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${sousContactToShow.idSousContactExterne}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
+						                	 <a href="#myModal_${sousContactToShow.id}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
+						                	  <div id="myModal_${sousContactToShow.id}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
                     							<div class="modal-dialog modal-sm">
                       								<div class="modal-content">
                         								<div class="modal-header">

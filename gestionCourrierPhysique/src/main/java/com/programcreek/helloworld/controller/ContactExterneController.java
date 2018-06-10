@@ -179,7 +179,7 @@ public class ContactExterneController {
 				SousContactExterne newSousContactExterne,
 				@PathVariable("idSousContactExterne") long idSousContactExterne,
 				Long idContactExterne) {
-			newSousContactExterne.setIdSousContactExterne(idSousContactExterne);
+			newSousContactExterne.setId(idSousContactExterne);
 			ContactExterne contactExterne = contactExterneService
 					.findContactExterneById(idContactExterne);
 			newSousContactExterne.setContactExterne(contactExterne);

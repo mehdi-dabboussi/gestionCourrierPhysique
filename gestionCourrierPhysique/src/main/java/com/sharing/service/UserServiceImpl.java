@@ -88,8 +88,8 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public List<Courrier> getCourrierDestinataire(User user) {
-		return em.createQuery("select c from Courrier c where c.emetteur.id= :user and c.recu= :recu").
-				setParameter("user", user.getId()).setParameter("recu", true).
+		return em.createQuery("select c from Courrier c where c.destinataire= :user and c.recu= :recu").
+				setParameter("user", user).setParameter("recu", true).
 				getResultList();
 	}
 	

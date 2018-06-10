@@ -13,14 +13,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
+import com.sharing.entity.CoursierExterne;
 import com.sharing.entity.Emetteur_Recepteur;
 import com.sharing.entity.Langue;
 import com.sharing.entity.Nature;
+import com.sharing.entity.SousContactExterne;
 import com.sharing.entity.Transfert;
+import com.sharing.entity.TransporteurExterne;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
@@ -29,6 +34,7 @@ import com.sharing.service.EmetteurRecepteurService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.LangueService;
 import com.sharing.service.NatureService;
+import com.sharing.service.SousContactExterneService;
 import com.sharing.service.TransfertService;
 import com.sharing.service.TransfertServiceImpl;
 import com.sharing.service.UniteBancaireService;
@@ -47,13 +53,14 @@ public class CourrierController {
 	private ContactExterneService contactExterneService;
 	private TransfertService tansfertService;
 	private EmetteurRecepteurService emetteurRecepteurService;
+	private SousContactExterneService sousContactExterneService;
 	
 	
 	@Autowired
 	public CourrierController(GlobalCrudService globalCrudService,CourrierService courrierService,
 			LangueService langueService, NatureService natureService, UserService userService,
 			UniteBancaireService uniteBancaireService, ContactExterneService contactExterneService, TransfertService transfertService,
-			EmetteurRecepteurService emetteurRecepteurService){
+			EmetteurRecepteurService emetteurRecepteurService, SousContactExterneService sousContactExterneService){
 		this.globalCrudService = globalCrudService;
 		this.courrierService = courrierService;
 		this.langueService = langueService;
@@ -63,6 +70,7 @@ public class CourrierController {
 		this.contactExterneService = contactExterneService;
 		this.tansfertService =transfertService;
 		this.emetteurRecepteurService = emetteurRecepteurService;
+		this.sousContactExterneService = sousContactExterneService;
 	}
 	
 	
@@ -96,7 +104,8 @@ public class CourrierController {
 			@ModelAttribute("newCourrier") Courrier newCourrier, BindingResult bindingResult, String emetteur,
 			String emetteurUser, String emetteurUnite, String emetteurContactExterne,
 			String destinataire, String destinataireUser, String destinataireUnite, String destinataireContact,
-			String natureC, String langueC, String etat, String objetCourrier){
+			String natureC, String langueC, String etat, String objetCourrier, String emetteurSousContact,
+			String destinataireSousContact){
 		for( FieldError fieldError : bindingResult.getFieldErrors() )
 		    System.out.println(fieldError.getField() +" : "+fieldError.getDefaultMessage());
 		
@@ -135,13 +144,23 @@ public class CourrierController {
 		}
 		
 		else{
+			if(emetteurSousContact !="")
+			{
+				SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(
+						Long.parseLong(emetteurSousContact));
+				newCourrier.setEmetteurType("sousContact");
+				newCourrier.setEmetteur(sousContactExterne);
+			}
+			else{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(emetteurContactExterne));
 			newCourrier.setEmetteurType("contact");
+			System.out.println(emetteurSousContact);
 			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
 			//emetteur_Recepteur.setId(contactExterne.getIdContactExterne());
 			//globalCrudService.save(emetteur_Recepteur);
 			newCourrier.setEmetteur(contactExterne);
 			//newCourrier.setEmetteurContact(contactExterne);
+			}
 		}
 		
 		System.out.println(newCourrier);
@@ -167,6 +186,14 @@ public class CourrierController {
 		}
 		else
 		{
+			if(destinataireSousContact !="")
+			{
+				SousContactExterne sousContactExterne = sousContactExterneService.findSousContactExterneById(
+						Long.parseLong(destinataireSousContact));
+				newCourrier.setDestinataireType("sousContact");
+				newCourrier.setDestinataire(sousContactExterne);
+			}
+			else{
 			ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(destinataireContact));
 			newCourrier.setDestinataireType("contact");
 			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
@@ -174,6 +201,7 @@ public class CourrierController {
 			//globalCrudService.save(emetteur_Recepteur);
 			newCourrier.setDestinataire(contactExterne);
 			//newCourrier.setDestinataireContact(contactExterne);
+			}
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -211,15 +239,7 @@ public class CourrierController {
 			modelAndView.addObject("emetteur", createdCourrier.getEmetteurContact().getNomContactExterne());
 		*/
 		
-		if(createdCourrier.getEmetteurType().equals("user") ){
-			User user = userService.findUSerById(createdCourrier.getEmetteur().getId());
-			modelAndView.addObject("emetteur", user.getNom() +" "+ user.getSurName());}
-		else if (createdCourrier.getEmetteurType().equals("unite") ){
-			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(createdCourrier.getEmetteur().getId());
-			modelAndView.addObject("emetteur", uniteBancaire.getNom());}
-		else {
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(createdCourrier.getEmetteur().getId());
-			modelAndView.addObject("emetteur", contactExterne.getNom());}
+		
 		
 		/*if(createdCourrier.getDestinataireUser() != null)
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireUser().getUserName() +" " + createdCourrier.getDestinataireUser().getSurName());
@@ -229,15 +249,7 @@ public class CourrierController {
 			modelAndView.addObject("destinataire", createdCourrier.getDestinataireContact().getNomContactExterne());
 		*/
 		
-		if(createdCourrier.getDestinataireType().equals("user") ){
-			User user = userService.findUSerById(createdCourrier.getDestinataire().getId());
-			modelAndView.addObject("destinataire", user.getNom() + user.getSurName());}
-		else if (createdCourrier.getDestinataireType().equals("unite") ){
-			UniteBancaire uniteBancaire = uniteBancaireService.findUniteBancaireById(createdCourrier.getDestinataire().getId());
-			modelAndView.addObject("destinataire", uniteBancaire.getNom());}
-		else {
-			ContactExterne contactExterne = contactExterneService.findContactExterneById(createdCourrier.getDestinataire().getId());
-			modelAndView.addObject("destinataire", contactExterne.getNom());}
+		
 		return modelAndView;
 	}
 	
@@ -406,6 +418,13 @@ public class CourrierController {
 		
 		this.globalCrudService.update(newCourrier);
 		return "redirect:/bo/courrier-" + newCourrier.getIdCourrier();
+	}
+	
+	@RequestMapping(value = "/bo/courrier/loadSousContact" ,method = RequestMethod.GET)
+	@ResponseBody
+	public List<SousContactExterne> loadSousContact(@RequestParam(value = "ContactId" ,required = true) String ContactId ){
+		ContactExterne contactExterne = contactExterneService.findContactExterneById(Long.parseLong(ContactId));
+		return sousContactExterneService.getSousContactsByContact(contactExterne);
 	}
 	
 }

@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
+
+
+
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +33,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.sharing.entity.Bordereau;
 import com.sharing.entity.Courrier;
+import com.sharing.entity.CoursierExterne;
 import com.sharing.entity.Transfert;
 import com.sharing.entity.TransporteurExterne;
 import com.sharing.entity.User;
 import com.sharing.service.BordereauService;
 import com.sharing.service.CourrierService;
+import com.sharing.service.CoursierExterneService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.TransfertService;
 import com.sharing.service.TransporteurExterneService;
@@ -54,17 +62,19 @@ public class BordereauController {
 	private TransfertService transfertService;
 	private UserService userService;
 	private TransporteurExterneService transporteurExterneService;
+	private CoursierExterneService coursierExterneService;
 	
 	@Autowired
 	public BordereauController(GlobalCrudService globalCrudService, BordereauService bordereauService,
 			CourrierService courrierService, TransfertService transfertService, UserService userService,
-			TransporteurExterneService transporteurExterneService){
+			TransporteurExterneService transporteurExterneService, CoursierExterneService coursierExterneService){
 		this.globalCrudService = globalCrudService;
 		this.bordereauService = bordereauService;
 		this.courrierService = courrierService;
 		this.transfertService = transfertService;
 		this.userService = userService;
 		this.transporteurExterneService = transporteurExterneService;
+		this.coursierExterneService = coursierExterneService;
 	}
 	
 	
@@ -132,7 +142,7 @@ public class BordereauController {
 	
 	
 	@RequestMapping(value = "/bo/generateBordereauFinal", method=RequestMethod.POST)
-	public String processGenerateBordereauFinal(HttpServletRequest request, String transporteur){
+	public String processGenerateBordereauFinal(HttpServletRequest request, String transporteur, String coursier){
 		
 		Bordereau bordereau = new Bordereau();
 		
@@ -149,6 +159,11 @@ public class BordereauController {
 		
 		TransporteurExterne transporteurExterne = transporteurExterneService.
 				findTransporteurExterneById(Long.parseLong(transporteur));
+		
+		if(!(coursier.equals(""))){
+			bordereau.setCoursierExterne(coursierExterneService.findCoursierExterneServiceById(
+					Long.parseLong(coursier)));
+		}
 
 		
 		bordereau.setTransporteurExterne(transporteurExterne);
@@ -228,6 +243,13 @@ public class BordereauController {
 		
 		globalCrudService.remove(bordereau, idBordereau);
 		return "redirect:/bo/allBordereau";
+	}
+	
+	@RequestMapping(value = "/bo/bordereau/loadCoursier" ,method = RequestMethod.GET)
+	@ResponseBody
+	public List<CoursierExterne> loadCoursier(@RequestParam(value = "TransporteurId" ,required = true) String TransporteurId ){
+		TransporteurExterne transporteurExterne = transporteurExterneService.findTransporteurExterneById(Long.parseLong(TransporteurId));
+		return coursierExterneService.getCoursierExternesByTransporteurExterne(transporteurExterne);
 	}
 
 }

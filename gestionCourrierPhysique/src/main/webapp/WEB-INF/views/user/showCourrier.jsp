@@ -52,14 +52,6 @@
 											<table class="table table-striped" style="margin-bottom:5px;">
 												<tbody>
 													<tr>
-														<th >id : </th>
-														<td>${createdCourrier.idCourrier}</td>
-													</tr>
-													<tr>
-														<th >etat du courrier :</th>
-														<td>${createdCourrier.etatCourrier}</td>
-													</tr>
-													<tr>
 														<th >objet :</th>
 														<td>${createdCourrier.objetCourrier}</td>
 													</tr>
@@ -82,47 +74,15 @@
 													
 													<tr>
 														<th >Emetteur :</th>
-														<td>
-														<c:choose>
-									      				<c:when test="${createdCourrier.emetteurType == 'sousContact'}">
-									      				${createdCourrier.emetteur.nom} - ${createdCourrier.emetteur.contactExterne.nom}
-									      				</c:when>
-									     				 <c:otherwise>
-									      				${createdCourrier.emetteur.nom} 
-									      			</c:otherwise>
-									     			 </c:choose>
-														</td>
+														<td>${createdCourrier.emetteur.nom}</td>
 													</tr>
 													
-													<tr>
-														<th >Destinataire :</th>
-														<td>
-														<c:choose>
-									      				<c:when test="${createdCourrier.destinataireType == 'sousContact'}">
-									      				${createdCourrier.destinataire.nom} - ${createdCourrier.destinataire.contactExterne.nom}
-									      				</c:when>
-									     				 <c:otherwise>
-									      				${createdCourrier.destinataire.nom} 
-									      			</c:otherwise>
-									     			 </c:choose>
-														</td>
-													</tr>
 													
 												</tbody>
 											</table>
 										</div>
 									</div>
-									<div  style="margin-right: 5%;">
-						                <%--  <spring:url value="/admin/{userId}/delete" var="deleteUrl">
-						                         <spring:param name="userId" value="${createdUser.idUser}"/>
-						                  </spring:url>
-						                  <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs pull-right">Supprimer</a> --%>
-
-						                 <spring:url value="{userId}-edit" var="editUrl">
-						                      	<spring:param name="userId" value="${createdCourrier.idCourrier}"/>
-						                 </spring:url>
-					                	<a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs pull-right">Editer </a>
-						            </div>
+									
 									<!-- /.col -->
 							</div>
 					</div>
@@ -135,13 +95,7 @@
 							<h2>
 								Les Transferts
 							</h2>
-							   <ul class="nav navbar-right panel_toolbox">
-							<spring:url value="/bo/createTransfert" var="addUrl">
-						        <spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
-						    </spring:url>
-								<a href="${fn:escapeXml(addUrl)}" class="btn btn-success btn-xs"><i class="fa fa-send"></i> Nouveau transfert </a>
-								
-							</ul>
+							   
 							<div class="clearfix"></div>
 						</div>
 						<div class="row">
@@ -152,8 +106,6 @@
 								      <th>Destinataire</th>
 								      <th>Date de transfert </th>
 								      <th>Estimation</th>
-								      <th>Modification</th>
-								      <th>Suppression</th>
 								    </tr>
 								  </thead>
 								<c:forEach var="transfertToShow" items="${transferts}">
@@ -165,38 +117,6 @@
 										</td>
 									      <td >${transfertToShow.dateTransfert}</td>
 									      <td>${transfertToShow.estimation}</td>
-						                <td style="text-align: center">	  
-										      <spring:url value="/bo/transfert-{idTransfert}-edit" var="editUrl">
-						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>
-						                      	<spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
-						                	  </spring:url>
-						                	  <a href="${fn:escapeXml(editUrl)}" class="btn btn-info btn-xs">Editer</a>
-					                	  </td>
-					                	  <td style="text-align: center">	  
-										      <spring:url value="/bo/transfert-{idTransfert}/delete" var="deleteUrl">
-						                      	<spring:param name="idTransfert" value="${transfertToShow.idTransfert}"/>
-						                      	<spring:param name="idCourrier" value="${createdCourrier.idCourrier}"/>
-						                	  </spring:url>
-						                	 <a href="#myModal_${transfertToShow.idTransfert}" role="button" class="btn btn-danger btn-xs" data-toggle="modal">Supprimer</a>
-						                	  <div id="myModal_${transfertToShow.idTransfert}" class="modal fade bs-example-modal-sm-mehdi" tabindex="-1" role="dialog" aria-hidden="true">
-                    							<div class="modal-dialog modal-sm">
-                      								<div class="modal-content">
-                        								<div class="modal-header">
-                          									<h4 class="modal-title" id="myModalLabel2">Verification</h4>
-                       									 </div>
-                       									 <div class="modal-body">
-                          								<h4>Attention !!!</h4>
-                          								<p>Etes-vous sur de vouloir supprimer ce transfert ???</p>
-                        								</div>
-                       									 <div class="modal-footer">
-                          									<button type="button" class="btn btn-default" data-dismiss="modal" >Fermer</button>
-                         									 <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-primary" >Supprimer</a>
-                       									 </div>
-
-                      								</div>
-                    							</div>
-                						  </div>
-					                	  </td>
 									    </tr>
 								  </c:forEach>
 							</table>

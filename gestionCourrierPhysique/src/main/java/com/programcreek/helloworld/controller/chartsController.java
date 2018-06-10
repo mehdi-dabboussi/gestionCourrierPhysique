@@ -39,6 +39,7 @@ public class chartsController {
 		ModelAndView modelAndView = new ModelAndView("/admin/chart.jsp");
 		 
 		 List<List<Map<Object,Object>>> list = new ArrayList<List<Map<Object,Object>>>();
+		 List<List<Map<Object,Object>>> list2 = new ArrayList<List<Map<Object,Object>>>();
 		 
 		 List<List<Map<Object,Object>>> listTransporteurs = new ArrayList<List<Map<Object,Object>>>();
 		 List<Map<Object,Object>> dataPointsTransporteur = new ArrayList<Map<Object,Object>>();
@@ -46,16 +47,29 @@ public class chartsController {
 		 List<UniteBancaire> uniteBancaires = uniteBancaireService.getAllUniteBancaire();
 		 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
 		 List<Map<Object,Object>> dataPoints2 = new ArrayList<Map<Object,Object>>();
+		 
+		 List<Map<Object,Object>> dataPoints3 = new ArrayList<Map<Object,Object>>();
+		 List<Map<Object,Object>> dataPoints4 = new ArrayList<Map<Object,Object>>();
 		 for (UniteBancaire uniteBancaire : uniteBancaires){
 			 Map<Object,Object> map = null;
-			 map = new HashMap<Object,Object>(); map.put("label", uniteBancaire); map.put("y", uniteBancaireService.countCourreirArrivé(uniteBancaire));
+			 Map<Object,Object> map2 = null;
+			 map = new HashMap<Object,Object>(); map.put("label", uniteBancaire.getNom()); map.put("y", uniteBancaireService.countCourreirArrivé(uniteBancaire));
 			 dataPoints1.add(map);
-			 System.out.println(uniteBancaireService.countCourreirArrivé(uniteBancaire));
+			 
+			 map2 = new HashMap<Object,Object>(); map2.put("label", uniteBancaire.getNom()); map2.put("y", uniteBancaireService.countCourreirDepart(uniteBancaire));
+			 dataPoints3.add(map2);
+			 
 			 map = new HashMap<Object,Object>(); map.put("label", uniteBancaire.getNom()); map.put("y", uniteBancaireService.countCourreirDepart(uniteBancaire));
 			 dataPoints2.add(map);
+			 
+			 map2 = new HashMap<Object,Object>(); map2.put("label", uniteBancaire.getNom()); map2.put("y", uniteBancaireService.countCourrierReci(uniteBancaire));
+			 dataPoints4.add(map2);
 		 }
 		 list.add(dataPoints1);
 		 list.add(dataPoints2);
+		 
+		 list2.add(dataPoints3);
+		 list2.add(dataPoints4);
 		 
 		 
 		 List<TransporteurExterne> transporteurExternes = transporteurExterneService.getAllTransporteurExterne();
@@ -71,6 +85,7 @@ public class chartsController {
 		 listTransporteurs.add(dataPointsTransporteur);
 		 
 		 modelAndView.addObject("dataPointsList", list);
+		 modelAndView.addObject("dataPointsList2", list2);
 		 modelAndView.addObject("dataPointsListTrans", listTransporteurs);
 		 return modelAndView;
 	}

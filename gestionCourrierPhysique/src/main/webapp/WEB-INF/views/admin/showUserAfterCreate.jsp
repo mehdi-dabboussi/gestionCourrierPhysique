@@ -52,13 +52,10 @@
 											<table class="table table-striped" style="margin-bottom:5px;">
 												<tbody>
 													<tr>
-														<th >Nom : </th>
+														<th >Nom & Prénom: </th>
 														<td>${createdUser.nom}</td>
 													</tr>
-													<tr>
-														<th >Prénom:</th>
-														<td>${createdUser.surName}</td>
-													</tr>
+													
 													<tr>
 														<th >Email:</th>
 														<td>${createdUser.email}</td>

@@ -43,7 +43,7 @@ public class CoursierExterneServiceImpl implements CoursierExterneService {
 		return em.find(CoursierExterne.class, idCoursierExterne);
 	}
 
-	@Override
+	
 	@Transactional
 	public List<CoursierExterne> getCoursierExternesByTransporteurExterne(
 			TransporteurExterne transporteurExterne) 

@@ -24,33 +24,33 @@ import javax.persistence.OneToMany;
 public class User extends Emetteur_Recepteur implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	//private long idUser;
+
 	private String login;
 	private String password;
-	private String surName;
 	private boolean enabled;
 
 	private String historiqueIdentifier;
 	private List<Role> roles;
 	private UniteBancaire uniteBancaire;
 	
-	/*private List<Courrier> courriersEnvoyer;
-	private List<Courrier> courriersRecu;*/
+	
 
 	// ******** getters and setters ************//
+
+	@Override
+	public String toString() {
+		return "User [login=" + login + ", password=" + password + ", enabled="
+				+ enabled + ", historiqueIdentifier=" + historiqueIdentifier
+				+ ", roles=" + roles + ", uniteBancaire=" + uniteBancaire + "]";
+	}
+
+
 
 	public User() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "User [login=" + login + ", password="
-				+ password + ", userName="  + ", surName=" + surName
-				+ ", enabled=" + enabled 
-				+ ", historiqueIdentifier=" + historiqueIdentifier
-				+ ", roles=" + roles + "]";
-	}
+	
 
 	/*@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,13 +97,6 @@ public class User extends Emetteur_Recepteur implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public String getSurName() {
-		return surName;
-	}
-
-	public void setSurName(String surName) {
-		this.surName = surName;
-	}
 
 	public String getHistoriqueIdentifier() {
 		return historiqueIdentifier;

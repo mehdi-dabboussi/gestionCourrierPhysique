@@ -74,18 +74,22 @@
 									      <td>${courrierToShow.dateCreationCourrier}</td>
 									      <td>
 									      <c:choose>
-									      <c:when test="${ courrierToShow.emetteurType == 'user'}">  ${courrierToShow.emetteur.nom} </c:when>
+									      <c:when test="${courrierToShow.emetteurType == 'sousContact'}">
+									      ${courrierToShow.emetteur.nom} - ${courrierToShow.emetteur.contactExterne.nom}
+									      </c:when>
 									      <c:otherwise>
-									      ${courrierToShow.emetteur.nom}
+									      ${courrierToShow.emetteur.nom} 
 									      </c:otherwise>
 									      </c:choose>
 									      </td>
 									      
 									     <td>
-									      <c:choose>
-									      <c:when test="${ courrierToShow.emetteurType == 'user'}">  ${courrierToShow.destinataire.nom} </c:when>
+									       <c:choose>
+									      <c:when test="${courrierToShow.destinataireType == 'sousContact'}">
+									      ${courrierToShow.destinataire.nom} - ${courrierToShow.destinataire.contactExterne.nom}
+									      </c:when>
 									      <c:otherwise>
-									      ${courrierToShow.destinataire.nom}
+									      ${courrierToShow.destinataire.nom} 
 									      </c:otherwise>
 									      </c:choose>
 									      </td>

@@ -16,8 +16,8 @@ WHERE NOT EXISTS (
     SELECT idRole FROM Role WHERE idRole = 3
 ) LIMIT 1;
 
-INSERT INTO emetteur_recepteur (enabled, historiqueIdentifier, login, password, surname, email, nom, DTYPE)
-SELECT * FROM (SELECT 1 as enabled,'adminHistory', 'admin', '$2a$10$XbQUFZcAA.RmuYHqUCZ4zOmriZ.KmmJpPWkiTN64A3.Fo88nOIxou', 'surname', 'admin.admin@mailObligatoire.com', 'userName admin', 'User') AS tmp
+INSERT INTO emetteur_recepteur (enabled, historiqueIdentifier, login, password, email, nom, DTYPE)
+SELECT * FROM (SELECT 1 as enabled,'adminHistory', 'admin', '$2a$10$XbQUFZcAA.RmuYHqUCZ4zOmriZ.KmmJpPWkiTN64A3.Fo88nOIxou', 'admin.admin@mailObligatoire.com', 'surname userName admin', 'User') AS tmp
 WHERE NOT EXISTS (
     SELECT id FROM emetteur_recepteur WHERE id = 1
 ) LIMIT 1;

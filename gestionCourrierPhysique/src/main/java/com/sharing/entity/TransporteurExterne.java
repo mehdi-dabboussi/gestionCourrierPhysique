@@ -21,8 +21,7 @@ public class TransporteurExterne implements Serializable {
 	private String adresseTransporteurExterne;
 	private String telTransporteurExterne;
 	private String emailTransporteurExterne;
-	private String faxTransporteurExterne;
-	private List<CoursierExterne> coursierExternes;  
+	private String faxTransporteurExterne; 
 	private static final long serialVersionUID = 1L;
 
 	public TransporteurExterne() {
@@ -73,13 +72,6 @@ public class TransporteurExterne implements Serializable {
 		this.faxTransporteurExterne = faxTransporteurExterne;
 	}
 	
-	@OneToMany(mappedBy = "transporteurExterne",fetch=FetchType.EAGER)
-	public List<CoursierExterne> getCoursierExterne() {
-		return this.coursierExternes;
-	}
-
-	public void setCoursierExterne(List<CoursierExterne> coursierExterne) {
-		this.coursierExternes = coursierExterne;
-	}
+	
    
 }

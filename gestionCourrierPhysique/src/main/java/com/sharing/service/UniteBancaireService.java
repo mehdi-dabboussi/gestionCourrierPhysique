@@ -17,5 +17,7 @@ public interface UniteBancaireService {
 	Integer countCourreirArrivé(UniteBancaire uniteBancaire);
 	
 	Integer countCourreirDepart(UniteBancaire uniteBancaire);
+	
+	Integer countCourrierReci(UniteBancaire uniteBancaire);
 
 }

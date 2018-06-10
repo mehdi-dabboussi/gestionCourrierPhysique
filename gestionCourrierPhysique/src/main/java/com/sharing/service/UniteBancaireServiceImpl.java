@@ -50,4 +50,11 @@ public class UniteBancaireServiceImpl implements UniteBancaireService {
 		return courriers.size();
 	}
 
+	@Transactional
+	public Integer countCourrierReci(UniteBancaire uniteBancaire) {
+		List<Courrier> courriers = em.createQuery("select c from Courrier c where c.recu=:recu and emetteur=:emetteur").
+				setParameter("recu", true).setParameter("emetteur", uniteBancaire).getResultList();
+		return courriers.size();
+	}
+
 }

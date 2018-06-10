@@ -63,21 +63,14 @@
 											data-toggle="validator" role="form" modelAttribute="newUser" >
 											
 								         <div class="item form-group">
-									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom<em>*</em></label>	
+									        <label for="NomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Nom & Prénom<em>*</em></label>	
 									        <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom"
+												 <input type="text" class="form-control col-md-7 col-xs-12" id="inputNom" placeholder="nom & prénom"
 								                		name="nom" value="${newUser.nom}" required>  
 								                		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>  		
 											</div>
 									     </div>
-										<div class="item form-group">
-										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Prénom<em>*</em></label>
-										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback" >
-												 <input type="text" class="form-control col-md-7 col-xs-12 "id="inputPrenom" placeholder="prenom"
-												 		name="surName" value="${newUser.surName}" required>
-												 		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span> 
-											 </div>
-										</div>
+										
 										<div class="item form-group">
 										     <label for="inputPrEnomLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Email<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">

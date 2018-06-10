@@ -18,12 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
 import com.sharing.entity.Role;
+import com.sharing.entity.Transfert;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
 import com.sharing.service.CourrierService;
 import com.sharing.service.GlobalCrudService;
 import com.sharing.service.RoleService;
+import com.sharing.service.TransfertService;
 import com.sharing.service.UniteBancaireService;
 import com.sharing.service.UserService;
 
@@ -37,18 +39,20 @@ public class UserController {
 	private RoleService roleService;
 	private CourrierService courrierService;
 	private ContactExterneService contactExterneService;
+	private TransfertService transfertService;
 	
 	
 	@Autowired
 	public UserController(UserService userService, GlobalCrudService globalCrudService, 
 			UniteBancaireService uniteBancaireService, RoleService roleService, CourrierService courrierService,
-			ContactExterneService contactExterneService) {
+			ContactExterneService contactExterneService, TransfertService transfertService) {
 		this.userService = userService;
 		this.globalCrudService = globalCrudService;
 		this.uniteBancaireService = uniteBancaireService;
 		this.roleService = roleService;
 		this.courrierService = courrierService;
 		this.contactExterneService = contactExterneService;
+		this.transfertService = transfertService;
 	}
 	
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.GET)
@@ -227,9 +231,13 @@ public class UserController {
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		User connectedUser = userService.findUserByLogin(userDetail
 				.getUsername());
+		System.out.println(userDetail.getUsername());
 
 		List<Courrier> courriers = userService
 				.getCourrierDestinataire(connectedUser);
+		for (Courrier courrier : courriers) {
+			System.out.println(courrier);
+		}
 
 		modelAndView.addObject("courriers", courriers);
 		List<User> users = userService.getAllUsers();
@@ -315,5 +323,22 @@ public class UserController {
 		globalCrudService.update(courrier);
 		return "redirect:/user/Courrier-attente";
 	}
+	
+	//consult courrier
+		@RequestMapping(value = "/user/courrier-{idCourrier}")
+		public ModelAndView showCourrier(@PathVariable("idCourrier") long idCourrier) {
+			ModelAndView modelAndView = new ModelAndView(
+					"user/showCourrier.jsp");
+			Courrier createdCourrier = courrierService.findCourrierById(idCourrier);
+			modelAndView.addObject("createdCourrier", createdCourrier);
+			
+			List<Transfert> transferts = transfertService.getTransfertsByCourrier(idCourrier);
+			modelAndView.addObject("transferts", transferts);
+			
+			
+			
+			
+			return modelAndView;
+		}
 
 }

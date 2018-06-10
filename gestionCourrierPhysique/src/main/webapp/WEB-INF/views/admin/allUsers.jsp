@@ -45,8 +45,7 @@
 							<table id="datatable-keytable" class="table table-striped table-bordered">
 								  <thead>
 								    <tr>
-								      <th>Nom</th>
-								      <th>Prénom</th>
+								      <th>Nom & Prénom</th>
 								      <th>Unité bancaire</th>
 								      <th>Rôle</th>
 								      <th>Visualisation</th>
@@ -58,7 +57,6 @@
 								<c:forEach var="userToShow" items="${users}">
 									  	<tr>
 									      <td >${userToShow.nom}</td>
-									      <td >${userToShow.surName}</td>
 									      <td>${userToShow.uniteBancaire.nom }</td>
 									      <td>
 									      		<c:if test="${userToShow.roles.get(0).name == 'ROLE_ADMIN'}">Administrateur </c:if> 

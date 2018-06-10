@@ -55,7 +55,7 @@ public class ServiceJavaScript {
 		return true;
 	}
 	
-	public static String getNom(Object o, Emetteur_Recepteur emetteur_Recepteur,List<User> listUser,
+	/*public static String getNom(Object o, Emetteur_Recepteur emetteur_Recepteur,List<User> listUser,
 			List<UniteBancaire> listUniteBancaire, List<ContactExterne> listContactExterne){
 		
 		if(o.equals("user")){
@@ -80,6 +80,6 @@ public class ServiceJavaScript {
 		}
 		
 		return null;
-	}
+	}*/
 
 }

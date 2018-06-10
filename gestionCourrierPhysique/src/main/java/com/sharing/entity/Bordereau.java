@@ -18,6 +18,7 @@ public class Bordereau implements Serializable {
 	private long idBordereau;
 	private String dateCreation;
 	private TransporteurExterne transporteurExterne;
+	private CoursierExterne coursierExterne;
 	private String ville;
 	private static final long serialVersionUID = 1L;
 
@@ -68,6 +69,17 @@ public class Bordereau implements Serializable {
 	public void setTransporteurExterne(TransporteurExterne transporteurExterne) {
 		this.transporteurExterne = transporteurExterne;
 	}
+
+	@ManyToOne
+	@JoinColumn(name = "idCoursierExterne")
+	public CoursierExterne getCoursierExterne() {
+		return coursierExterne;
+	}
+
+	public void setCoursierExterne(CoursierExterne coursierExterne) {
+		this.coursierExterne = coursierExterne;
+	}
+	
 	
 	
    

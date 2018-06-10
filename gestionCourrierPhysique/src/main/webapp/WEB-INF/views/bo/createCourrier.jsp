@@ -180,7 +180,7 @@
 												<select name="emetteurUser" class="select2_single emetteur form-control" tabindex="-1" required id="selectEmetUser">
 												<option value="${newCourrier.emetteur.id}">${newCourrier.emetteur.nom }</option>
 												<c:forEach var="user" items="${users}">
-													<option value="${user.id}">${user.surName} ${user.nom}</option>
+													<option value="${user.id}">${user.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -216,6 +216,17 @@
 											 </div>
 									    </div>
 									    
+									    <div class="item form-group " id="divSousContact">
+										     <label for="inputCoursierLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em>(facultatif)</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select id="comboBoxTSousContact" name="emetteurSousContact" class="select2_single emetteur form-control" tabindex="-1" >
+													<option ></option>
+												
+												</select>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
 									    <div class="form-group">
 											 <label for="inputEmetteurLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Destinataire<em>*</em></label>	
 											 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -246,7 +257,7 @@
 												<select name="destinataireUser" class="select2_single destinataire form-control" tabindex="-1" required id="selectDestUser">
 												<option value="${newCourrier.destinataire.id}">${newCourrier.destinataire.nom}</option>
 												<c:forEach var="user" items="${users}">
-													<option value="${user.id}">${user.surName} ${user.nom}</option>
+													<option value="${user.id}">${user.nom}</option>
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
@@ -278,6 +289,17 @@
 												</c:forEach>
 												</select>
 												<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+												<div class="help-block with-errors"></div>
+											 </div>
+									    </div>
+									    
+									    <div class="item form-group " id="divSousContactDest">
+										     <label for="inputCoursierLab"  class="control-label col-md-3 col-sm-3 col-xs-12"><em>(facultatif)</em></label>	
+										      <div class="col-md-6 col-sm-6 col-xs-12">
+												<select id="comboBoxTSousContactDest" name="destinataireSousContact" class="select2_single destinataire form-control" tabindex="-1" >
+													<option ></option>
+												
+												</select>
 												<div class="help-block with-errors"></div>
 											 </div>
 									    </div>
@@ -453,6 +475,56 @@
       });
       
       </script>
+      
+      <c:url var="findSousContactURL" value="/bo/courrier/loadSousContact" /> 
+<script type="text/javascript">
+$(document).ready(function() { 
+	$('#divSousContact').hide();
+	$('#selectEmetContact').change(
+		function() {
+			$('#divSousContact').show();
+			$.getJSON('${findSousContactURL}', {
+				ContactId : $(this).val(),
+				ajax : 'true'
+			}, function(data) {
+				var html = '<option value=""></option>';
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					html += '<option value="' + data[i].id + '">'
+							+ data[i].nom + '</option>';
+				}
+				html += '</option>';
+ 
+				$('#comboBoxTSousContact').html(html);
+			});
+		});
+});
+</script>
+
+<c:url var="findSousContactURL" value="/bo/courrier/loadSousContact" /> 
+<script type="text/javascript">
+$(document).ready(function() { 
+	$('#divSousContactDest').hide();
+	$('#selectDestContact').change(
+		function() {
+			$('#divSousContactDest').show();
+			$.getJSON('${findSousContactURL}', {
+				ContactId : $(this).val(),
+				ajax : 'true'
+			}, function(data) {
+				var html = '<option value=""></option>';
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					html += '<option value="' + data[i].id + '">'
+							+ data[i].nom + '</option>';
+				}
+				html += '</option>';
+ 
+				$('#comboBoxTSousContactDest').html(html);
+			});
+		});
+});
+</script>
     
     
     <!-- /validator -->
