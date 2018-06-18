@@ -78,8 +78,7 @@ public class AuthentificationController {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			User user = userService.findUserByLogin(userDetail.getUsername());
 			model.addObject("createdUser", user);
-			List<Notification> notifications = notificationService.getNotifications(user);
-			model.addObject("notifications", notifications);
+			
 			model.addObject("role", user.getRoles().get(0).getName());
 		}
 		

@@ -69,11 +69,6 @@ public class ProfileController {
 		modelAndView.addObject("createdUser", user);
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
 		
-		
-		
-		List<Notification> notifications = notificationService.getNotifications(user);
-		modelAndView.addObject("notifications", notifications);
-		
 		return modelAndView;
 	}
 
