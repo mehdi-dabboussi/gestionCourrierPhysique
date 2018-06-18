@@ -78,7 +78,7 @@
 										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputSousContactTel" placeholder="Téléphone"
-												 		name="telCoursierExterne" value="${newcoursierExterne.telCoursierExterne}" required>
+												 		pattern="phone" name="telCoursierExterne" value="${newcoursierExterne.telCoursierExterne}" required>
 												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
 											 </div>
 										</div>

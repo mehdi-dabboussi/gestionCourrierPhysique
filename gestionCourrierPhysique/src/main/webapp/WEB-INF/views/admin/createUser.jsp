@@ -58,7 +58,6 @@
 							</div>
 							<div class="x_content">
 								<br />
-
 								<form:form class="form-horizontal form-label-leftr" 
 											data-toggle="validator" role="form" modelAttribute="newUser" >
 											
@@ -77,6 +76,7 @@
 												 <input type="email" class="form-control col-md-7 col-xs-12" id="inputUserEmail" placeholder="Email"
 												 		name="email" value="${newUser.email}" required>
 												 		<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
+												 		<div class="text-danger">${emailFound }</div>
 											 </div>
 										</div>
 										
@@ -103,6 +103,7 @@
 												 <input type="text" class="form-control col-md-7 col-xs-12" id="Login" placeholder="login"
 								              			name="login" value="${newUser.login}" required>
 								              			<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span> 
+								              			<div class="text-danger">${loginFound }</div>
 											 </div> 
 									    </div>
 									    <div class="item form-group">

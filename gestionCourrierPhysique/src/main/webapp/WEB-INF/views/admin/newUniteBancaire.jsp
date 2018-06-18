@@ -78,7 +78,7 @@
 										     <label for="inputTelLab"  class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone<em>*</em></label>
 										     <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 												 <input type="tel" class="form-control col-md-7 col-xs-12" id="inputTelUniteBancaire" placeholder="Téléphone"
-												 		name="tel" value="${newUniteBancaire.tel}" data-validate-lenght="8" required >
+												 		name="tel" value="${newUniteBancaire.tel}" required >
 												 		<span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span> 
 											 </div>
 										</div>
@@ -93,8 +93,8 @@
 										<div class="item form-group ">
 										     <label for="FaxUniteBancaire"  class="control-label col-md-3 col-sm-3 col-xs-12">Fax<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="FaxUniteBancaire" placeholder="Fax"
-								              			name="fax" value="${newUniteBancaire.fax}" data-validate-length="7" required>
+												 <input type="tel" class="form-control col-md-7 col-xs-12" id="FaxUniteBancaire" placeholder="Fax"
+								              			name="fax" value="${newUniteBancaire.fax}" required>
 								              			<span class="fa fa-fax form-control-feedback right" aria-hidden="true"></span> 
 											 </div> 
 									    </div>
@@ -147,7 +147,7 @@
       $('form')
         .on('blur', 'input[required], input.optional, select.required', validator.checkField)
         .on('change', 'select.required', validator.checkField)
-        .on('keypress', 'input[required][pattern]', validator.keypress);
+        .on('change', 'input[required][pattern]', validator.checkField);
 
       $('.multi.required').on('keyup blur', 'input', function() {
         validator.checkField.apply($(this).siblings().last()[0]);

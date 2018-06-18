@@ -9,11 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
@@ -56,30 +58,51 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.GET)
-	public ModelAndView createUser() {
+	public ModelAndView createUser(Model model) {
 		ModelAndView modelAndView = new ModelAndView("admin/createUser.jsp");
-		User newUser = new User();
-		modelAndView.addObject("newUser", newUser);
 		List<UniteBancaire> uniteBancaires = uniteBancaireService
 				.getAllUniteBancaire();
 		modelAndView.addObject("uniteBancaires", uniteBancaires);
-
+		
 		// Connected user
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		User connectedUser = userService.findUserByLogin(userDetail
-				.getUsername());
-		modelAndView.addObject("connectedUser", connectedUser);
-		modelAndView.addObject("role", connectedUser.getRoles());
-
+				Authentication auth = SecurityContextHolder.getContext()
+						.getAuthentication();
+				UserDetails userDetail = (UserDetails) auth.getPrincipal();
+				User connectedUser = userService.findUserByLogin(userDetail
+						.getUsername());
+				modelAndView.addObject("connectedUser", connectedUser);
+				modelAndView.addObject("role", connectedUser.getRoles());
+				
+		User oldUser = (User) model.asMap().get("newUser");
+		User oldUserWrongEmail = (User) model.asMap().get("newUserWrongEmail");
+		if(oldUser != null && oldUserWrongEmail != null){
+			modelAndView.addObject("newUser", oldUser);
+			modelAndView.addObject("loginFound", "le login que vous avez entré existe deja");
+			modelAndView.addObject("emailFound", "l'adresse e-mail que vous avez entré existe deja");
+		}
+		else{
+		if(oldUser != null){
+			modelAndView.addObject("newUser", oldUser);
+			modelAndView.addObject("loginFound", "le login que vous avez entré existe deja");
+		}
+		else{
+		if(oldUserWrongEmail != null){
+			modelAndView.addObject("newUser", oldUserWrongEmail);
+			modelAndView.addObject("emailFound", "l'adresse e-mail que vous avez entré existe deja");
+		}
+		else{
+		User newUser = new User();
+		modelAndView.addObject("newUser", newUser);
+		}
+		}
+		}
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/admin/newUser", method = RequestMethod.POST)
 	public String processCreateUser(
 			@ModelAttribute(value = "newUser") User newUser, String role,
-			Long uniteB) {
+			Long uniteB, RedirectAttributes redirectAttributes) {
 		if (role.equals("ROLE_USER")) {
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleService.findByName(role));
@@ -102,8 +125,28 @@ public class UserController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(newUser.getPassword());
 		newUser.setPassword(hashedPassword);
+		if(userService.findUserByLogin(newUser.getLogin()) != null && userService.findUserByEmail(newUser.getEmail()) != null){
+			redirectAttributes.addFlashAttribute("newUser", newUser);
+			redirectAttributes.addFlashAttribute("newUserWrongEmail", newUser);
+			return "redirect:/admin/newUser";
+		}
+		else{
+		if(userService.findUserByLogin(newUser.getLogin()) != null){
+			redirectAttributes.addFlashAttribute("newUser", newUser);
+			return "redirect:/admin/newUser";
+		}
+		else {
+			if(userService.findUserByEmail(newUser.getEmail()) != null){
+				redirectAttributes.addFlashAttribute("newUserWrongEmail", newUser);
+				return "redirect:/admin/newUser";
+			}
+			
+		else{
 		userService.CreateUser(newUser);
 		return "redirect:/admin/" + newUser.getId();
+		}
+		}
+		}
 	}
 
 	@RequestMapping(value = "/admin/{userId}")

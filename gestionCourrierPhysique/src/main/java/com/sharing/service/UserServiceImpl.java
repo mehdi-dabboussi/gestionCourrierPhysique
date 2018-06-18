@@ -51,9 +51,13 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public User findUserByLogin(String login) {
-		return (User) em
+		 
+		List<User> user =  em
 				.createQuery("select u from Emetteur_Recepteur u where u.login=:login")
-				.setParameter("login", login).getSingleResult();
+				.setParameter("login", login).getResultList();
+		if (!user.isEmpty())
+			  return user.get(0);
+		return null;
 	}
 
 	@Transactional
@@ -98,6 +102,16 @@ public class UserServiceImpl implements UserService {
 		return em.createQuery("select c from Courrier c where c.recu= :recu and c.destinataire.id= :user").
 				setParameter("recu", false)
 				.setParameter("user",user.getId()).getResultList();
+	}
+
+	@Transactional
+	public User findUserByEmail(String email) {
+		List<User> user =  em
+				.createQuery("select u from Emetteur_Recepteur u where u.email=:email")
+				.setParameter("email", email).getResultList();
+		if (!user.isEmpty())
+			  return user.get(0);
+		return null;
 	}
 
 }

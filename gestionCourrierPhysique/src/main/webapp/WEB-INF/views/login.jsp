@@ -18,17 +18,7 @@
 				<form action="<spring:url value='/j_spring_security_check' />" role="form" method="post">
 					<input type="text" name="login" placeholder="Login" required="required">
 					<input type="password" name="password" class="lock" placeholder="Password">
-					<div class="forgot-top-grids">
-						<div class="forgot-grid">
-							<ul>
-								<li>
-									<input type="checkbox" id="brand1" value="" name="remember-me">
-									<label for="brand1"><span></span>Remember me</label>
-								</li>
-							</ul>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
+					
 					<input type="submit" name="Sign In" value="Login">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />	
 					

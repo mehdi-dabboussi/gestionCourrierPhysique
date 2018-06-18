@@ -93,8 +93,8 @@
 										<div class="item form-group ">
 										     <label for="FaxContactExterne"  class="control-label col-md-3 col-sm-3 col-xs-12">Fax<em>*</em></label>	
 										      <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-												 <input type="text" class="form-control col-md-7 col-xs-12" id="FaxContactExterne" placeholder="Fax"
-								              			name="fax" value="${newContactExterne.fax}" data-validate-length="7" required>
+												 <input type="tel" class="form-control col-md-7 col-xs-12" id="FaxContactExterne" placeholder="Fax"
+								              			name="fax" value="${newContactExterne.fax}" required>
 								              			<span class="fa fa-fax form-control-feedback right" aria-hidden="true"></span>
 											 </div> 
 									    </div>

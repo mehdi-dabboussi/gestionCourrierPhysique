@@ -130,7 +130,7 @@ var validator = (function($){
                         regex = /^[0-9]+$/i;
                         break;
                     case 'phone' :
-                        regex = /^\+?([0-9]|[-|' '])+$/i;
+                        regex = /^\d{8}$/i;
                         break;
                     default :
                         regex = pattern;
