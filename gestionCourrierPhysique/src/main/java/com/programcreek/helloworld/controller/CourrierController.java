@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
+import com.sharing.entity.CourrierSupprime;
 import com.sharing.entity.CoursierExterne;
 import com.sharing.entity.Emetteur_Recepteur;
 import com.sharing.entity.Langue;
@@ -299,6 +303,37 @@ public class CourrierController {
 	@RequestMapping(value = "/bo/courrier-{idCourrier}/delete", method = RequestMethod.GET)
 	public String processDeleteCourrier(@PathVariable("idCourrier") long idCourrier) {
 		Courrier courrier = courrierService.findCourrierById(idCourrier);
+		
+		
+		// Connected user
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+		User connectedUser = userService.findUserByLogin(userDetail
+				.getUsername());
+		
+		CourrierSupprime courrierSupprime = new CourrierSupprime();
+		courrierSupprime.setIdCourrier(courrier.getIdCourrier());
+		courrierSupprime.setEtatCourrier(courrier.getEtatCourrier());
+		courrierSupprime.setObjetCourrier(courrier.getObjetCourrier());
+		courrierSupprime.setDetailsCourrier(courrier.getDetailsCourrier());
+		courrierSupprime.setDateCreationCourrier(courrier.getDateCreationCourrier());
+		courrierSupprime.setNature(courrier.getNature());
+		courrierSupprime.setLangue(courrier.getLangue());
+		courrierSupprime.setRecu(courrier.isRecu());
+		courrierSupprime.setActor(connectedUser);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		courrierSupprime.setDateSuppression(dateFormat.format(date));
+		
+		courrierSupprime.setEmetteur(courrier.getEmetteur());
+		courrierSupprime.setDestinataire(courrier.getDestinataire());
+		
+		courrierSupprime.setEmetteurType(courrier.getEmetteurType());
+		courrierSupprime.setDestinataireType(courrier.getDestinataireType());
+		
+		globalCrudService.save(courrierSupprime);
+		
 		globalCrudService.remove(courrier, idCourrier);
 		return "redirect:/bo/allCourriers";
 	}

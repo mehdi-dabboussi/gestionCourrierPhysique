@@ -20,6 +20,7 @@
       <class>com.sharing.entity.Emetteur_Recepteur</class>
       <class>com.sharing.entity.Bordereau</class>
       <class>com.sharing.entity.Notification</class>
+      <class>com.sharing.entity.CourrierSupprime</class>
    </persistence-unit>
 </persistence>
 
