@@ -2,6 +2,7 @@ package com.sharing.entity;
 
 import java.io.Serializable;
 import java.lang.String;
+
 import javax.persistence.*;
 
 /**
@@ -14,7 +15,13 @@ public class Notification implements Serializable {
 
 	
 	private long idNotification;
-	private String textNotification;
+	
+	private String typeNotification;
+	
+	private Courrier courrier;
+	
+	private User notifiedUser;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Notification() {
@@ -29,12 +36,31 @@ public class Notification implements Serializable {
 	public void setIdNotification(long idNotification) {
 		this.idNotification = idNotification;
 	}   
-	public String getTextNotification() {
-		return this.textNotification;
+	
+	@ManyToOne
+	@JoinColumn(name = "idCourrier")
+	public Courrier getCourrier() {
+		return courrier;
 	}
-
-	public void setTextNotification(String textNotification) {
-		this.textNotification = textNotification;
+	public void setCourrier(Courrier courrier) {
+		this.courrier = courrier;
+	}
+	public String getTypeNotification() {
+		return typeNotification;
+	}
+	public void setTypeNotification(String typeNotification) {
+		this.typeNotification = typeNotification;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "id")
+	public User getNotifiedUser() {
+		return notifiedUser;
+	}
+	public void setNotifiedUser(User notifiedUser) {
+		this.notifiedUser = notifiedUser;
 	}
    
+	
+	
 }

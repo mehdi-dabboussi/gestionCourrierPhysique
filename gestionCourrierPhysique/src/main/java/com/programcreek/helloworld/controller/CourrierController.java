@@ -23,6 +23,7 @@ import com.sharing.entity.CoursierExterne;
 import com.sharing.entity.Emetteur_Recepteur;
 import com.sharing.entity.Langue;
 import com.sharing.entity.Nature;
+import com.sharing.entity.Notification;
 import com.sharing.entity.SousContactExterne;
 import com.sharing.entity.Transfert;
 import com.sharing.entity.TransporteurExterne;
@@ -123,6 +124,8 @@ public class CourrierController {
 		
 		System.out.println(newCourrier);
 		
+		Notification notification = new Notification();
+		
 		if(emetteur.equals("user_emet")){
 			User user = userService.findUSerById(Long.parseLong(emetteurUser));
 			newCourrier.setEmetteurType("user");
@@ -131,6 +134,7 @@ public class CourrierController {
 			//globalCrudService.save(emetteur_Recepteur);
 			newCourrier.setEmetteur(user);
 			//newCourrier.setEmetteurUser(user);
+			
 		}
 		
 		else if(emetteur.equals("unite_emet")){
@@ -165,8 +169,11 @@ public class CourrierController {
 		
 		System.out.println(newCourrier);
 		
+		User userNotif = new User();
+		
 		if(destinataire.equals("user_dest")){
 			User user = userService.findUSerById(Long.parseLong(destinataireUser));
+			userNotif = user;
 			newCourrier.setDestinataireType("user");
 			//Emetteur_Recepteur emetteur_Recepteur = new Emetteur_Recepteur();
 			//emetteur_Recepteur.setId(user.getId());
@@ -211,7 +218,20 @@ public class CourrierController {
 		newCourrier.setRecu(false);
 		System.out.println(newCourrier.getObjetCourrier());
 		System.out.println(newCourrier);
+		
+		
+		
 		globalCrudService.save(newCourrier);
+		
+		if(userNotif != null){
+			notification.setCourrier(newCourrier);
+			notification.setTypeNotification("creation");
+			notification.setNotifiedUser(userNotif);
+			System.out.println(notification.getCourrier());
+			globalCrudService.save(notification);
+		}
+		
+		
 		return "redirect:/bo/courrier-" + newCourrier.getIdCourrier();
 		
 	}

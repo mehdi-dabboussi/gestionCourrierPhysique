@@ -44,20 +44,19 @@
 									end="6">
 									<li><c:choose>
 											<c:when
-												test="${notificationVar.typeAction.equals('Action contentieuse')}">
+												test="${notificationVar.typeNotification.equals('creation')}">
 												<a
-													href="${contextPath}/ficheClient/${notificationVar.ficheClientId}?idSpec=${Math.random()}#${notificationVar.creanceId}#actionCT${notificationVar.creanceId}">
-													<span> <span class="time">${notificationVar.typeAction}</span>
+													href="${contextPath}/user/courrier-${notificationVar.courrier.idCourrier}">
+													<span> <span class="time">${notificationVar.courrier.dateCreationCourrier}</span>
 														<br>
 												</span> <span class="message">
-														${notificationVar.natureAction} </span> <span class="message">
-														${notificationVar.getDateFormat(notificationVar.dateRevoir)}
-												</span>
+														Un nouveau courrier d'objet ${notificationVar.courrier.objetCourrier} dont l'emetteur est ${notificationVar.courrier.emetteur.nom} vous sera envoyé </span> 
 												</a>
 											</c:when>
-										</c:choose> <c:choose>
+										</c:choose> 
+										<!--<c:choose>
 											<c:when
-												test="${notificationVar.typeAction.equals('Action de recouvrement')}">
+												test="${notificationVar.typeNotification.equals('Action de recouvrement')}">
 												<a
 													href="${contextPath}/ficheClient/${notificationVar.ficheClientId}?idSpec=${Math.random()}#${notificationVar.creanceId}#recouvrement${notificationVar.creanceId}">
 													<span> <span class="time">${notificationVar.typeAction}</span>
@@ -67,7 +66,8 @@
 												</span>
 												</a>
 											</c:when>
-										</c:choose></li>
+										</c:choose>-->
+										</li>
 								</c:forEach>
 								<li>
 									<div class="text-center">

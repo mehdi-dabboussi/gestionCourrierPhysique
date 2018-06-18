@@ -1,5 +1,7 @@
 package com.programcreek.helloworld.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,17 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sharing.entity.Notification;
 import com.sharing.entity.User;
+import com.sharing.service.NotificationService;
 import com.sharing.service.UserService;
 
 @Controller
 public class AuthentificationController {
 	
 	UserService userService;
+	NotificationService notificationService;
 	
 	@Autowired
-	public AuthentificationController(UserService userService) {
+	public AuthentificationController(UserService userService, NotificationService notificationService) {
 		this.userService = userService;
+		this.notificationService = notificationService;
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -72,6 +78,8 @@ public class AuthentificationController {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			User user = userService.findUserByLogin(userDetail.getUsername());
 			model.addObject("createdUser", user);
+			List<Notification> notifications = notificationService.getNotifications(user);
+			model.addObject("notifications", notifications);
 			model.addObject("role", user.getRoles().get(0).getName());
 		}
 		

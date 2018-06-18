@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
+import com.sharing.entity.Notification;
 import com.sharing.entity.Role;
 import com.sharing.entity.SousContactExterne;
 import com.sharing.entity.TransporteurExterne;
@@ -24,6 +25,7 @@ import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
 import com.sharing.service.CoursierExterneService;
 import com.sharing.service.GlobalCrudService;
+import com.sharing.service.NotificationService;
 import com.sharing.service.RoleService;
 import com.sharing.service.SousContactExterneService;
 import com.sharing.service.TransporteurExterneService;
@@ -37,6 +39,7 @@ public class ProfileController {
 	private UniteBancaireService uniteBancaireService;
 	private RoleService roleService;
 	private GlobalCrudService globalCrudService;
+	private NotificationService notificationService;
 
 	@Autowired
 	public ProfileController(UserService userService, RoleService roleService,
@@ -45,11 +48,13 @@ public class ProfileController {
 			ContactExterneService contactExterneService,
 			SousContactExterneService sousContactExterneService,
 			TransporteurExterneService transporteurExterneService,
-			CoursierExterneService coursierExterneService) {
+			CoursierExterneService coursierExterneService,
+			NotificationService notificationService) {
 		this.userService = userService;
 		this.roleService = roleService;
 		this.globalCrudService = globalCrudService;
 		this.uniteBancaireService = uniteBancaireService;
+		this.notificationService = notificationService;
 	}
 
 
@@ -63,6 +68,12 @@ public class ProfileController {
 		User user = userService.findUserByLogin(userDetail.getUsername());
 		modelAndView.addObject("createdUser", user);
 		modelAndView.addObject("role", user.getRoles().get(0).getName());
+		
+		
+		
+		List<Notification> notifications = notificationService.getNotifications(user);
+		modelAndView.addObject("notifications", notifications);
+		
 		return modelAndView;
 	}
 
