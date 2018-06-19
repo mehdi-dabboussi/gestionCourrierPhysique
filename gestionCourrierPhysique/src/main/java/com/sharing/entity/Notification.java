@@ -22,6 +22,11 @@ public class Notification implements Serializable {
 	
 	private User notifiedUser;
 	
+	private String emetteurTransfert;
+	private String destinataireTransfert;
+	private String estimation;
+	private String dateTransfert;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Notification() {
@@ -59,6 +64,30 @@ public class Notification implements Serializable {
 	}
 	public void setNotifiedUser(User notifiedUser) {
 		this.notifiedUser = notifiedUser;
+	}
+	public String getEmetteurTransfert() {
+		return emetteurTransfert;
+	}
+	public void setEmetteurTransfert(String emetteurTransfert) {
+		this.emetteurTransfert = emetteurTransfert;
+	}
+	public String getDestinataireTransfert() {
+		return destinataireTransfert;
+	}
+	public void setDestinataireTransfert(String destinataireTransfert) {
+		this.destinataireTransfert = destinataireTransfert;
+	}
+	public String getEstimation() {
+		return estimation;
+	}
+	public void setEstimation(String estimation) {
+		this.estimation = estimation;
+	}
+	public String getDateTransfert() {
+		return dateTransfert;
+	}
+	public void setDateTransfert(String dateTransfert) {
+		this.dateTransfert = dateTransfert;
 	}
    
 	

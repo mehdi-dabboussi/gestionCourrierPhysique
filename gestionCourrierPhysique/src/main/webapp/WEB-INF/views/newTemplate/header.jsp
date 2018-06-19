@@ -54,19 +54,20 @@
 												</a>
 											</c:when>
 										</c:choose> 
-										<!--<c:choose>
+										<c:choose>
 											<c:when
-												test="${notificationVar.typeNotification.equals('Action de recouvrement')}">
+												test="${notificationVar.typeNotification.equals('transfert')}">
 												<a
-													href="${contextPath}/ficheClient/${notificationVar.ficheClientId}?idSpec=${Math.random()}#${notificationVar.creanceId}#recouvrement${notificationVar.creanceId}">
-													<span> <span class="time">${notificationVar.typeAction}</span>
+													href="${contextPath}/user/courrier-${notificationVar.courrier.idCourrier}">
+													<span> <span class="time">${notificationVar.dateTransfert}</span>
 														<br>
 												</span> <span class="message">
-														${notificationVar.getDateFormat(notificationVar.dateRevoir)}
+														Un nouveau tranfert de ${notificationVar.emetteurTransfert} vers ${notificationVar.destinataireTransfert} du courrier d'objet ${notificationVar.courrier.objetCourrier} a été créé
+												</span><span class="message">estimation : ${notificationVar.estimation} heures
 												</span>
 												</a>
 											</c:when>
-										</c:choose>-->
+										</c:choose>
 										</li>
 								</c:forEach>
 								<li>

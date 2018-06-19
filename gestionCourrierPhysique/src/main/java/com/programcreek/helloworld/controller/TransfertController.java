@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
+import com.sharing.entity.Notification;
 import com.sharing.entity.Transfert;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
@@ -98,17 +99,19 @@ public class TransfertController {
 		newTransfert.setEmetteurUser(connectedUser);
 		UniteBancaire unite = connectedUser.getUniteBancaire();
 		newTransfert.setEmetteurUnite(unite);
-
+		String destTransfert = "";
 		if (destinataire.equals("unite_dest")) {
 			UniteBancaire uniteBancaire = uniteBancaireService
 					.findUniteBancaireById(destinataireUnite);
 			newTransfert.setDestinataireType("unite");
 			newTransfert.setDestinataireUnite(uniteBancaire);
+			destTransfert = uniteBancaire.getNom();
 		} else {
 			ContactExterne contactExterne = contactExterneService
 					.findContactExterneById(destinataireContact);
 			newTransfert.setDestinataireType("contact");
 			newTransfert.setDestinataireContact(contactExterne);
+			destTransfert = contactExterne.getNom();
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -116,6 +119,19 @@ public class TransfertController {
 		newTransfert.setDateTransfert(dateFormat.format(date));
 
 		globalCrudService.save(newTransfert);
+		
+		if(newTransfert.getCourrier().getEmetteurType().equals("user")){
+		Notification notification = new Notification();
+		notification.setEmetteurTransfert(connectedUser.getUniteBancaire().getNom());
+		notification.setTypeNotification("transfert");
+		notification.setDateTransfert(dateFormat.format(date));
+		notification.setDestinataireTransfert(destTransfert);
+		notification.setNotifiedUser((User) newTransfert.getCourrier().getDestinataire());
+		notification.setEstimation(newTransfert.getEstimation());
+		notification.setCourrier(newTransfert.getCourrier());
+		
+		globalCrudService.save(notification);
+		}
 		return "redirect:/bo/courrier-"
 				+ newTransfert.getCourrier().getIdCourrier();
 	}

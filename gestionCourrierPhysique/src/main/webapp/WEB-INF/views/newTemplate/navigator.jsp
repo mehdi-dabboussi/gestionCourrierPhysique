@@ -144,7 +144,7 @@
 						<li><a><i class="fa fa-clipboard"></i>Tracabilité<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 								<li><a href="${contextPath}/admin/allCourrierSupprime">Les courriers supprimés</a></li>
-								<li><a href="${contextPath}/admin/allUsers">Les courriers modifiés</a></li>
+								<li><a href="${contextPath}/admin/allCourrierModifie">Les courriers modifiés</a></li>
 							</ul>
 						</li>
 					</sec:authorize>

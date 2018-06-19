@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sharing.entity.ContactExterne;
 import com.sharing.entity.Courrier;
+import com.sharing.entity.CourrierModifie;
 import com.sharing.entity.CourrierSupprime;
 import com.sharing.entity.CoursierExterne;
 import com.sharing.entity.Emetteur_Recepteur;
@@ -34,6 +35,7 @@ import com.sharing.entity.TransporteurExterne;
 import com.sharing.entity.UniteBancaire;
 import com.sharing.entity.User;
 import com.sharing.service.ContactExterneService;
+import com.sharing.service.CourrierModifieService;
 import com.sharing.service.CourrierService;
 import com.sharing.service.EmetteurRecepteurService;
 import com.sharing.service.GlobalCrudService;
@@ -59,13 +61,15 @@ public class CourrierController {
 	private TransfertService tansfertService;
 	private EmetteurRecepteurService emetteurRecepteurService;
 	private SousContactExterneService sousContactExterneService;
+	private CourrierModifieService courrierModifieService;
 	
 	
 	@Autowired
 	public CourrierController(GlobalCrudService globalCrudService,CourrierService courrierService,
 			LangueService langueService, NatureService natureService, UserService userService,
 			UniteBancaireService uniteBancaireService, ContactExterneService contactExterneService, TransfertService transfertService,
-			EmetteurRecepteurService emetteurRecepteurService, SousContactExterneService sousContactExterneService){
+			EmetteurRecepteurService emetteurRecepteurService, SousContactExterneService sousContactExterneService,
+			CourrierModifieService courrierModifieService){
 		this.globalCrudService = globalCrudService;
 		this.courrierService = courrierService;
 		this.langueService = langueService;
@@ -76,6 +80,7 @@ public class CourrierController {
 		this.tansfertService =transfertService;
 		this.emetteurRecepteurService = emetteurRecepteurService;
 		this.sousContactExterneService = sousContactExterneService;
+		this.courrierModifieService = courrierModifieService;
 	}
 	
 	
@@ -371,6 +376,43 @@ public class CourrierController {
 			String natureC, String langueC, String etat, String objetCourrier, String detailsCourrier){
 		
 		Courrier newCourrier = courrierService.findCourrierById(idCourrier);
+		
+		// Connected user
+				Authentication auth = SecurityContextHolder.getContext()
+						.getAuthentication();
+				UserDetails userDetail = (UserDetails) auth.getPrincipal();
+				User connectedUser = userService.findUserByLogin(userDetail
+						.getUsername());
+				
+				
+		
+		CourrierModifie courrierModifie = new CourrierModifie();
+		courrierModifie.setIdCourrier(newCourrier.getIdCourrier());
+		courrierModifie.setEtatCourrier(newCourrier.getEtatCourrier());
+		courrierModifie.setObjetCourrier(newCourrier.getObjetCourrier());
+		courrierModifie.setDetailsCourrier(newCourrier.getDetailsCourrier());
+		courrierModifie.setDateCreationCourrier(newCourrier.getDateCreationCourrier());
+		courrierModifie.setNature(newCourrier.getNature());
+		courrierModifie.setLangue(newCourrier.getLangue());
+		courrierModifie.setRecu(newCourrier.isRecu());
+		courrierModifie.setActor(connectedUser);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		courrierModifie.setDateModification(dateFormat.format(date));
+		
+		courrierModifie.setEmetteur(newCourrier.getEmetteur());
+		courrierModifie.setDestinataire(newCourrier.getDestinataire());
+		
+		courrierModifie.setEmetteurType(newCourrier.getEmetteurType());
+		courrierModifie.setDestinataireType(newCourrier.getDestinataireType());
+		
+		List<CourrierModifie> courrierModifies = courrierModifieService.getAll();
+		if(courrierModifieService.findCourrierModifieById(newCourrier.getIdCourrier()) != null) {
+			globalCrudService.remove(courrierModifie, courrierModifie.getIdCourrier());
+		}
+		
+		globalCrudService.save(courrierModifie);
+
 		
 		newCourrier.setEtatCourrier(etat);
 		newCourrier.setDetailsCourrier(detailsCourrier);
